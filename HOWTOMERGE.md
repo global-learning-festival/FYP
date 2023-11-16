@@ -82,7 +82,9 @@ git fetch -p
 
 Step 3: Removing the All Local branches run the following command
 
-git removed-branches --prune
+git removed-branches --prune (Delete all branches)
+
+git branch -d "Branch Name" (Manually deletes one branch at a time)
 
 Step 4: U can check if all ur local branches by clicking main on ur bottom left and there will be a pop up at the top to show all ur local branches
 
