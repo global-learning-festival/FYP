@@ -35,7 +35,7 @@ const Navbar = () => {
 
         <ul className={nav ? 'fixed left-0 top-20 w-[60%] h-full bg-[#EDF1F4] ease-in-out duration-500' : 'ease-in-out fixed left-[-100%]'}>
         <h3 className='w-full font-bold text-[#000] pt-10'>{ user?.displayName }</h3>
-          { user?.displayName ? (<button onClick={handleSignOut}>Logout</button>) : 
+          { user ? (<button className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 hover:bg-[#3A426C] hover:drop-shadow-xl' onClick={handleSignOut}>Logout</button>) : 
           <button onClick={handleNav} className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 hover:bg-[#3A426C] hover:drop-shadow-xl'>
             <Link to="/signin" style={{ textDecoration: 'none', color: 'inherit' }}>Login</Link></button>}   
           <li className='p-4'><Link to="/" className='no-underline text-black' onClick={handleNav}>Home</Link></li>
