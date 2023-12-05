@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AiOutlineClose, AiOutlineMenu, AiOutlineInfoCircle } from 'react-icons/ai';
 import isate from "../images/isate2024-logo.png"
 import { Link } from 'react-router-dom';
+import { UserAuth } from '../context/AuthContext';
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
@@ -9,6 +10,17 @@ const Navbar = () => {
   const handleNav = () => {
     setNav(!nav);
   };
+
+  const {user, logout} = UserAuth();
+
+  const handleSignOut = async () => {
+    try {
+      await logout();
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     
@@ -20,8 +32,8 @@ const Navbar = () => {
             <Link to="/importantinfo"><AiOutlineInfoCircle className='text-black' size={25}/></Link>
         </div>
       <ul className={nav ? 'fixed left-0 top-20 w-[60%] h-full bg-[#EDF1F4] ease-in-out duration-500' : 'ease-in-out duration-500 fixed left-[-100%]'}>
-        <h3 className='w-full font-bold text-[#000] pt-10 '>Emily Bieber</h3>
-        <p className='font-bold text-[grey]'>UX Designer</p>
+        <h3 className='w-full font-bold text-[#000] pt-10'>{ user?.displayName }</h3>
+        <p className='font-bold text-[grey]'>{ user?.displayName ? (<button onClick={handleSignOut}>Logout</button>) : <Link to="/signin">Sign In</Link>}</p>
           <li className='p-4'><Link to="/" className='no-underline text-black'>Home</Link></li>
           <li className='p-4'><Link to="/map" className='no-underline text-black'>Map</Link></li>
           <li className='p-4'><Link to="/announcement" className='no-underline text-black'>Announcement</Link></li>
