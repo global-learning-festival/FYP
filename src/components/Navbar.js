@@ -33,12 +33,11 @@ const Navbar = () => {
             <Link to="/importantinfo"><AiOutlineInfoCircle className='text-black' size={25}/></Link>
         </div>
 
-        <ul className={nav ? 'fixed left-0 top-20 w-[60%] h-full bg-[#EDF1F4] ease-in-out duration-500' : 'ease-in-out duration-500 fixed left-[-100%]'}>
+        <ul className={nav ? 'fixed left-0 top-20 w-[60%] h-full bg-[#EDF1F4] ease-in-out duration-500' : 'ease-in-out fixed left-[-100%]'}>
         <h3 className='w-full font-bold text-[#000] pt-10'>{ user?.displayName }</h3>
           { user?.displayName ? (<button onClick={handleSignOut}>Logout</button>) : 
-          <button onClick={handleNav} className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'>
-            <Link to="/signin">Sign In</Link></button>}   
-
+          <button onClick={handleNav} className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 hover:bg-[#3A426C] hover:drop-shadow-xl'>
+            <Link to="/signin" style={{ textDecoration: 'none', color: 'inherit' }}>Login</Link></button>}   
           <li className='p-4'><Link to="/" className='no-underline text-black' onClick={handleNav}>Home</Link></li>
           <li className='p-4'><Link to="/map" className='no-underline text-black' onClick={handleNav}>Map</Link></li>
           <li className='p-4'><Link to="/announcement" className='no-underline text-black' onClick={handleNav}>Announcement</Link></li>
@@ -47,17 +46,14 @@ const Navbar = () => {
       </ul>
 
 
-
-
-
-      
       <div className='hidden md:flex ml-10'>
-      
-      <div className="login-container">
-        <h3 className='w-full font-bold text-[#000] pt-10'>{ user?.displayName }</h3>
-        <p className='font-bold text-[grey]'>{ user?.displayName ? (<button onClick={handleSignOut}>Logout</button>) : <Link style={{ textDecoration: 'none' }} to="/signin">Sign In</Link>}</p>
-      </div>
-
+        
+          <h4 className='w-full font-bold text-[#000] mt-2 mr-3'>{ user?.displayName }</h4>
+          { user ? (<button className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 hover:bg-[#3A426C] hover:drop-shadow-xl' 
+          onClick={handleSignOut}>Logout</button>) 
+          : <button className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 hover:bg-[#3A426C] hover:drop-shadow-xl'>
+            <Link to="/signin" style={{ textDecoration: 'none', color: 'inherit' }}>Login</Link></button>}
+    
       </div>
 
       <ul className='hidden md:flex mr-20 pt-3'>
