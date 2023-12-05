@@ -4,6 +4,7 @@ import isate from "../images/isate2024-logo.png"
 import { Link } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
 import '../styles/navbar.css'
+
 const Navbar = () => {
   const [nav, setNav] = useState(false);
 
@@ -31,14 +32,18 @@ const Navbar = () => {
         <div className='md:hidden pt-2'>
             <Link to="/importantinfo"><AiOutlineInfoCircle className='text-black' size={25}/></Link>
         </div>
-      <ul className={nav ? 'fixed left-0 top-20 w-[60%] h-full bg-[#EDF1F4] ease-in-out duration-500' : 'ease-in-out duration-500 fixed left-[-100%]'}>
+
+        <ul className={nav ? 'fixed left-0 top-20 w-[60%] h-full bg-[#EDF1F4] ease-in-out duration-500' : 'ease-in-out duration-500 fixed left-[-100%]'}>
         <h3 className='w-full font-bold text-[#000] pt-10'>{ user?.displayName }</h3>
-        <p className='font-bold text-[grey]'>{ user?.displayName ? (<button onClick={handleSignOut}>Logout</button>) : <Link to="/signin">Log In or Sign Up</Link>}</p>
-          <li className='p-4'><Link to="/" className='no-underline text-black'>Home</Link></li>
-          <li className='p-4'><Link to="/map" className='no-underline text-black'>Map</Link></li>
-          <li className='p-4'><Link to="/announcement" className='no-underline text-black'>Announcement</Link></li>
-          <li className='p-4 '><Link to="/connect" className='no-underline text-black'>Connect</Link></li>
-          <li className='p-4'><Link to="/help" className='no-underline text-black'>Help</Link></li>
+          { user?.displayName ? (<button onClick={handleSignOut}>Logout</button>) : 
+          <button onClick={handleNav} className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'>
+            <Link to="/signin">Sign In</Link></button>}   
+
+          <li className='p-4'><Link to="/" className='no-underline text-black' onClick={handleNav}>Home</Link></li>
+          <li className='p-4'><Link to="/map" className='no-underline text-black' onClick={handleNav}>Map</Link></li>
+          <li className='p-4'><Link to="/announcement" className='no-underline text-black' onClick={handleNav}>Announcement</Link></li>
+          <li className='p-4 '><Link to="/connect" className='no-underline text-black' onClick={handleNav}>Connect</Link></li>
+          <li className='p-4'><Link to="/help" className='no-underline text-black' onClick={handleNav}>Help</Link></li>
       </ul>
 
 
@@ -49,11 +54,12 @@ const Navbar = () => {
       <div className='hidden md:flex ml-10'>
       
       <div className="login-container">
-      <h3 className='w-full font-bold text-[#000] pt-10'>{ user?.displayName }</h3>
-        <p className='font-bold text-[grey]'>{ user?.displayName ? (<button onClick={handleSignOut}>Logout</button>) : <Link style={{ textDecoration: 'none' }} to="/signin">Log In or Sign Up</Link>}</p>
-  </div>
+        <h3 className='w-full font-bold text-[#000] pt-10'>{ user?.displayName }</h3>
+        <p className='font-bold text-[grey]'>{ user?.displayName ? (<button onClick={handleSignOut}>Logout</button>) : <Link style={{ textDecoration: 'none' }} to="/signin">Sign In</Link>}</p>
+      </div>
 
       </div>
+
       <ul className='hidden md:flex mr-20 pt-3'>
         <li className='p-4' href="/"><Link to="/" className='no-underline text-black'>Home</Link></li>
         <li className='p-4'><Link to="/map" className='no-underline text-black'>Map</Link></li>
