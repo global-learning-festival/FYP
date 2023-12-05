@@ -14,12 +14,15 @@ import Announcement from './screens/Announcement'
 import Connect from './screens/Connect';
 import Help from './screens/Help';
 import ImportantInfo from './screens/ImportantInfo';
+import SignIn from './screens/SignIn';
+import { AuthContextProvider } from './context/AuthContext';
 
 
 class App extends React.Component {
   render() {
     return (
       <div className="body">
+        <AuthContextProvider>
           <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
@@ -28,7 +31,9 @@ class App extends React.Component {
               <Route path="/connect" element={<Connect />} />     
               <Route path="/help" element={<Help />} /> 
               <Route path="/importantinfo" element={<ImportantInfo />} /> 
+              <Route path="/signin" element={<SignIn />} /> 
             </Routes>
+          </AuthContextProvider>
       </div>
     );
   }
