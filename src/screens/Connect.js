@@ -1,11 +1,13 @@
 import React from 'react';
-import LinkedInOAuth from '../components/LinkedInOAuth';
+import LinkedIn from '../components/Linkedin';
 
 const Connect = () => {
   return (
     <>
-      <h1>LinkedIn OAuth Test</h1>
-      <LinkedInOAuth />
+       <header className="App-header">
+        <h1>LinkedIn Login Example</h1>
+        <LinkedIn />
+      </header>
     </>
   )
 }

@@ -1,12 +1,13 @@
+// linkedin.js
 import React from 'react';
 import { LinkedInApi, NodeServer } from '../config';
 import axios from 'axios';
 import linkedInLoginImage from '../images/linkedin-login-images/Retina/Sign-In-Small---Default.png';
 
-export default class LinkedInOAuth extends React.Component {
+export default class LinkedIn extends React.Component {
   initialState = {
     user: {},
-    loggedIn: false
+    loggedIn: false,
   };
 
   constructor(props) {
@@ -17,27 +18,26 @@ export default class LinkedInOAuth extends React.Component {
   componentDidMount = () => {
     if (window.opener && window.opener !== window) {
       const code = this.getCodeFromWindowURL(window.location.href);
-      window.opener.postMessage({'type': 'code', 'code': code}, '*')
+      window.opener.postMessage({ type: 'code', code: code }, '*');
       window.close();
     }
-      window.addEventListener('message', this.handlePostMessage);
+    window.addEventListener('message', this.handlePostMessage);
   };
 
-  handlePostMessage = event => {
+  handlePostMessage = (event) => {
     if (event.data.type === 'code') {
       const { code } = event.data;
       this.getUserCredentials(code);
     }
   };
 
-  getCodeFromWindowURL = url => {
+  getCodeFromWindowURL = (url) => {
     const popupWindowURL = new URL(url);
-    return popupWindowURL.searchParams.get("code");
+    return popupWindowURL.searchParams.get('code');
   };
 
   showPopup = () => {
-   // const { clientId, redirectUrl, oauthUrl, scope, state } = LinkedInApi;
-    const FulloauthUrl = `http://localhost:5000/api/linkedin/authorize`;
+    const FulloauthUrl = LinkedInApi.oauthUrl;
     const width = 450,
       height = 730,
       left = window.screen.width / 2 - width / 2,
@@ -46,28 +46,31 @@ export default class LinkedInOAuth extends React.Component {
       FulloauthUrl,
       'Linkedin',
       'menubar=no,location=no,resizable=no,scrollbars=no,status=no, width=' +
-      width +
-      ', height=' +
-      height +
-      ', top=' +
-      top +
-      ', left=' +
-      left
+        width +
+        ', height=' +
+        height +
+        ', top=' +
+        top +
+        ', left=' +
+        left
     );
   };
 
-  getUserCredentials = code => {
-  axios
-    .get(`${NodeServer.baseURL}${NodeServer.getUserCredentials}?code=${code}`) // Fix: Correct string concatenation
-    .then(res => {
-      const user = res.data;
-      this.setState({
-        user,
-        loaded: true
+  getUserCredentials = (code) => {
+    axios
+      .post(`${NodeServer.baseURL}/api/linkedin/redirect`, { code }) // Use POST method
+      .then((res) => {
+        const user = res.data.data; // Adjust according to your response structure
+        this.setState({
+          user,
+          loggedIn: true,
+        });
+        // Do something with user
       })
-      // Do something with user
-    });
-};
+      .catch((error) => {
+        console.error('Error fetching user credentials:', error);
+      });
+  };
 
   render() {
     const { loggedIn, user } = this.state;
@@ -79,15 +82,15 @@ export default class LinkedInOAuth extends React.Component {
       </>
     );
     const contentWhenLoggedOut = (
-        <>
-          <h2>Sign in with LinkedIn</h2>
-          <img src={linkedInLoginImage} alt="Sign in with LinkedIn"onClick={this.showPopup} />
-        </>
+      <>
+        <h2>Sign in with LinkedIn</h2>
+        <img
+          src={linkedInLoginImage}
+          alt="Sign in with LinkedIn"
+          onClick={this.showPopup}
+        />
+      </>
     );
-    return (
-      <div>
-        {loggedIn && user !== {} ? contentWhenLoggedIn : contentWhenLoggedOut}
-      </div>
-    )
-  };
+    return <div>{loggedIn && user !== {} ? contentWhenLoggedIn : contentWhenLoggedOut}</div>;
+  }
 }
