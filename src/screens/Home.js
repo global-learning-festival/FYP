@@ -20,35 +20,35 @@ const Home = () => {
     </div>
 
   <div className='flex'>
-    <div class="max-w-[25%] my-3 mx-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-        <img class="rounded-t-lg object-cover w-full h-28" src={Programme} alt="" />
-        <div class="p-3">
-            <h5 class="text-lg font-bold text-black">ISATE Council Meeting</h5>
-            <p class="font-normal text-gray-700 text-sm">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+    <div className="max-w-[25%] my-3 mx-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+        <img className="rounded-t-lg object-cover w-full h-28" src={Programme} alt="" />
+        <div className="p-3">
+            <h5 className="text-lg font-bold text-black">ISATE Council Meeting</h5>
+            <p className="font-normal text-gray-700 text-sm">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
         </div>
     </div>
 
-    <div class="max-w-[25%] my-3 mx-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-        <img class="rounded-t-lg object-cover w-full h-28" src={Programme} alt="" />
-        <div class="p-3">
-            <h5 class="text-lg font-bold text-black">ISATE Council Meeting</h5>
-            <p class="font-normal text-gray-700 text-sm">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+    <div className="max-w-[25%] my-3 mx-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+        <img className="rounded-t-lg object-cover w-full h-28" src={Programme} alt="" />
+        <div className="p-3">
+            <h5 className="text-lg font-bold text-black">ISATE Council Meeting</h5>
+            <p className="font-normal text-gray-700 text-sm">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
         </div>
     </div>
 
-    <div class="max-w-[25%] my-3 mx-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-        <img class="rounded-t-lg object-cover w-full h-28" src={Programme} alt="" />
-        <div class="p-3">
-            <h5 class="text-lg font-bold text-black">ISATE Council Meeting</h5>
-            <p class="font-normal text-gray-700 text-sm">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+    <div className="max-w-[25%] my-3 mx-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+        <img className="rounded-t-lg object-cover w-full h-28" src={Programme} alt="" />
+        <div className="p-3">
+            <h5 className="text-lg font-bold text-black">ISATE Council Meeting</h5>
+            <p className="font-normal text-gray-700 text-sm">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
         </div>
     </div>
 
-    <div class="max-w-[25%] my-3 mx-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-        <img class="rounded-t-lg object-cover w-full h-28" src={Programme} alt="" />
-        <div class="p-3">
-            <h5 class="text-lg font-bold text-black">ISATE Council Meeting</h5>
-            <p class="font-normal text-gray-700 text-sm">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+    <div className="max-w-[25%] my-3 mx-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+        <img className="rounded-t-lg object-cover w-full h-28" src={Programme} alt="" />
+        <div className="p-3">
+            <h5 className="text-lg font-bold text-black">ISATE Council Meeting</h5>
+            <p className="font-normal text-gray-700 text-sm">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
         </div>
     </div>
     </div>

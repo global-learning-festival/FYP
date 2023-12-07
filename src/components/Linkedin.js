@@ -83,7 +83,6 @@ export default class LinkedIn extends React.Component {
     );
     const contentWhenLoggedOut = (
       <>
-        <h2>Sign in with LinkedIn</h2>
         <img
           src={linkedInLoginImage}
           alt="Sign in with LinkedIn"
