@@ -1,6 +1,9 @@
 import React from 'react';
 import Hero from "../images/Hero.png";
 import Programme from "../images/Programme.png";
+import '../styles/Home.css'
+
+
 
 const Home = () => {
   return (
@@ -11,7 +14,7 @@ const Home = () => {
           src={Hero}
           alt="Hero"
         />
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-bold xl:text-3xl md:text-xl">
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white  xl:text-3xl md:text-xl" id="title-font">
         INTERNATIONAL LEARNING FESITVAL
       </div>
     </div>
