@@ -25,7 +25,7 @@ const Navbar = () => {
 
   return (
     
-    <div className='bg-[#FFF] flex justify-between items-center h-20 mt-auto px-4 text-black'>
+    <div className='bg-[#FFF] flex justify-between items-center h-20 mt-auto px-4 text-black z-10'>
         <div onClick={handleNav} className='block md:hidden'>
           {nav ? <AiOutlineClose size={20}/> : <AiOutlineMenu size={20} />}
         </div>
@@ -33,7 +33,7 @@ const Navbar = () => {
             <Link to="/importantinfo"><AiOutlineInfoCircle className='text-black' size={25}/></Link>
         </div>
 
-        <ul className={nav ? 'fixed left-0 top-20 w-[60%] h-full bg-[#EDF1F4] ease-in-out duration-500' : 'ease-in-out fixed left-[-100%]'}>
+        <ul className={nav ? 'fixed left-0 top-20 w-[60%] h-full bg-[#EDF1F4] ease-in-out duration-500 z-20': 'ease-in-out fixed left-[-100%] z-20'}>
         <h3 className='w-full font-bold text-[#000] pt-10'>{ user?.displayName }</h3>
           { user ? (<button className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 hover:bg-[#3A426C] hover:drop-shadow-xl' onClick={handleSignOut}>Logout</button>) : 
           <button onClick={handleNav} className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 hover:bg-[#3A426C] hover:drop-shadow-xl'>
