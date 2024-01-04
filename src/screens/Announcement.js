@@ -8,11 +8,13 @@ const Announcement = ({ title, description, announcement_posted, announcement_up
     >
       <h5 className='mb-2 text-2xl font-bold tracking-tight text-black'>{title}</h5>
       <p className='font-normal text-gray-500'>{description}</p>
-      <p className='text-sm text-gray-400 mt-2'>
-        {announcement_posted === announcement_updated
-          ? ` ${announcement_posted}`
-          : ` ${announcement_updated}`}
-      </p>
+       <div className='bg-teal-700 text-white rounded-full py-0.5 px-2 absolute bottom-2 right-2'>
+        <p className='text-sm'>
+          {announcement_posted === announcement_updated
+            ? `${announcement_posted}`
+            : `${announcement_updated}`}
+        </p>
+      </div>
     </div>
   );
 };
