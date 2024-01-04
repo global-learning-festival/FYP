@@ -8,8 +8,8 @@ const Announcement = ({ title, description, announcement_posted, announcement_up
       <p className='font-normal text-gray-500'>{description}</p>
       <p className='text-sm text-gray-400 mt-2'>
         {announcement_posted === announcement_updated
-          ? `Posted on: ${announcement_posted}`
-          : `Updated on: ${announcement_updated}`}
+          ? ` ${announcement_posted}`
+          : ` ${announcement_updated}`}
       </p>
     </div>
   );
