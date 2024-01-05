@@ -3,13 +3,13 @@ import axios from 'axios';
 
 const ImportantInfoCard = ({ title, subtitle, onClick }) => {
   return (
-    <div
-      className='flex-1 block mx-2 max-w-sm p-6 bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
-      onClick={onClick}
-    >
-      <h5 className='mb-2 text-2xl font-bold tracking-tight text-black'>{title}</h5>
-      <p className='text-xs text-gray-500'>{subtitle}</p>
-    </div>
+      <div
+        className='flex-1 block m-2 p-4 bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
+        onClick={onClick}
+      >
+        <h5 className='mb-2 text-2xl font-bold tracking-tight text-black'>{title}</h5>
+        <p className='text-xs text-gray-500'>{subtitle}</p>
+      </div>
   );
 };
 
@@ -58,7 +58,7 @@ const ImportantInfoList = () => {
   for (let i = 0; i < importantInformation.length; i += cardsPerRow) {
     const row = importantInformation.slice(i, i + cardsPerRow);
     rows.push(
-      <div key={i / cardsPerRow} className='flex justify-center my-5 mx-20'>
+      <div key={i / cardsPerRow} className='sm:flex sm:flex-wrap justify-center'>
         {row.map((info, index) => (
           <ImportantInfoCard key={index} {...info} onClick={() => handleCardClick(info)} />
         ))}
