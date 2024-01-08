@@ -1,6 +1,7 @@
-import React, { useState }  from 'react';
+import React, { useState } from 'react';
 import { useCollapse } from 'react-collapsed';
 import map from "../images/sp_map.png";
+import { BsPlus, BsDash } from 'react-icons/bs';
 function Collapsible() {
   const [isExpanded1, setExpanded1] = useState(false);
   const [isExpanded2, setExpanded2] = useState(false);
@@ -67,10 +68,18 @@ function Collapsible() {
         <p className='text-decoration-underline'>COVID-19 Information:</p>
         <p >If relevant, include information related to COVID-19 precautions, testing facilities, and guidelines.</p>
       </div>
-      <div className='border-primary rounded border-black p-4'>
+      <div className='border-primary rounded border-black p-2' style={{ border: '2px solid red', width: '340px'  }}>
         <div className="collapsible">
           <div className="header" {...getToggleProps1({ onClick: handleToggle1 })}>
-            {isExpanded1 ? 'How many people will be participating?' : 'How many people will be participating?'}
+          {isExpanded1 ? (
+            <span>
+              How many people will be participating? <BsDash style={{ display: 'inline-block', color: 'red', fontSize: '150%', marginLeft: '4px', marginBottom:' 2px' }} />
+            </span>
+          ) : (
+            <span>
+              How many people will be participating? <BsPlus style={{ display: 'inline-block', color: 'red', fontSize: '150%', marginLeft: '4px', marginBottom:' 2px' }} />
+            </span>
+          )}
           </div>
           <div {...getCollapseProps1()}>
             <div className="content1">
@@ -80,34 +89,48 @@ function Collapsible() {
 
         </div>
       </div>
-      <div className='border-primary rounded border-black p-4'>
+      <div className='border-primary rounded border-black p-2' style={{ border: '2px solid red', width: '340px',marginTop:'10px',marginBottom:'10px'  }}>
         <div className="collapsible">
           <div className="header" {...getToggleProps2({ onClick: handleToggle2 })}>
-            {isExpanded2 ? 'Will there be food provided throughout this event?' : 'Will there be food provided throughout this event?'}
+            {isExpanded2 ? (
+              <>
+                Will there be food provided throughout this event? <BsDash style={{ display: 'inline-block', color: 'red', fontSize: '150%', marginLeft: '4px', marginBottom:' 2px' }} />
+              </>
+            ) : (
+              <>
+                Will there be food provided throughout this event? <BsPlus style={{ display: 'inline-block', color: 'red', fontSize: '150%', marginLeft: '4px', marginBottom:' 2px' }} />
+              </>
+            )}
           </div>
           <div {...getCollapseProps2()}>
             <div className="content2">
-              Now you can see the hidden content. <br /><br />
-              Click again to hide...
+              Yes Of Course!
             </div>
           </div>
 
         </div>
       </div>
 
-      <div className='border-primary rounded border-black p-4'>
-      <div className="collapsible">
-        <div className="header" {...getToggleProps3({ onClick: handleToggle3 })}>
-          {isExpanded3 ? 'How do i get to the venue?' : 'How do i get to the venue?'}
-        </div>
-        <div {...getCollapseProps3()}>
-          <div className="content3">
-            Now you can see the hidden content. <br /><br />
-            Click again to hide...
+      <div className='border-primary rounded border-black p-2' style={{ border: '2px solid red', width: '340px'  }}>
+        <div className="collapsible">
+          <div className="header" {...getToggleProps3({ onClick: handleToggle3 })}>
+            {isExpanded3 ? (
+              <>
+                How do i get to the venue? <BsDash style={{ display: 'inline-block', color: 'red', fontSize: '150%', marginLeft: '4px', marginBottom:' 2px'}} />
+              </>
+            ) : (
+              <>
+                How do i get to the venue? <BsPlus style={{ display: 'inline-block', color: 'red', fontSize: '150%', marginLeft: '4px', marginBottom:' 2px'}} />
+              </>
+            )}
           </div>
-        </div>
+          <div {...getCollapseProps3()}>
+            <div className="content3">
+              Do follow the steps above
+            </div>
+          </div>
 
-      </div>
+        </div>
       </div>
       <p > If you need more information on ISATE 2024, please contact the ISATE 2024 Secretariat at ISATE 2024 Secretariat@sp.edu.sg</p>
       <p>Recipients of this email address are:
