@@ -16,7 +16,7 @@ const MapComponent = (props) => {
   const [hasLocationPermission, setHasLocationPermission] = useState(true);
   const [isRouting, setIsRouting] = useState(false);
   const [routingControl, setRoutingControl] = useState(null);
-  const [refill1, setRefill1] = useState([]);
+  const [markers, setMarkers] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const position = [1.310411032362568, 103.77767848691333];
 
@@ -26,7 +26,7 @@ const MapComponent = (props) => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:5000/markers');
-        setRefill1(response.data);
+        setMarkers(response.data);
         console.log('Refill data:', response.data);
       } catch (error) {
         console.error('Error fetching refill locations:', error);
@@ -81,8 +81,8 @@ const MapComponent = (props) => {
     }
   };
 
-  const filteredRefillLocations = refill1.filter((refillLocation) => {
-    return selectedCategory ? refillLocation.category === selectedCategory : true;
+  const filteredMarkerLocations = markers.filter((markerlocation) => {
+    return selectedCategory ? markerlocation.category === selectedCategory : true;
   });
 
   useEffect(() => {
@@ -109,7 +109,7 @@ const MapComponent = (props) => {
 
   return (
     <div id="map">
-      <MapContainer center={position} zoom={16} style={{ width: '100%', height: '600px' }} ref={mapRef}>
+      <MapContainer center={position} zoom={16} style={{ width: '100%', height: '930px' }} ref={mapRef}>
         <TileLayer
           url="https://www.onemap.gov.sg/maps/tiles/Default/{z}/{x}/{y}.png"
           attribution='Map data © <a href="https://www.onemap.sg/" target="_blank">OneMap</a'
@@ -120,12 +120,12 @@ const MapComponent = (props) => {
             <Popup>User's Location</Popup>
           </CircleMarker>
         )}
-        {filteredRefillLocations.map((refillLocation) => {
+        {filteredMarkerLocations.map((markerlocation) => {
           // Log the refillLocation data
           let iconUrl;
 
           // Determine the iconUrl based on the category
-          switch (refillLocation.category) {
+          switch (markerlocation.category) {
             case 'water':
               iconUrl = waterMarker;
               break;
@@ -152,23 +152,23 @@ const MapComponent = (props) => {
             popupAnchor: [0, -32],
           });
 
-          const coordinates = refillLocation.coordinates.split(',').map((coord) => parseFloat(coord))
+          const coordinates = markerlocation.coordinates.split(',').map((coord) => parseFloat(coord))
           console.log('Refill Location:', coordinates);
           // Add a check to ensure refillLocation.coordinates is not null or undefined
          
             return (
-              <Marker key={refillLocation.mapid} position={coordinates} icon={customIcon}>
+              <Marker key={markerlocation.mapid} position={coordinates} icon={customIcon}>
                 <Popup>
-                  <div id={`divRefill${refillLocation.mapid}`}>
-                    <h3 id={`Refill${refillLocation.mapid}`}>{refillLocation.location_name}</h3>
+                  <div id={`divRefill${markerlocation.mapid}`}>
+                    <h3 id={`Refill${markerlocation.mapid}`}>{markerlocation.location_name}</h3>
                     <img src={Image} alt="Myself" />
-                    <p>{refillLocation.description}</p>
+                    <p>{markerlocation.description}</p>
                     {hasLocationPermission && (
                       <button
                         id="RefillButton"
                         onClick={() => (isRouting ? handleStopRouting() : handleRouteButtonClick(coordinates))}
                       >
-                        {isRouting ? 'Stop Routing' : `Route to ${refillLocation.location_name}`}
+                        {isRouting ? 'Stop Routing' : `Route to ${markerlocation.location_name}`}
                       </button>
                     )}
                     {!hasLocationPermission && <p>Please enable location services to show route</p>}
@@ -180,31 +180,35 @@ const MapComponent = (props) => {
           
         })}
       </MapContainer>
-      <div>
+      <div id="buttons-container" style={{ position: 'absolute', bottom: '30px', left: '50%', transform: 'translateX(-50%)', zIndex: '1000', display: 'flex' }}>
+     
       <button
-          className={selectedCategory === 'water' ? 'active' : ''}
-          onClick={() => handleFilterClick('water')}
-        >
-          Water Refill
-        </button>
-        <button
-          className={selectedCategory === 'register' ? 'active' : ''}
-          onClick={() => handleFilterClick('register')}
-        >
-          Registration Desk
-        </button>
-        <button
-          className={selectedCategory === 'conference' ? 'active' : ''}
-          onClick={() => handleFilterClick('conference')}
-        >
-          Conference Rooms
-        </button>
-        <button
-          className={selectedCategory === 'toilet' ? 'active' : ''}
-          onClick={() => handleFilterClick('toilet')}
-        >
-          Toilet
-        </button>
+  className={`filter-button ${selectedCategory === 'water' ? 'active water' : ''}`}
+  onClick={() => handleFilterClick('water')}
+>
+  Water Refill Stations
+</button>
+<button
+  className={`filter-button ${selectedCategory === 'register' ? 'active register' : ''}`}
+  onClick={() => handleFilterClick('register')}
+>
+  Registration Desks
+</button>
+<button
+  className={`filter-button ${selectedCategory === 'conference' ? 'active conference' : ''}`}
+  onClick={() => handleFilterClick('conference')}
+>
+  Conference Rooms
+</button>
+<button
+  className={`filter-button ${selectedCategory === 'toilet' ? 'active toilet' : ''}`}
+  onClick={() => handleFilterClick('toilet')}
+>
+  Restrooms
+</button>
+    </div>
+      <div>
+      
       </div>
     </div>
   );
