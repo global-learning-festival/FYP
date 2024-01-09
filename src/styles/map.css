@@ -104,6 +104,8 @@ button {
     box-shadow: 0 6px 6px -3px rgba(0, 0, 0,0.5);
     font-size: 15px;
     font-family: notosans;
+    z-index: 0;
+
 }
 /* Change button color on hover */
 
