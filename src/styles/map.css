@@ -91,31 +91,57 @@ MapContainer {
     color: red;
 }
 button {
-background-color: #0077B6;
-color: #fff;
-border: none;
-padding: 10px 20px;
-margin: 5px;
-cursor: pointer;
-border-radius: 5px;
-box-shadow: #333    ;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 0; /* Remove the default padding */
+    width: 190px; /* Set fixed width */
+    height: 42px; /* Set fixed height */
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 6px 6px -3px rgba(0, 0, 0,0.5);
+    font-size: 15px;
+    font-family: notosans;
 }
-
 /* Change button color on hover */
-button:hover {
-background-color: #005a8c;
-}
 
  
   /* Add this CSS to hide direction steps on smaller screens */
-@media (max-width: 600px) {
-    .direction-steps-container {
-      display: none;
-    }
+
+
+  button.active.water {
+    background-color: #3788E2; /* Blue for Water */
+    color: #ffffff;
   }
   
+  button.active.register {
+    background-color: #B76711;
+    color: #ffffff; /* Brown for Register */
+  }
+  
+  button.active.conference {
+    background-color: #39B54A;
+    color: #ffffff; /* Green for Conference Room */
+  }
+  
+  button.active.toilet {
+    background-color: #ED1E79; 
+    color: #ffffff;/* Red for Toilet */
+  }
 
-  button.active {
-    background-color: #4caf50; /* Green color for the active state, you can customize this */
-    color: white; /* Text color for the active state, you can customize this */
+  @font-face {
+    font-family: 'notosans';
+    src: url('../assets/fonts/NotoSans-Regular.ttf') format('truetype'); /* Adjust the path to match your project structure */
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @media (max-width: 768px) {
+    #map {
+      height: 100vh; /* Adjust the height as needed */
+    }
+  
+    .leaflet-container {
+      height: 100%; /* Ensure Leaflet container takes up 100% height */
+    }
   }
