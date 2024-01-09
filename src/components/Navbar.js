@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import LinkedIn from '../components/Linkedin';
 import { AiOutlineClose, AiOutlineMenu, AiOutlineInfoCircle } from 'react-icons/ai';
-import isate from "../images/isate2024-logo.png"
 import { Link } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
 import '../styles/navbar.css'
@@ -26,7 +25,7 @@ const Navbar = () => {
 
   return (
     
-    <div className='bg-[#FFF] flex justify-between items-center h-20 mt-auto px-4 text-black z-10'>
+    <div className='bg-[#FFF] flex justify-between items-center h-20 mt-auto px-4 text-black z-100'>
         <div onClick={handleNav} className='block md:hidden'>
           {nav ? <AiOutlineClose size={20}/> : <AiOutlineMenu size={20} />}
         </div>
