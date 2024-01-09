@@ -1,4 +1,19 @@
-
+/* Add this CSS to your stylesheets or in your component */
+.arrow-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
+  
+  .arrow {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid #ff0000; /* You can change the color */
+    transform-origin: center;
+  }
+  
 
 #Refill {
     font-weight: bold;
@@ -83,6 +98,7 @@ padding: 10px 20px;
 margin: 5px;
 cursor: pointer;
 border-radius: 5px;
+box-shadow: #333    ;
 }
 
 /* Change button color on hover */
@@ -98,3 +114,8 @@ background-color: #005a8c;
     }
   }
   
+
+  button.active {
+    background-color: #4caf50; /* Green color for the active state, you can customize this */
+    color: white; /* Text color for the active state, you can customize this */
+  }
