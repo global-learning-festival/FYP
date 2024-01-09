@@ -180,8 +180,7 @@ const MapComponent = (props) => {
           
         })}
       </MapContainer>
-      <div id="buttons-container" style={{ position: 'absolute', bottom: '30px', left: '50%', transform: 'translateX(-50%)', zIndex: '1000', display: 'flex' }}>
-     
+      <div id="buttons-container" className="flex fixed bottom-10 left-1/2 transform -translate-x-1/2 z-10">
       <button
   className={`filter-button ${selectedCategory === 'water' ? 'active water' : ''}`}
   onClick={() => handleFilterClick('water')}
