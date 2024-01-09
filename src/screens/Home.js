@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Hero from '../images/Hero.png'
 
 const Home = ({ title, description, event_posted }) => {
   // Function to limit words in a string
@@ -10,20 +11,30 @@ const Home = ({ title, description, event_posted }) => {
 
   const limitedDescription = limitWords(description, 10);
 
-  return (
-    <div
-      className='flex-1 block m-2 max-w-sm p-4 md:p-6 bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
-    >
-      <h5 className='mb-2 text-xl md:text-2xl font-bold tracking-tight text-black'>{title}</h5>
-      <p className='font-normal text-sm md:text-base text-gray-500 mb-4'>{limitedDescription}</p>
-      <div className='bg-teal-700 text-white rounded-full py-1 px-2 absolute bottom-2 right-2 h-6 md:h-8'>
-        <p className='text-xs md:text-sm'>
-          {event_posted}
-        </p>
+    return (
+      <>
+      <div className='m-2'>
+        <div className="relative max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105">
+          <img
+            src={Hero}
+            alt="Hero Banner"
+            className="rounded-t-lg h-auto max-w-full"
+          />
+          
+            <div class="p-3">
+              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{title}</h5>
+              <p class="mb-3 font-normal text-gray-700">{limitedDescription}</p>
+              <div className='bg-teal-700 text-white rounded-full py-1 px-2 absolute bottom-2 right-2 h-6 md:h-8'>
+                <p className='text-xs md:text-sm'>
+                  {event_posted}
+                </p>
+              </div>
+            </div>
+        </div>
       </div>
-    </div>
-  );
-};
+      </>
+    );
+  };
 
 const EventsList = () => {
   const [events, setEvents] = useState([]);
@@ -42,7 +53,7 @@ const EventsList = () => {
   }, []); 
   
   const rows = [];
-  const cardsPerRow = 4;
+  const cardsPerRow = 3;
 
   for (let i = 0; i < events.length; i += cardsPerRow) {
     const row = events.slice(i, i + cardsPerRow);
