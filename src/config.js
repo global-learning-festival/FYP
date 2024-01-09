@@ -33,7 +33,8 @@ export const LinkedInApi = {
 
   export const LinkedInApi = {
     clientId: '86bmj5hgj05pbm', // Update with your CLIENT_ID
-    redirectUrl: 'http://localhost:5000/api/linkedin/redirect', // Update with your REDIRECT_URL
+    redirectUrl: 'http://localhost:5000/api/linkedine/redirect', // Update with your REDIRECT_URL
+    redirect_uri: 'http://localhost:5000/api/linkedin/redirect',
     oauthUrl: 'http://localhost:5000/api/linkedin/authorize',
     scope: 'email profile', // Update with your desired scope
     state: '123456',
@@ -41,5 +42,5 @@ export const LinkedInApi = {
   
   export const NodeServer = {
     baseURL: 'http://localhost:5000',
-    getUserCredentials: '/api/linkedin/redirect',
+    getUserCredentials: 'http://localhost:5000/api/linkedin/redirect',
   };
