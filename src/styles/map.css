@@ -1,4 +1,7 @@
-/* Add this CSS to your stylesheets or in your component */
+* {
+    z-index: 0;
+}
+
 .arrow-icon {
     display: block;
     width: 20px;
@@ -35,7 +38,6 @@
       cursor: pointer; 
       border-radius: 5px;
 }
-
 
 main {
     text-align: center;
