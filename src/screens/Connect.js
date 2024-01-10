@@ -12,7 +12,7 @@ const Connect = () => {
         <p class="flex flex-col items-center text-center text-sm font-normal text-gray-500 dark:text-gray-400">
           Network with Guest Speakers and other Attendees of the International Learning Festival!
         </p>
-        <LinkedIn />
+        <LinkedIn/>
       </div>
     </div>
     </>

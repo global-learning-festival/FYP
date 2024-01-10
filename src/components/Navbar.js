@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import LinkedIn from '../components/Linkedin';
 import { AiOutlineClose, AiOutlineMenu, AiOutlineInfoCircle } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
@@ -33,8 +34,9 @@ const Navbar = () => {
         </div>
 
         <ul className={nav ? 'fixed left-0 top-20 w-[60%] h-full bg-[#EDF1F4] ease-in-out duration-500 z-20': 'ease-in-out fixed left-[-100%] z-20'}>
-        <h3 className='w-full font-bold text-[#000] pt-10'>{ user?.displayName }</h3>
+        <h3 className='w-full font-bold text-[#000] pt-10'>{ user?.displayName }</h3> 
           { user ? (<button className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 hover:bg-[#3A426C] hover:drop-shadow-xl' onClick={handleSignOut}>Logout</button>) : 
+          
           <button onClick={handleNav} className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 hover:bg-[#3A426C] hover:drop-shadow-xl'>
             <Link to="/signin" style={{ textDecoration: 'none', color: 'inherit' }}>Login</Link></button>}   
           <li className='p-4'><Link to="/" className='no-underline text-black' onClick={handleNav}>Home</Link></li>

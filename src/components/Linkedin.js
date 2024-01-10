@@ -1,7 +1,6 @@
 // linkedin.js
 import React from 'react';
 import { LinkedInApi, NodeServer } from '../config';
-import axios from 'axios';
 import linkedInLoginImage from '../images/linkedin-login-images/Retina/Sign-In-Small---Default.png';
 
 export default class LinkedIn extends React.Component {
@@ -54,22 +53,6 @@ export default class LinkedIn extends React.Component {
         ', left=' +
         left
     );
-  };
-
-  getUserCredentials = (code) => {
-    axios
-      .post(`${NodeServer.baseURL}/api/linkedin/redirect`, { code }) // Use POST method
-      .then((res) => {
-        const user = res.data.data; // Adjust according to your response structure
-        this.setState({
-          user,
-          loggedIn: true,
-        });
-        // Do something with user
-      })
-      .catch((error) => {
-        console.error('Error fetching user credentials:', error);
-      });
   };
 
   render() {
