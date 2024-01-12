@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const ImportantInfoCard = ({ title, subtitle, onClick }) => {
+const ImportantInfoCard = ({ infoid, title, subtitle, onClick }) => {
   return (
       <div
-        className='flex-1 block m-2 p-4 bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
+        key={infoid}
+        className='flex-1 max-w-sm block m-2 p-4 bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
         onClick={onClick}
       >
         <h5 className='mb-2 text-2xl font-bold tracking-tight text-black'>{title}</h5>
@@ -35,7 +36,8 @@ const ImportantInfoList = () => {
     const fetchImportantInformation = async () => {
       try {
         const response = await axios.get('http://localhost:5000/importantInformation');
-        setImportantInformation(response.data);
+        const sortedData = response.data.sort((a, b) => a.infoid - b.infoid);
+        setImportantInformation(sortedData);
       } catch (error) {
         console.error('Error fetching announcements:', error);
       }
@@ -53,14 +55,14 @@ const ImportantInfoList = () => {
   };
 
   const rows = [];
-  const cardsPerRow = 4;
+  const cardsPerRow = 3;
 
   for (let i = 0; i < importantInformation.length; i += cardsPerRow) {
     const row = importantInformation.slice(i, i + cardsPerRow);
     rows.push(
       <div key={i / cardsPerRow} className='sm:flex sm:flex-wrap justify-center'>
         {row.map((info, index) => (
-          <ImportantInfoCard key={index} {...info} onClick={() => handleCardClick(info)} />
+          <ImportantInfoCard key={info.id} {...info} onClick={() => handleCardClick(info)} />
         ))}
       </div>
     );
