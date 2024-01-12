@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import LinkedIn from '../components/Linkedin';
 import { AiOutlineClose, AiOutlineMenu, AiOutlineInfoCircle } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
@@ -7,12 +6,19 @@ import '../styles/navbar.css'
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
+  const [showImportantInfo, setShowImportantInfo] = useState(false);
+
+  const {user, logout} = UserAuth();
 
   const handleNav = () => {
     setNav(!nav);
+    setShowImportantInfo(false);
   };
 
-  const {user, logout} = UserAuth();
+  const handleImportantInfoClick = () => {
+    setShowImportantInfo(true);
+    setNav(false);
+  };
 
   const handleSignOut = async () => {
     try {
@@ -30,13 +36,12 @@ const Navbar = () => {
           {nav ? <AiOutlineClose size={20}/> : <AiOutlineMenu size={20} />}
         </div>
         <div className='md:hidden pt-2'>
-            <Link to="/importantinfo"><AiOutlineInfoCircle className='text-black' size={25}/></Link>
+            <Link to="/importantinfo"><AiOutlineInfoCircle className='text-black' size={25} onClick={handleImportantInfoClick} /></Link>
         </div>
-
-        <ul className={nav ? 'fixed left-0 top-20 w-[60%] h-full bg-[#EDF1F4] ease-in-out duration-500 z-20': 'ease-in-out fixed left-[-100%] z-20'}>
-        <h3 className='w-full font-bold text-[#000] pt-10'>{ user?.displayName }</h3> 
+        
+        <ul className={nav ? 'fixed left-0 top-20 w-[70%] h-full bg-[#EDF1F4] ease-in-out duration-500 z-20': 'ease-in-out fixed left-[-100%] z-20'}>
+        <h3 className='w-full font-bold text-[#000] pt-10'>{ user?.displayName }</h3>
           { user ? (<button className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 hover:bg-[#3A426C] hover:drop-shadow-xl' onClick={handleSignOut}>Logout</button>) : 
-          
           <button onClick={handleNav} className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 hover:bg-[#3A426C] hover:drop-shadow-xl'>
             <Link to="/signin" style={{ textDecoration: 'none', color: 'inherit' }}>Login</Link></button>}   
           <li className='p-4'><Link to="/" className='no-underline text-black' onClick={handleNav}>Home</Link></li>
@@ -45,7 +50,6 @@ const Navbar = () => {
           <li className='p-4 '><Link to="/connect" className='no-underline text-black' onClick={handleNav}>Connect</Link></li>
           <li className='p-4'><Link to="/help" className='no-underline text-black' onClick={handleNav}>Help</Link></li>
       </ul>
-
 
       <div className='hidden md:flex ml-10'>
         

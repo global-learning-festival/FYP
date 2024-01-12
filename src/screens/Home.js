@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Hero from '../images/Hero.png'
+import Hero from '../images/Hero.png';
+import { useNavigate } from 'react-router-dom';
 
-const Home = ({ title, description, event_posted }) => {
+const Home = ({ eventid, title, description, event_posted, onClick }) => {
   // Function to limit words in a string
   const limitWords = (str, limit) => {
     const words = str.split(' ');
@@ -14,21 +15,25 @@ const Home = ({ title, description, event_posted }) => {
     return (
       <>
       <div className='m-2'>
-        <div className="relative max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105">
+        <div 
+          className="relative max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105"
+          onClick={onClick}
+        >
           <img
             src={Hero}
             alt="Hero Banner"
             className="rounded-t-lg h-auto max-w-full"
           />
           
-            <div class="p-3">
-              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{title}</h5>
-              <p class="mb-3 font-normal text-gray-700">{limitedDescription}</p>
+            <div className="p-3">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{title}</h5>
+              <p className="mb-3 font-normal text-gray-700">{limitedDescription}</p>
               <div className='bg-teal-700 text-white rounded-full py-1 px-2 absolute bottom-2 right-2 h-6 md:h-8'>
                 <p className='text-xs md:text-sm'>
                   {event_posted}
                 </p>
               </div>
+              <a href={'viewevent?eventid=' + eventid}/>
             </div>
         </div>
       </div>
@@ -38,6 +43,7 @@ const Home = ({ title, description, event_posted }) => {
 
 const EventsList = () => {
   const [events, setEvents] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -51,20 +57,28 @@ const EventsList = () => {
 
     fetchEvents();
   }, []); 
+
+  const handleViewEventClick = (eventid) => {
+    navigate(`/viewevent/${eventid}`); 
+    console.log('indidcheck', eventid)
+  };
   
   const rows = [];
   const cardsPerRow = 3;
 
   for (let i = 0; i < events.length; i += cardsPerRow) {
     const row = events.slice(i, i + cardsPerRow);
+    
     rows.push(
       <div key={i / cardsPerRow} className='sm:flex sm:flex-wrap justify-center'>
-        {row.map((events, index) => (
+        {row.map((eventItem, index) => (
           <Home
             key={index}
-            title={events.title}
-            description={events.description}
-            event_posted={events.time_start}
+            title={eventItem.title}
+            description={eventItem.description}
+            event_posted={eventItem.time_start}
+            {...eventItem}
+            onClick={ ()=> handleViewEventClick(eventItem.eventid) }
           />
         ))}
       </div>
