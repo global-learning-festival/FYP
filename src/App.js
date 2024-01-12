@@ -12,6 +12,7 @@ import Home from './screens/Home';
 import ViewEvent from './screens/Event';
 import Map from './screens/Map';
 import Announcement from './screens/Announcement';
+import ViewAnnouncement from './screens/AnnouncementScreen';
 import Connect from './screens/Connect';
 import Help from './screens/Help';
 import ImportantInfo from './screens/ImportantInfo';
@@ -30,6 +31,7 @@ class App extends React.Component {
               <Route path="/viewevent/:eventid" element={<ViewEvent />}/>
               <Route path="/map" element={<Map />} />
               <Route path="/announcement" element={<Announcement />} />
+              <Route path="/viewannouncement/:announcementid" element={<ViewAnnouncement />}/>
               <Route path="/connect" element={<Connect />} />     
               <Route path="/help" element={<Help />} /> 
               <Route path="/importantinfo" element={<ImportantInfo />} /> 
