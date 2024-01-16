@@ -4,7 +4,7 @@ import Hero from '../images/Hero.png';
 import { useNavigate } from 'react-router-dom';
 
 const Home = ({ eventid, title, description, event_posted, onClick }) => {
-  // Function to limit words in a string
+  
   const limitWords = (str, limit) => {
     const words = str.split(' ');
     return words.slice(0, limit).join(' ') + (words.length > limit ? '...' : '');
@@ -41,8 +41,41 @@ const Home = ({ eventid, title, description, event_posted, onClick }) => {
     );
   };
 
+  const FilterBar = ({ currentCategory, setCurrentCategory }) => {
+  return (
+    <div className="flex justify-center mt-4">
+      <button
+        className={`mx-2 px-4 py-2 ${
+          currentCategory === 'All' ? 'text-violet-950 transition border-b-2 border-transparent border-purple-500 shadow-none' : 'shadow-none'
+        }`}
+        onClick={() => setCurrentCategory('All')}
+      >
+        All
+      </button>
+      <button
+        className={`mx-2 px-4 py-2 ${
+          currentCategory === 'Ongoing' ? 'text-violet-950 transition border-b-2 border-transparent border-purple-500 shadow-none' : 'shadow-none'
+        }`}
+        onClick={() => setCurrentCategory('Ongoing')}
+      >
+        Ongoing
+      </button>
+      <button
+        className={`mx-2 px-4 py-2 ${
+          currentCategory === 'Saved' ? 'text-violet-950 transition border-b-2 border-transparent border-purple-500 shadow-none' : 'shadow-none'
+        }`}
+        onClick={() => setCurrentCategory('Saved')}
+      >
+        Saved
+      </button>
+    </div>
+  );
+};
+
 const EventsList = () => {
   const [events, setEvents] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
+  const [currentCategory, setCurrentCategory] = useState('All');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,25 +83,39 @@ const EventsList = () => {
       try {
         const response = await axios.get('http://localhost:5000/events');
         setEvents(response.data);
+
+        // Conditionally filter events based on the current category
+        if (currentCategory === 'Ongoing') {
+          const currentDate = new Date().toISOString(); // Current date and time in UTC string
+
+          const filtered = response.data.filter(eventItem => {
+            const startTime = new Date(eventItem.time_start);
+            const endTime = new Date(eventItem.time_end);
+            const currentTime = new Date(currentDate);
+
+            return startTime <= currentTime && currentTime <= endTime;
+          });
+
+          setFilteredEvents(filtered);
+          console.log(filtered);
+        } else {
+          setFilteredEvents(response.data);
+          console.log(response.data);
+        }
       } catch (error) {
         console.error('Error fetching events:', error);
       }
     };
 
     fetchEvents();
-  }, []); 
+  }, [currentCategory]);
 
-  const handleViewEventClick = (eventid) => {
-    navigate(`/viewevent/${eventid}`); 
-    console.log('indidcheck', eventid)
-  };
-  
   const rows = [];
   const cardsPerRow = 3;
 
-  for (let i = 0; i < events.length; i += cardsPerRow) {
-    const row = events.slice(i, i + cardsPerRow);
-    
+  for (let i = 0; i < filteredEvents.length; i += cardsPerRow) {
+    const row = filteredEvents.slice(i, i + cardsPerRow);
+
     rows.push(
       <div key={i / cardsPerRow} className='sm:flex sm:flex-wrap justify-center'>
         {row.map((eventItem, index) => (
@@ -78,14 +125,24 @@ const EventsList = () => {
             description={eventItem.description}
             event_posted={eventItem.time_start}
             {...eventItem}
-            onClick={ ()=> handleViewEventClick(eventItem.eventid) }
+            onClick={() => handleViewEventClick(eventItem.eventid)}
           />
         ))}
       </div>
     );
   }
 
-  return <>{rows}</>;
+  const handleViewEventClick = (eventid) => {
+    navigate(`/viewevent/${eventid}`); 
+    console.log('indidcheck', eventid)
+  };
+
+  return (
+  <>
+    <FilterBar currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} />
+    {rows}
+  </>
+  );
 };
 
 export default EventsList;
