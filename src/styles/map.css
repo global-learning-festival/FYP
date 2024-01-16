@@ -149,3 +149,9 @@ button {
       height: 100%; /* Ensure Leaflet container takes up 100% height */
     }
   }
+
+  @media only screen and (max-width: 600px) {
+  .leaflet-routing-container {
+    display: none;
+  }
+}
