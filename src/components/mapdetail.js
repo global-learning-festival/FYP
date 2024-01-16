@@ -10,22 +10,33 @@ import conferenceMarker from '../assets/marker/conference.png';
 import toiletMarker from '../assets/marker/toilet.png';
 import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
+import polyline from 'polyline';
+import config from './config';
+import { baseApiUrl } from 'mapbox-gl';
+
+
 
 const MapComponent = (props) => {
+  const localhostapi= "http://localhost:5000"
+  const serverlessapi ="https://fyp-9bxz.onrender.com" 
   const [userLocation, setUserLocation] = useState(null);
+  
   const [hasLocationPermission, setHasLocationPermission] = useState(true);
   const [isRouting, setIsRouting] = useState(false);
   const [routingControl, setRoutingControl] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const position = [1.310411032362568, 103.77767848691333];
+  const mapRef = useRef();
+  
+  
 
   
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/markers');
+        const response = await axios.get(`${serverlessapi}/markers`);
         setMarkers(response.data);
         console.log('Refill data:', response.data);
       } catch (error) {
@@ -36,32 +47,91 @@ const MapComponent = (props) => {
     fetchData();
   }, []);
 
-  const mapRef = useRef();
 
 
-  
-
-
-  const handleRouteButtonClick = (coordinates) => {
+  const handleRouteButtonClick = async (coordinates) => {
     if (isRouting) {
-      setRoutingControl(null);
-      setIsRouting(false);
+      handleStopRouting();
     } else {
-      const routingControl = L.Routing.control({
-        waypoints: [
-          L.latLng(userLocation[0], userLocation[1]),
-          L.latLng(coordinates[0], coordinates[1]),
-        ],
-        routeWhileDragging: true,
-        createMarker: function () {}, // Empty function to create no markers
-        createButton: function () {}, // Empty function to create no control button
-      });
+      try {
+        if (!mapRef.current || !userLocation) {
+          console.error('Map or user location not available.');
+          return;
+        }
+       
+        const urluser=`https://www.onemap.gov.sg/api/auth/post/getToken`
 
-      routingControl.addTo(mapRef.current);
-      setRoutingControl(routingControl);
-      setIsRouting(true);
+
+
+        const requestBody = {
+          email: config.email,
+          password: config.password,
+        };
+        const userresponse = await fetch(urluser, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody),
+        });
+        
+        // Assuming the response is in JSON format, you can parse it
+        const userresponseData = await userresponse.json();
+        
+        // Now you can use the responseData as needed
+        console.log("token response",userresponseData.access_token);
+
+
+
+        // Add your OneMap API authentication token here
+        const authToken = userresponseData.access_token;
+        const startCoordinates = `${userLocation[0]},${userLocation[1]}`;
+        const endCoordinates = `${coordinates[0]},${coordinates[1]}`;
+
+        const apiUrl = `https://www.onemap.gov.sg/api/private/routingsvc/route?start=${startCoordinates}&end=${endCoordinates}&routeType=walk`;
+
+        const response = await fetch(apiUrl, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`,
+          },
+        });
+
+        if (!response.ok) {
+          console.error('Error fetching route data:', response.status, response.statusText);
+          return;
+        }
+
+        const routeData = await response.json();
+
+        if (!routeData.route_geometry) {
+          console.error('No route geometry found in the API response.');
+          return;
+        }
+
+        const decodedCoordinates = polyline.decode(routeData.route_geometry);
+        const routeLatLngs = decodedCoordinates.map(([lat, lng]) => L.latLng(lat, lng));
+
+        const routePolyline = L.polyline(routeLatLngs, { color: 'blue' });
+
+        const newRoutingControl = L.Routing.control({
+          waypoints: [L.latLng(userLocation[0], userLocation[1]), L.latLng(coordinates[0], coordinates[1])],
+          createMarker: function () {},
+          routeLine: (route) => routePolyline,
+        });
+
+        newRoutingControl.addTo(mapRef.current);
+        setRoutingControl(newRoutingControl);
+        setIsRouting(true);
+      } catch (error) {
+        console.error('Error:', error.message);
+      }
     }
   };
+
+  
+  
 
   const handleStopRouting = () => {
     if (isRouting && routingControl) {
