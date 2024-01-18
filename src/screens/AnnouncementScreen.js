@@ -5,11 +5,13 @@ import { useParams } from 'react-router-dom';
 const AnnouncementScreen = () => {
   const [announcementdata, setAnnouncementdata] = useState([]);
   const { announcementid } = useParams();
+  const localhostapi= "http://localhost:5000"
+  const serverlessapi ="https://fyp-9bxz.onrender.com" 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/events/${announcementid}`);
+        const response = await axios.get(`${serverlessapi}/events/${announcementid}`);
         setAnnouncementdata(response.data);
       } catch (error) {
         console.error('Error fetching information:', error);

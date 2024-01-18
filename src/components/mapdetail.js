@@ -12,7 +12,7 @@ import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
 import polyline from 'polyline';
 import config from './config';
-import { baseApiUrl } from 'mapbox-gl';
+
 
 
 

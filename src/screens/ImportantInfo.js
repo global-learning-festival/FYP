@@ -31,11 +31,13 @@ const PopupCard = ({ title, description, onClose }) => {
 const ImportantInfoList = () => {
   const [importantInformation, setImportantInformation] = useState([]);
   const [selectedInfo, setSelectedInfo] = useState(null);
+  const localhostapi= "http://localhost:5000"
+  const serverlessapi ="https://fyp-9bxz.onrender.com" 
 
   useEffect(() => {
     const fetchImportantInformation = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/importantInformation');
+        const response = await axios.get(`${serverlessapi}/importantInformation`);
         const sortedData = response.data.sort((a, b) => a.infoid - b.infoid);
         setImportantInformation(sortedData);
       } catch (error) {
