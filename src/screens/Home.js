@@ -3,7 +3,7 @@
   import Hero from '../images/Hero.png';
   import { useNavigate } from 'react-router-dom';
 
-  const Home = ({ eventid, title, description, event_start, event_end, onClick }) => {
+  const Home = ({ eventid, title, description, formattedDate, startTime, endTime, onClick }) => {
     
     const limitWords = (str, limit) => {
       const words = str.split(' ');
@@ -12,34 +12,11 @@
 
     const limitedDescription = limitWords(description, 10);
 
-    const startDate = new Date(event_start);
-  const formattedDate = startDate.toLocaleDateString('en-US', {
-    weekday: 'short',
-    month: 'short',
-    day: 'numeric',
-    timeZone: 'Asia/Singapore',
-  });
-
-  const startTime = startDate.toLocaleTimeString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
-    timeZone: 'Asia/Singapore',
-  });
-
-  // You need to get the corresponding end date for the event
-  // Assuming you have an 'endTime' field in the event data
-  const endDate = new Date(event_end);
-  const endTime = endDate.toLocaleTimeString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
-    timeZone: 'Asia/Singapore',
-  });
-
       return (
         <>
         <div className='m-2'>
           <div 
-            className="relative bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105"
+            className="relative mx-auto sm:mx-0 max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105"
             onClick={onClick}
           >
             <img
@@ -52,12 +29,12 @@
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{title}</h5>
                 <p className="mb-3 font-normal text-gray-700">{limitedDescription}</p>
                 <div className='flex justify-end'>
-                  <div className='bg-teal-700 text-white rounded-full mr-0.5 py-1 px-2 h-6 md:h-8'>
+                  <div className='bg-[#293262] text-white rounded-full mr-0.5 py-1 px-2.5 h-6 md:h-8'>
                     <p className='text-xs md:text-sm'>
                         {formattedDate}
                     </p>
                   </div>
-                  <div className='bg-blue-700 text-white rounded-full py-1 px-2 h-6 md:h-8'>
+                  <div className='bg-[#487572] text-white rounded-full py-1 px-2.5 h-6 md:h-8'>
                     <p className='text-xs md:text-sm'>
                         {startTime} - {endTime}
                     </p>
@@ -147,20 +124,46 @@
 
     for (let i = 0; i < filteredEvents.length; i += cardsPerRow) {
       const row = filteredEvents.slice(i, i + cardsPerRow);
-
+      
       rows.push(
         <div key={i / cardsPerRow} className='sm:flex sm:flex-wrap justify-center'>
-          {row.map((eventItem, index) => (
-            <Home
-              key={index}
-              title={eventItem.title}
-              description={eventItem.description}
-              event_start={eventItem.time_start}
-              event_end={eventItem.time_end}
-              {...eventItem}
-              onClick={() => handleViewEventClick(eventItem.eventid)}
-            />
-          ))}
+          {row.map((eventItem, index) => {
+            const startDate = new Date(eventItem.time_start);
+            const formattedDate = startDate.toLocaleDateString('en-US', {
+              weekday: 'short',
+              month: 'short',
+              day: 'numeric',
+              timeZone: 'Asia/Singapore',
+            });
+
+            const startTime = startDate.toLocaleTimeString('en-US', {
+              hour: 'numeric',
+              minute: 'numeric',
+              timeZone: 'Asia/Singapore',
+            });
+
+            const endDate = new Date(eventItem.time_end);
+            const endTime = endDate.toLocaleTimeString('en-US', {
+              hour: 'numeric',
+              minute: 'numeric',
+              timeZone: 'Asia/Singapore',
+            });
+
+            return (
+              <Home
+                key={index}
+                title={eventItem.title}
+                description={eventItem.description}
+                event_start={eventItem.time_start}
+                event_end={eventItem.time_end}
+                formattedDate={formattedDate}
+                startTime={startTime}
+                endTime={endTime}
+                {...eventItem}
+                onClick={() => handleViewEventClick(eventItem.eventid)}
+              />
+            );
+          })}
         </div>
       );
     }
