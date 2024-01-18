@@ -8,11 +8,13 @@ const ViewEvent = () => {
   const [eventposted, setEventposted] = useState('');
   const [eventdata, setEventdata] = useState([]);
   const { eventid } = useParams();
+  const localhostapi= "http://localhost:5000"
+  const serverlessapi ="https://fyp-9bxz.onrender.com" 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/events/${eventid}`);
+        const response = await axios.get(`${serverlessapi}/events/${eventid}`);
         setEventdata(response.data);
       } catch (error) {
         console.error('Error fetching information:', error);

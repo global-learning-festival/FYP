@@ -77,11 +77,13 @@ const EventsList = () => {
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [currentCategory, setCurrentCategory] = useState('All');
   const navigate = useNavigate();
+  const localhostapi= "http://localhost:5000"
+  const serverlessapi ="https://fyp-9bxz.onrender.com" 
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/events');
+        const response = await axios.get(`${serverlessapi}/events`);
         setEvents(response.data);
 
         // Conditionally filter events based on the current category

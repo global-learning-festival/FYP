@@ -32,11 +32,13 @@ const Announcement = ({ announcementid, title, description, announcement_posted,
 const AnnouncementList = () => {
   const [announcements, setAnnouncements] = useState([]);
   const navigate = useNavigate();
+  const localhostapi= "http://localhost:5000"
+  const serverlessapi ="https://fyp-9bxz.onrender.com" 
 
   useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/announcements');
+        const response = await axios.get(`${serverlessapi}/announcements`);
         console.log(response)
         setAnnouncements(response.data);
       } catch (error) {
