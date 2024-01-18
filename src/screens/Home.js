@@ -3,8 +3,9 @@ import axios from 'axios';
 import Hero from '../images/Hero.png';
 import { useNavigate } from 'react-router-dom';
 
-const Home = ({ eventid, title, description, event_posted, onClick }) => {
+const Home = ({ eventid, title, description, event_start, event_end, onClick }) => {
   
+  // To ensure tidiness by restricting text overflow in the card
   const limitWords = (str, limit) => {
     const words = str.split(' ');
     return words.slice(0, limit).join(' ') + (words.length > limit ? '...' : '');
@@ -12,11 +13,16 @@ const Home = ({ eventid, title, description, event_posted, onClick }) => {
 
   const limitedDescription = limitWords(description, 10);
 
+  // To format timing to be more readable
+  const formattedDate = new Date(event_start).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'Asia/Singapore' });
+  const startTime = new Date(event_start).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', timeZone: 'Asia/Singapore' });
+  const endTime = new Date(event_end).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', timeZone: 'Asia/Singapore' });
+
     return (
       <>
-      <div className='m-2'>
+        <div className='m-2'>
         <div 
-          className="relative max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105"
+          className="relative bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105"
           onClick={onClick}
         >
           <img
@@ -25,16 +31,27 @@ const Home = ({ eventid, title, description, event_posted, onClick }) => {
             className="rounded-t-lg h-auto max-w-full"
           />
           
-            <div className="p-3">
+          <div className="p-3 flex flex-col justify-between h-full">
+            <div>
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{title}</h5>
               <p className="mb-3 font-normal text-gray-700">{limitedDescription}</p>
-              <div className='bg-teal-700 text-white rounded-full py-1 px-2 absolute bottom-2 right-2 h-6 md:h-8'>
+            </div>
+
+            <div className="flex justify-end">
+              <div className='bg-[#293262] text-white rounded-full max-h-8 px-2 mr-1 lg:pt-1 pt-1.5'>
                 <p className='text-xs md:text-sm'>
-                  {event_posted}
+                  {formattedDate}
                 </p>
               </div>
-              <a href={'viewevent?eventid=' + eventid}/>
+              <div className='bg-[#487572] text-white rounded-full max-h-8 px-2 lg:pt-1 pt-1.5'>
+                <p className='text-xs md:text-sm'>
+                  {startTime} - {endTime}
+                </p>
+              </div>
             </div>
+
+            <a href={'viewevent?eventid=' + eventid}/>
+          </div>
         </div>
       </div>
       </>
@@ -46,7 +63,7 @@ const Home = ({ eventid, title, description, event_posted, onClick }) => {
     <div className="flex justify-center mt-4">
       <button
         className={`mx-2 px-4 py-2 ${
-          currentCategory === 'All' ? 'text-violet-950 transition border-b-2 border-transparent border-purple-500 shadow-none' : 'shadow-none'
+          currentCategory === 'All' ? 'text-violet-950 transition border-b-2 border-violet-900 shadow-none' : 'shadow-none'
         }`}
         onClick={() => setCurrentCategory('All')}
       >
@@ -54,7 +71,7 @@ const Home = ({ eventid, title, description, event_posted, onClick }) => {
       </button>
       <button
         className={`mx-2 px-4 py-2 ${
-          currentCategory === 'Ongoing' ? 'text-violet-950 transition border-b-2 border-transparent border-purple-500 shadow-none' : 'shadow-none'
+          currentCategory === 'Ongoing' ? 'text-violet-950 transition border-b-2 border-violet-900 shadow-none' : 'shadow-none'
         }`}
         onClick={() => setCurrentCategory('Ongoing')}
       >
@@ -62,7 +79,7 @@ const Home = ({ eventid, title, description, event_posted, onClick }) => {
       </button>
       <button
         className={`mx-2 px-4 py-2 ${
-          currentCategory === 'Saved' ? 'text-violet-950 transition border-b-2 border-transparent border-purple-500 shadow-none' : 'shadow-none'
+          currentCategory === 'Saved' ? 'text-violet-950 transition border-b-2 border-violet-900 shadow-none' : 'shadow-none'
         }`}
         onClick={() => setCurrentCategory('Saved')}
       >
@@ -86,11 +103,10 @@ const EventsList = () => {
         const response = await axios.get(`${serverlessapi}/events`);
         setEvents(response.data);
 
-        // Conditionally filter events based on the current category
         if (currentCategory === 'Ongoing') {
-          const currentDate = new Date().toISOString(); // Current date and time in UTC string
+          const currentDate = new Date().toISOString();
 
-          const filtered = response.data.filter(eventItem => {
+            const filtered = response.data.filter(eventItem => {
             const startTime = new Date(eventItem.time_start);
             const endTime = new Date(eventItem.time_end);
             const currentTime = new Date(currentDate);
@@ -99,7 +115,6 @@ const EventsList = () => {
           });
 
           setFilteredEvents(filtered);
-          console.log(filtered);
         } else {
           setFilteredEvents(response.data);
           console.log(response.data);
@@ -125,7 +140,8 @@ const EventsList = () => {
             key={index}
             title={eventItem.title}
             description={eventItem.description}
-            event_posted={eventItem.time_start}
+            event_start={eventItem.time_start}
+            event_end={eventItem.time_start}
             {...eventItem}
             onClick={() => handleViewEventClick(eventItem.eventid)}
           />
