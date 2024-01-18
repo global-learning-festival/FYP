@@ -6,10 +6,11 @@ import { useParams } from 'react-router-dom';
 
 const ViewEvent = () => {
   const [eventdata, setEventdata] = useState([]);
+  const [currentCategory, setCurrentCategory] = useState('Information');
   const { eventid } = useParams();
-  const localhostapi= "http://localhost:5000"
-  const serverlessapi ="https://fyp-9bxz.onrender.com" 
-  
+
+  const serverlessapi = "https://fyp-9bxz.onrender.com";
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,12 +25,33 @@ const ViewEvent = () => {
     fetchData();
   }, [eventid]);
 
-  // Check if eventdata has any elements before accessing properties
+  const FilterBar = () => {
+    return (
+      <div className="flex justify-center mt-4">
+        <button
+          className={`mx-2 px-4 py-2 ${
+            currentCategory === 'Information' ? 'text-violet-950 transition border-b-2 border-violet-900 shadow-none' : 'shadow-none'
+          }`}
+          onClick={() => setCurrentCategory('Information')}
+        >
+          Information
+        </button>
+        <button
+          className={`mx-2 px-4 py-2 ${
+            currentCategory === 'Announcements' ? 'text-violet-950 transition border-b-2 border-violet-900 shadow-none' : 'shadow-none'
+          }`}
+          onClick={() => setCurrentCategory('Announcements')}
+        >
+          Announcements
+        </button>
+      </div>
+    );
+  };
+
   if (eventdata.length === 0) {
-    return <div>Loading...</div>; // You might want to show a loading state or handle this case differently
+    return <div>Loading...</div>;
   }
 
-  // To format timing to be more readable
   const startDate = new Date(eventdata[0].time_start);
   const endDate = new Date(eventdata[0].time_end);
 
@@ -55,57 +77,52 @@ const ViewEvent = () => {
   return (
     <div>
       <img
-            src={Hero}
-            alt="Hero Banner"
-            className="h-auto max-w-full mb-3"
-          />
+        src={Hero}
+        alt="Hero Banner"
+        className="h-auto max-w-full mb-3"
+      />
 
       <FilterBar />
 
-       {currentCategory === 'Information' && (
-        <div>
+      {currentCategory === 'Information' && (
+        <div className="container mx-auto p-4">
           {eventdata.map((eventItem, index) => (
-              <div className="container mx-auto p-4" key={index}>
+            <div key={index}>
               <h1 className="text-2xl font-bold mb-4">Title: {eventItem.title}</h1>
               <p className="mb-3 font-normal text-gray-700">
-                Date: {formattedDate}
-              </p>
-              <p className="mb-3 font-normal text-gray-700">
-                Time: {startTime} - {endTime}
+                Date: {formattedDate}, {startTime} - {endTime}
               </p>
               <p className="mb-3 font-normal text-gray-700">Location: {eventItem.location}</p>
               <p className="mb-3 font-normal text-gray-700">Keynote Speaker: {eventItem.keynote_speaker}</p>
               <p className="mb-3 font-normal text-gray-700">Description: {eventItem.description}</p>
 
-              {/* <MapDetail className="max-h-2" /> */}
+              <MapDetail className="h-12" />
 
-              <div className="container mx-auto p-4 text-center">
-                <h1 className="text-2xl font-bold mb-4">We Need your Feedback!</h1>
-                <p className="mb-3 font-normal text-gray-700">
-                  If you have attended this event, your feedback will be much appreciated
-                </p>
-                <button
-                href={eventItem.survey_link} target="_blank" rel="noopener noreferrer"
-                  className='text-white  bg-[#0077B5] font-medium rounded-md text-sm px-5 py-2.5 hover:bg-[#3A426C] hover:drop-shadow-xl'
-                  style={{ textDecoration: 'none', color: 'inherit' }}
-                >
-                  Survey Link
-                </button>
-              </div>
+              <h1 className="text-2xl font-bold mb-4">We Need Your Feedback!</h1>
+              <p className="mb-3 font-normal text-gray-700">
+                If you have attended this event, 
+                your feedback will be much appreciated
+              </p>
+              <a
+                href={eventItem.survey_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className='text-white bg-[#0077B5] font-medium rounded-md text-sm px-5 py-2.5 hover:bg-[#3A426C] hover:drop-shadow-xl'
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                Survey Link
+              </a>
             </div>
-            ))}
-          </div>
-          )}
+          ))}
+        </div>
+      )}
 
       {currentCategory === 'Announcements' && (
-        <div>
-          {/* Render content specific to 'Announcements' category */}
-          {/* You can customize this section based on your requirements */}
+        <div className="text-center">
           <h2>Announcements Content</h2>
           <p>{/* Add announcements-specific content here */}</p>
         </div>
       )}
-
     </div>
   );
 };
