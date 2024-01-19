@@ -53,7 +53,7 @@
       <div className="flex justify-center mt-4">
         <button
           className={`mx-2 px-4 py-2 ${
-            currentCategory === 'All' ? 'text-violet-950 transition border-b-2 border-purple-500 shadow-none' : 'shadow-none'
+            currentCategory === 'All' ? 'text-violet-950 transition border-b-2 border-violet-900 shadow-none' : 'shadow-none'
           }`}
           onClick={() => setCurrentCategory('All')}
         >
@@ -61,7 +61,7 @@
         </button>
         <button
           className={`mx-2 px-4 py-2 ${
-            currentCategory === 'Ongoing' ? 'text-violet-950 transition border-b-2 border-purple-500 shadow-none' : 'shadow-none'
+            currentCategory === 'Ongoing' ? 'text-violet-950 transition border-b-2 border-violet-900 shadow-none' : 'shadow-none'
           }`}
           onClick={() => setCurrentCategory('Ongoing')}
         >
@@ -69,7 +69,7 @@
         </button>
         <button
           className={`mx-2 px-4 py-2 ${
-            currentCategory === 'Saved' ? 'text-violet-950 transition border-b-2 border-purple-500 shadow-none' : 'shadow-none'
+            currentCategory === 'Saved' ? 'text-violet-950 transition border-b-2 border-violet-900 shadow-none' : 'shadow-none'
           }`}
           onClick={() => setCurrentCategory('Saved')}
         >
