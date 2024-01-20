@@ -5,7 +5,7 @@ const ImportantInfoCard = ({ infoid, title, subtitle, onClick }) => {
   return (
       <div
         key={infoid}
-        className='flex-1 max-w-sm block m-2 p-4 bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
+        className='flex-1 block m-2 p-4 bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
         onClick={onClick}
       >
         <h5 className='mb-2 text-2xl font-bold tracking-tight text-black'>{title}</h5>
@@ -14,11 +14,18 @@ const ImportantInfoCard = ({ infoid, title, subtitle, onClick }) => {
   );
 };
 
-const PopupCard = ({ title, description, onClose }) => {
+const PopupCard = ({ title, description, image, onClose }) => {
   return (
     <div className='fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50'>
       <div className='bg-white p-6 border border-gray-200 rounded-md shadow'>
         <h5 className='mb-2 text-2xl font-bold tracking-tight text-black'>{title}</h5>
+        {image && (
+          <img
+            src={require(`../images/${image}`)}
+            alt={`Image for ${title}`}
+            className="h-auto max-w-full my-4"
+          />
+        )}
         <p className='text-sm text-gray-500'>{description}</p>
         <button onClick={onClose} className='mt-4 bg-blue-500 text-white px-4 py-2 rounded-md'>
           Close
@@ -37,9 +44,10 @@ const ImportantInfoList = () => {
   useEffect(() => {
     const fetchImportantInformation = async () => {
       try {
-        const response = await axios.get(`${serverlessapi}/importantInformation`);
+        const response = await axios.get(`${localhostapi}/importantInformation`);
         const sortedData = response.data.sort((a, b) => a.infoid - b.infoid);
         setImportantInformation(sortedData);
+        console.log(response.data)
       } catch (error) {
         console.error('Error fetching announcements:', error);
       }
