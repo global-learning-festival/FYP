@@ -2,13 +2,19 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Hero from '../images/Hero.png';
 import MapDetail from '../components/mapdetail';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const ViewEvent = () => {
   const [eventdata, setEventdata] = useState([]);
   const [announcementsData, setAnnouncementsData] = useState([]);
   const [currentCategory, setCurrentCategory] = useState('Information');
   const { eventid } = useParams();
+  const navigate = useNavigate();
+
+  const handleViewAnnouncementClick = (announcementid) => {
+    navigate(`/viewannouncement/${announcementid}`); 
+    // console.log('indidcheck', announcementid)
+  };
 
   const limitWords = (str, limit) => {
     const words = str.split(' ');
@@ -21,9 +27,9 @@ const ViewEvent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${serverlessapi}/events/${eventid}`);
+        const response = await axios.get(`${localhostapi}/events/${eventid}`);
         setEventdata(response.data);
-        console.log(response.data);
+          
       } catch (error) {
         console.error('Error fetching information:', error);
       }
@@ -75,6 +81,7 @@ const ViewEvent = () => {
 
   const startDate = new Date(eventdata[0].time_start);
   const endDate = new Date(eventdata[0].time_end);
+  // const announcementTime = new Date(announcementsData[0].time_start);
 
   const formattedDate = startDate.toLocaleDateString('en-US', {
     weekday: 'short',
@@ -82,6 +89,13 @@ const ViewEvent = () => {
     day: 'numeric',
     timeZone: 'Asia/Singapore',
   });
+
+  // const announcementDate = announcementTime.toLocaleDateString('en-US', {
+  //   weekday: 'short',
+  //   month: 'short',
+  //   day: 'numeric',
+  //   timeZone: 'Asia/Singapore',
+  // });
 
   const startTime = startDate.toLocaleTimeString('en-US', {
     hour: 'numeric',
@@ -134,7 +148,7 @@ const ViewEvent = () => {
               </div>
             </div>
           ))}
-          {/* <MapDetail className="h-12" /> */}
+          {/* <MapDetail className="md:h-12 h-8" /> */}
         </div>
       )}
 
@@ -144,19 +158,14 @@ const ViewEvent = () => {
             <div key={index}>
               <div
                 className='flex-1 block m-2 p-4 md:p-6 bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
-                
+                onClick={() => handleViewAnnouncementClick(announcementItem.announcementid)}
               >
                 <h5 className='mb-2 text-xl md:text-2xl font-bold tracking-tight text-black'>{announcementItem.title}</h5>
                 <p className='font-normal text-sm md:text-base text-left text-gray-500 mb-4'>{limitWords(announcementItem.description, 10)}</p>
                 <div className='flex justify-end'>
                   <div className='bg-teal-700 text-white rounded-full mr-0.5 py-1 px-2 h-6 md:h-8'>
                     <p className='text-xs md:text-sm'>
-                        {announcementItem.created_on}
-                    </p>
-                  </div>
-                  <div className='bg-blue-700 text-white rounded-full py-1 px-2 h-6 md:h-8'>
-                    <p className='text-xs md:text-sm'>
-                        {announcementItem.created_on}
+                        {/* {announcementDate} */}
                     </p>
                   </div>
                 </div>
