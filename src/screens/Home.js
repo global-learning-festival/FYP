@@ -2,6 +2,8 @@
   import axios from 'axios';
   import Hero from '../images/Hero.png';
   import { useNavigate } from 'react-router-dom';
+  import saveevent from '../assets/savedevent.png'
+  import unsaveevent from '../assets/unsaveevent.png'
 
   const Home = ({ eventid, title, description, formattedDate, startTime, endTime, onClick }) => {
     
@@ -90,7 +92,7 @@
     useEffect(() => {
       const fetchEvents = async () => {
         try {
-          const response = await axios.get(`${serverlessapi}/events`);
+          const response = await axios.get(`${localhostapi}/events`);
           setEvents(response.data);
 
           // Conditionally filter events based on the current category
