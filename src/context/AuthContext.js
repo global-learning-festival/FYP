@@ -29,8 +29,13 @@ export const AuthContextProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
             console.log('User', currentUser);
-            const loggedInUserID = currentUser.uid;
-            localStorage.setItem("loggedInUserID", loggedInUserID);
+            if (currentUser !== null) {
+                const loggedInUserID = currentUser.uid;
+                localStorage.setItem("loggedInUserID", loggedInUserID);
+            } else {
+                return null
+            }
+           
 
             return () => {
                 unsubscribe();
