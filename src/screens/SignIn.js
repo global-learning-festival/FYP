@@ -24,6 +24,7 @@ const SignIn = () => {
                         // User with the given UID exists, retrieve information
                         console.log('User already exists. Retrieving information:', response.data);
                         navigate('/')
+                       
                     } else {
                         // User does not exist, store user information in the database
                         const userData = {
@@ -43,6 +44,7 @@ const SignIn = () => {
                     }
     
                     navigate('/');
+                    
                 })
                 .catch(error => {
                     console.error('Error checking user existence:', error);
