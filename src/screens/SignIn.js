@@ -9,6 +9,7 @@ const SignIn = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const localhostapi = "http://localhost:5000"; // Update with your backend API URL
+    const serverlessapi = "https://fyp-9bxz.onrender.com";
 
     useEffect(() => {
         if (user !== null) {
@@ -17,7 +18,7 @@ const SignIn = () => {
     
             // Check if user already exists in the database
             setLoading(true);
-            axios.get(`${localhostapi}/useruid/${uid}`)
+            axios.get(`${serverlessapi}/useruid/${uid}`)
                 .then(response => {
                     if (response.data ) {
                         // User with the given UID exists, retrieve information
@@ -32,7 +33,7 @@ const SignIn = () => {
                             uid,
                         };
     
-                        axios.post(`${localhostapi}/adduser`, userData)
+                        axios.post(`${serverlessapi}/adduser`, userData)
                             .then(response => {
                                 console.log('User information stored successfully:', response.data);
                             })
@@ -51,7 +52,7 @@ const SignIn = () => {
                     setLoading(false);
                 });
         }
-    }, [user, navigate, localhostapi]);
+    }, [user, navigate, localhostapi, serverlessapi]);
     
     return (
         <>

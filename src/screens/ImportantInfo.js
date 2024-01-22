@@ -44,7 +44,7 @@ const ImportantInfoList = () => {
   useEffect(() => {
     const fetchImportantInformation = async () => {
       try {
-        const response = await axios.get(`${localhostapi}/importantInformation`);
+        const response = await axios.get(`${serverlessapi}/importantInformation`);
         const sortedData = response.data.sort((a, b) => a.infoid - b.infoid);
         setImportantInformation(sortedData);
         console.log(response.data)
