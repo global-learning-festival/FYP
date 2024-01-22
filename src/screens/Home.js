@@ -6,21 +6,86 @@ import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage, responsive, placeholder } from "@cloudinary/react"; 
 
+import { colorSpace } from '@cloudinary/transformation-builder-sdk/actions/delivery';
+
+
   const Home = ({ eventid, title, description, image, formattedDate, startTime, endTime, onClick }) => {
     const [isBookmarked, setIsBookmarked] = useState(false);
     const [publicId, setPublicId] = useState("");
     const [cloudName] = useState("dxkozpx6g");
+  
+    const [bookmarkedEvents, setBookmarkedEvents] = useState([])
+    const localhostapi = "http://localhost:5000";
+    const serverlessapi = "https://fyp-9bxz.onrender.com";
+    const loggedInUserID = localStorage.getItem("loggedInUserID");
 
     const cld = new Cloudinary({
       cloud: {
         cloudName
       }
     });
-
-    const handleBookmarkClick = (e) => {
-    e.stopPropagation(); // Prevents the card click event from firing when clicking on the bookmark button
-    setIsBookmarked(!isBookmarked);
-  };
+    useEffect(() => {
+      const fetchBookmarkedEvents = async () => {
+        try {
+          if (loggedInUserID !== null) {
+            const response = await axios.get(`${localhostapi}/saveevents/${loggedInUserID}`);
+            setBookmarkedEvents(response.data.rows);
+            console.log('uid', loggedInUserID);
+            console.log('saved', response.data.rows);
+  
+            // Check if the current event's ID is in bookmarkedEvents
+            const isEventBookmarked = response.data.rows.some(savedEvent => savedEvent.eventid === eventid);
+            setIsBookmarked(isEventBookmarked);
+          
+        
+          } else {
+           
+            setIsBookmarked(false);
+          }
+        } catch (error) {
+          console.error('Error fetching bookmarked events:', error);
+        }
+      };
+  
+      fetchBookmarkedEvents();
+    }, [eventid, loggedInUserID]);
+    
+    
+  
+    const saveevent = async (e) => {
+      if (loggedInUserID !== null) {
+        e.stopPropagation();
+  
+        try {
+          const response = await axios.post(`${localhostapi}/saveevent`, {
+            uid: loggedInUserID,
+            eventid: eventid
+          });
+    
+          console.log('Saved event :', response.data);
+          setIsBookmarked(true);
+        } catch (error) {
+          console.error('Error adding event:', error);
+          alert('please login')
+        }
+      }
+     
+  
+    
+    };
+    const deletesave = async (eventid, e) => {
+      e.stopPropagation();
+    
+      try {
+        const response = await axios.delete(`${localhostapi}/delevent/${loggedInUserID}`, {
+          data: { eventid: eventid } // Send eventid as data in the request body
+        });
+        console.log('DeletedSaved event :', response.data);
+        setIsBookmarked(false);
+      } catch (error) {
+        console.error('Error deleting event:', error);
+      }
+    };
     
     const limitWords = (str, limit) => {
       const words = str.split(' ');
@@ -43,14 +108,17 @@ import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
           />
           <div className="p-3">
             <div className="flex justify-between items-center">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{title}</h5>
-              <div className='flex flex-col items-end'>
-                {isBookmarked ? (
-                  <IoBookmark onClick={handleBookmarkClick} size={24} color="#293262" className="ml-2" />
-                ) : (
-                  <IoBookmarkOutline onClick={handleBookmarkClick} size={24} color="#293262" className="ml-2" />
-                )}
-              </div>
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{title} {eventid}</h5>
+              {loggedInUserID !== null && (
+                <div className='flex flex-col items-end'>
+                  {isBookmarked ? (
+                    <IoBookmark onClick={(e) => deletesave(eventid, e)} size={24} color="#293262" className="ml-2" />
+                  ) : (
+                    <IoBookmarkOutline onClick={saveevent} size={24} color="#293262" className="ml-2" />
+                  )}
+                </div>
+              )}
+            
             </div>
             <p className="mb-3 font-normal text-gray-700">{limitedDescription}</p>
             <div className='flex justify-end'>
@@ -115,7 +183,7 @@ import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
     useEffect(() => {
       const fetchEvents = async () => {
         try {
-          const response = await axios.get(`${serverlessapi}/events`);
+          const response = await axios.get(`${localhostapi}/events`);
           setEvents(response.data);
 
           // Conditionally filter events based on the current category

@@ -20,12 +20,16 @@ export const AuthContextProvider = ({ children }) => {
 
     const logout = () => {
         signOut(auth);
+        
+        localStorage.removeItem("loggedInUserID")
     }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
             console.log('User', currentUser);
+            const loggedInUserID = currentUser.uid;
+            localStorage.setItem("loggedInUserID", loggedInUserID);
 
             return () => {
                 unsubscribe();
