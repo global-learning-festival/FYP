@@ -22,6 +22,7 @@ export const AuthContextProvider = ({ children }) => {
         signOut(auth);
         
         localStorage.removeItem("loggedInUserID")
+        window.location.reload()
     }
 
     useEffect(() => {
