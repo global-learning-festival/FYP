@@ -3,6 +3,8 @@ import axios from 'axios';
 import Hero from '../images/Hero.png';
 import MapDetail from '../components/mapdetail';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Cloudinary } from "@cloudinary/url-gen";
+import { AdvancedImage, responsive, placeholder } from "@cloudinary/react"; 
 
 const ViewEvent = () => {
   const [eventdata, setEventdata] = useState([]);
@@ -10,6 +12,14 @@ const ViewEvent = () => {
   const [currentCategory, setCurrentCategory] = useState('Information');
   const { eventid } = useParams();
   const navigate = useNavigate();
+  const [publicId, setPublicId] = useState("");
+  const [cloudName] = useState("dxkozpx6g");
+
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName
+    }
+  });
 
   const handleViewAnnouncementClick = (announcementid) => {
     navigate(`/viewannouncement/${announcementid}`); 
@@ -111,11 +121,6 @@ const ViewEvent = () => {
 
   return (
     <div>
-      <img
-        src={Hero}
-        alt="Hero Banner"
-        className="h-auto max-w-full mb-3"
-      />
 
       <FilterBar /> 
 
@@ -123,6 +128,11 @@ const ViewEvent = () => {
         <div className="container mx-auto p-4">
           {eventdata.map((eventItem, index) => (
             <div key={index}>
+              <AdvancedImage
+                className="xs:max-w-max my-4"
+                cldImg={cld.image(publicId || eventItem.image_banner)}
+                plugins={[responsive(), placeholder()]}
+              />
               <h1 className="text-2xl font-bold mb-4">Title: {eventItem.title}</h1>
               <p className="mb-3 font-normal text-gray-700">
                 Date: {formattedDate}, {startTime} - {endTime}
