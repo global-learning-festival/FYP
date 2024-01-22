@@ -3,13 +3,24 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { Cloudinary } from "@cloudinary/url-gen";
+import { AdvancedImage, responsive, placeholder } from "@cloudinary/react"; 
 
 const AnnouncementScreen = () => {
   const [announcementdata, setAnnouncementdata] = useState([]);
   const { announcementid } = useParams();
-  const navigate = useNavigate(); // Use useNavigate instead of useHistory
+  const [publicId, setPublicId] = useState("");
+  const [cloudName] = useState("dxkozpx6g");
+
+  const navigate = useNavigate();
   const localhostapi = "http://localhost:5000";
   const serverlessapi = "https://fyp-9bxz.onrender.com";
+
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName
+    }
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,13 +56,11 @@ const AnnouncementScreen = () => {
                 : `${announcementItem.updated_on}`}
             </p>
           </div>
-          {announcementItem.image && (
-            <img
-              src={require(`../images/${announcementItem.image}`)}
-              alt={`Image for ${announcementItem.title}`}
-              className="h-auto max-w-full my-4"
-            />
-          )}
+          <AdvancedImage
+            className="xs:max-w-max my-4"
+            cldImg={cld.image(publicId || announcementItem.image)}
+            plugins={[responsive(), placeholder()]}
+          />
           <p className='text-xs md:text-sm my-4'>{announcementItem.description}</p>
         </div>
       ))}

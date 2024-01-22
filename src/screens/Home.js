@@ -1,11 +1,26 @@
-  import React, { useEffect, useState } from 'react';
-  import axios from 'axios';
-  import Hero from '../images/Hero.png';
-  import { useNavigate } from 'react-router-dom';
-  import saveevent from '../assets/savedevent.png'
-  import unsaveevent from '../assets/unsaveevent.png'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import Hero from '../images/Hero.png';
+import { useNavigate } from 'react-router-dom';
+import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
+import { Cloudinary } from "@cloudinary/url-gen";
+import { AdvancedImage, responsive, placeholder } from "@cloudinary/react"; 
 
-  const Home = ({ eventid, title, description, formattedDate, startTime, endTime, onClick }) => {
+  const Home = ({ eventid, title, description, image, formattedDate, startTime, endTime, onClick }) => {
+    const [isBookmarked, setIsBookmarked] = useState(false);
+    const [publicId, setPublicId] = useState("");
+    const [cloudName] = useState("dxkozpx6g");
+
+    const cld = new Cloudinary({
+      cloud: {
+        cloudName
+      }
+    });
+
+    const handleBookmarkClick = (e) => {
+    e.stopPropagation(); // Prevents the card click event from firing when clicking on the bookmark button
+    setIsBookmarked(!isBookmarked);
+  };
     
     const limitWords = (str, limit) => {
       const words = str.split(' ');
@@ -17,38 +32,46 @@
       return (
         <>
         <div className='m-2'>
-          <div 
+          <div
             className="relative mx-auto sm:mx-0 max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105"
             onClick={onClick}
           >
-            <img
-              src={Hero}
-              alt="Hero Banner"
-              className="rounded-t-lg h-auto max-w-full"
-            />
-            
-              <div className="p-3">
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{title}</h5>
-                <p className="mb-3 font-normal text-gray-700">{limitedDescription}</p>
-                <div className='flex justify-end'>
-                  <div className='bg-[#293262] text-white rounded-full mr-0.5 py-1 px-2.5 h-6 md:h-8'>
-                    <p className='text-xs md:text-sm'>
-                        {formattedDate}
-                    </p>
-                  </div>
-                  <div className='bg-[#487572] text-white rounded-full py-1 px-2.5 h-6 md:h-8'>
-                    <p className='text-xs md:text-sm'>
-                        {startTime} - {endTime}
-                    </p>
-                  </div>
-                </div>
-                <a href={'viewevent?eventid=' + eventid}/>
+          <AdvancedImage
+            className="rounded-t-md object-cover w-96 h-36"
+            cldImg={cld.image(publicId || image)}
+            plugins={[responsive(), placeholder()]}
+          />
+          <div className="p-3">
+            <div className="flex justify-between items-center">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{title}</h5>
+              <div className='flex flex-col items-end'>
+                {isBookmarked ? (
+                  <IoBookmark onClick={handleBookmarkClick} size={24} color="#293262" className="ml-2" />
+                ) : (
+                  <IoBookmarkOutline onClick={handleBookmarkClick} size={24} color="#293262" className="ml-2" />
+                )}
               </div>
+            </div>
+            <p className="mb-3 font-normal text-gray-700">{limitedDescription}</p>
+            <div className='flex justify-end'>
+              <div className='bg-[#293262] text-white rounded-full mr-0.5 py-1 px-2.5 h-6 md:h-8'>
+                <p className='text-xs md:text-sm'>
+                  {formattedDate}
+                </p>
+              </div>
+              <div className='bg-[#487572] text-white rounded-full py-1 px-2.5 h-6 md:h-8'>
+                <p className='text-xs md:text-sm'>
+                  {startTime} - {endTime}
+                </p>
+              </div>
+            </div>
+            <a href={'viewevent?eventid=' + eventid}/>
           </div>
         </div>
-        </>
-      );
-    };
+      </div>
+    </>
+    );
+  };
 
     const FilterBar = ({ currentCategory, setCurrentCategory }) => {
     return (
@@ -156,6 +179,7 @@
                 key={index}
                 title={eventItem.title}
                 description={eventItem.description}
+                image={eventItem.image_banner}
                 event_start={eventItem.time_start}
                 event_end={eventItem.time_end}
                 formattedDate={formattedDate}
