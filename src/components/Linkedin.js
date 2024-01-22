@@ -23,10 +23,37 @@ export default class LinkedIn extends React.Component {
     window.addEventListener('message', this.handlePostMessage);
   };
 
-  handlePostMessage = (event) => {
-    if (event.data.type === 'code') {
-      const { code } = event.data;
-      this.getUserCredentials(code);
+
+  handlePostMessage = async (event) => {
+    try {
+      if (event.data.type === 'code') {
+        const { code } = event.data;
+        const userCredentials = await this.getUserCredentials(code);
+        if (userCredentials.success) {
+        // Access user information from the response
+        const { firstName, lastName, email } = userCredentials.data.user;
+
+        // Display user information as needed
+        console.log(`Welcome, ${firstName} ${lastName}! Email: ${email}`);
+
+        // Optionally, update the state to reflect logged-in status
+        this.setState({
+          user: {
+            firstName,
+            lastName,
+            email,
+          },
+          loggedIn: true,
+        });
+      } else {
+        console.error('Error fetching user credentials:', userCredentials.error);
+      }
+    }
+    } catch (error) {
+      console.error('Error fetching user credentials:', error);
+    } finally {
+      // Close the popup window
+      window.close();
     }
   };
 
@@ -36,16 +63,29 @@ export default class LinkedIn extends React.Component {
   };
 
   getUserCredentials = async (code) => {
-    // Call your backend to exchange the code for user credentials
-    // Update the state with user information on successful login
     try {
       const response = await fetch(`${LinkedInApi.redirectUrl}?code=${code}`);
-      const user = await response.json();
-
-      this.setState({
-        user,
-        loggedIn: true,
-      });
+      const data = await response.json();
+  
+      if (data.success) {
+        // Access user information from the response
+        const { firstName, lastName, email } = data.data. user;
+  
+        // Display user information as needed
+        console.log(`Welcome, ${firstName} ${lastName}! Email: ${email}`);
+  
+        // Optionally, update the state to reflect logged-in status
+        this.setState({
+          user: {
+            firstName,
+            lastName,
+            email,
+          },
+          loggedIn: true,
+        });
+      } else {
+        console.error('Error fetching user credentials:', data.error);
+      }
     } catch (error) {
       console.error('Error fetching user credentials:', error);
     }
