@@ -92,7 +92,7 @@
     useEffect(() => {
       const fetchEvents = async () => {
         try {
-          const response = await axios.get(`${localhostapi}/events`);
+          const response = await axios.get(`${serverlessapi}/events`);
           setEvents(response.data);
 
           // Conditionally filter events based on the current category
