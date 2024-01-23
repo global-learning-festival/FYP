@@ -18,7 +18,7 @@ const SignIn = () => {
     
             // Check if user already exists in the database
             setLoading(true);
-            axios.get(`${serverlessapi}/useruid/${uid}`)
+            axios.get(`${localhostapi}/useruid/${uid}`)
                 .then(response => {
                     if (response.data ) {
                         // User with the given UID exists, retrieve information
@@ -34,7 +34,7 @@ const SignIn = () => {
                             uid,
                         };
     
-                        axios.post(`${serverlessapi}/adduser`, userData)
+                        axios.post(`${localhostapi}/adduser`, userData)
                             .then(response => {
                                 console.log('User information stored successfully:', response.data);
                             })

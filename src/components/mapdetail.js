@@ -36,7 +36,7 @@ const MapComponent = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${serverlessapi}/markers`);
+        const response = await axios.get(`${localhostapi}/markers`);
         setMarkers(response.data);
         console.log('Refill data:', response.data);
       } catch (error) {
