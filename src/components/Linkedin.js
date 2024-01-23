@@ -17,45 +17,47 @@ export default class LinkedIn extends React.Component {
   componentDidMount = () => {
     if (window.opener && window.opener !== window) {
       const code = this.getCodeFromWindowURL(window.location.href);
-      window.opener.postMessage({ type: 'code', code: code }, '*');
-      window.close(); // Close the popup after receiving the code
+      this.getUserCredentials(code);
     }
     window.addEventListener('message', this.handlePostMessage);
   };
 
-
-  handlePostMessage = async (event) => {
+  handlePostMessage = (event) => {
     try {
-      if (event.data.type === 'code') {
-        const { code } = event.data;
-        const userCredentials = await this.getUserCredentials(code);
-        if (userCredentials.success) {
+      if (event.data.type === 'userCredentials') {
+        const { userCredentials } = event.data;
         // Access user information from the response
-        const { firstName, lastName, email } = userCredentials.data.user;
-
-        // Display user information as needed
-        console.log(`Welcome, ${firstName} ${lastName}! Email: ${email}`);
+        const { name, email, picture } = userCredentials.data.user;
 
         // Optionally, update the state to reflect logged-in status
         this.setState({
           user: {
-            firstName,
-            lastName,
+            name,
             email,
+            picture,
           },
           loggedIn: true,
         });
-      } else {
-        console.error('Error fetching user credentials:', userCredentials.error);
       }
-    }
+      this.closePopup();
     } catch (error) {
-      console.error('Error fetching user credentials:', error);
-    } finally {
-      // Close the popup window
-      window.close();
+      console.error('Error processing user credentials:', error);
     }
   };
+    
+  
+closePopup = () => {
+  // Call a function in the parent window to close the popup
+  if (window.opener) {
+    window.opener.closePopup();
+  }
+};
+
+// Add this function in the parent window
+closePopup = () => {
+  console.log('Closing popup window...');
+  window.close();
+};
 
   getCodeFromWindowURL = (url) => {
     const popupWindowURL = new URL(url);
@@ -66,23 +68,11 @@ export default class LinkedIn extends React.Component {
     try {
       const response = await fetch(`${LinkedInApi.redirectUrl}?code=${code}`);
       const data = await response.json();
-  
+
       if (data.success) {
-        // Access user information from the response
-        const { firstName, lastName, email } = data.data. user;
-  
-        // Display user information as needed
-        console.log(`Welcome, ${firstName} ${lastName}! Email: ${email}`);
-  
-        // Optionally, update the state to reflect logged-in status
-        this.setState({
-          user: {
-            firstName,
-            lastName,
-            email,
-          },
-          loggedIn: true,
-        });
+        // Post user credentials to the parent window
+        window.opener.postMessage({ type: 'userCredentials', userCredentials: data }, '*');
+        window.close();
       } else {
         console.error('Error fetching user credentials:', data.error);
       }
@@ -96,9 +86,8 @@ export default class LinkedIn extends React.Component {
 
     const contentWhenLoggedIn = (
       <div>
-        <img src={user.profileImageURL} alt="Profile image" />
-        <h3>{`${user.firstName} ${user.lastName}`}</h3>
-        <h3>{user.email}</h3>
+        {/* Display user information */}
+        <h3>{`Welcome, ${user.name}! Email: ${user.email}`}</h3>
       </div>
     );
 
