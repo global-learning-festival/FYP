@@ -9,6 +9,7 @@ import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
 import { colorSpace } from '@cloudinary/transformation-builder-sdk/actions/delivery';
 
 
+
   const Home = ({ eventid, title, description, image, formattedDate, startTime, endTime, onClick }) => {
     const [isBookmarked, setIsBookmarked] = useState(false);
     const [publicId, setPublicId] = useState("");
@@ -175,43 +176,53 @@ import { colorSpace } from '@cloudinary/transformation-builder-sdk/actions/deliv
   const EventsList = () => {
     const [events, setEvents] = useState([]);
     const [filteredEvents, setFilteredEvents] = useState([]);
+    const [savedEvents, setSavedEvents] = useState([]);
     const [currentCategory, setCurrentCategory] = useState('All');
     const navigate = useNavigate();
     const localhostapi = "http://localhost:5000";
-    const serverlessapi = "https://fyp-9bxz.onrender.com";
-
+  
     useEffect(() => {
       const fetchEvents = async () => {
         try {
           const response = await axios.get(`${localhostapi}/events`);
           setEvents(response.data);
-
-          // Conditionally filter events based on the current category
+  
           if (currentCategory === 'Ongoing') {
-            const currentDate = new Date().toISOString(); // Current date and time in UTC string
-
+            const currentDate = new Date().toISOString();
             const filtered = response.data.filter(eventItem => {
               const startTime = new Date(eventItem.time_start);
               const endTime = new Date(eventItem.time_end);
               const currentTime = new Date(currentDate);
-
+  
               return startTime <= currentTime && currentTime <= endTime;
             });
-
+  
             setFilteredEvents(filtered);
-            // console.log(filtered);
+          } else if (currentCategory === 'Saved') {
+            const loggedInUserID = localStorage.getItem("loggedInUserID");
+  
+            if (loggedInUserID) {
+              const savedResponse = await axios.get(`${localhostapi}/saveevents/${loggedInUserID}`);
+              setSavedEvents(savedResponse.data.rows);
+  
+              const savedEventIds = savedResponse.data.rows.map(savedEvent => savedEvent.eventid);
+              const savedFiltered = response.data.filter(eventItem => savedEventIds.includes(eventItem.eventid));
+              setFilteredEvents(savedFiltered);
+            } else {
+              // Handle the case where there is no logged-in user
+            }
           } else {
             setFilteredEvents(response.data);
-            // console.log(response.data);
           }
         } catch (error) {
           console.error('Error fetching events:', error);
         }
       };
-
+  
       fetchEvents();
     }, [currentCategory]);
-
+    
+    
     const rows = [];
     const cardsPerRow = 3;
 
@@ -262,15 +273,23 @@ import { colorSpace } from '@cloudinary/transformation-builder-sdk/actions/deliv
       );
     }
 
+
+
     const handleViewEventClick = (eventid) => {
       navigate(`/viewevent/${eventid}`);
       // console.log('indidcheck', eventid);
     };
-
+    const loggedInUserID = localStorage.getItem("loggedInUserID");
     return (
       <>
         <FilterBar currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} />
-        {rows}
+        {loggedInUserID === null && currentCategory === 'Saved' ? (
+          <div className="text-center text-red-500 mt-4">
+            Please login to view saved events.
+          </div>
+        ) : (
+          rows
+        )}
       </>
     );
   };
