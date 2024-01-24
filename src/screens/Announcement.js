@@ -11,22 +11,33 @@ const Announcement = ({ announcementid, title, description, announcement_posted,
 
   const limitedDescription = limitWords(description, 10);
 
+  // Date and time formatting
+  const startDate = new Date(announcement_posted);
+  const formattedDate = startDate.toLocaleDateString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'Asia/Singapore',
+  });
+
+  const startTime = startDate.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    timeZone: 'Asia/Singapore',
+  });
+
   return (
     <>
-    <div
-      className='flex-1 m-2 p-4 md:p-6 bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
-      onClick={onClick}
-    >
-      <h5 className='mb-2 text-xl md:text-2xl font-bold tracking-tight text-black'>{title}</h5>
-      <p className='font-normal text-sm md:text-base text-gray-500 mb-4'>{limitedDescription}</p>
-      <div className='bg-teal-700 text-white rounded-full py-1 px-2 absolute bottom-2 right-2 h-6 md:h-8'>
-        <p className='text-xs md:text-sm'>
-          {announcement_posted === announcement_updated
-            ? `${announcement_posted}`
-            : `${announcement_updated}`}
-        </p>
+      <div
+        className='flex-1 m-2 p-4 md:p-6 bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
+        onClick={onClick}
+      >
+        <h5 className='mb-2 text-xl md:text-2xl font-bold tracking-tight text-black'>{title}</h5>
+        <p className='font-normal text-sm md:text-base text-gray-500 mb-4'>{limitedDescription}</p>
+        <div className='bg-teal-700 text-white rounded-full py-1 px-2 absolute bottom-2 right-2 h-6 md:h-8'>
+          <p className='text-xs md:text-sm'>{formattedDate} {startTime}</p>
+        </div>
       </div>
-    </div>
     </>
   );
 };

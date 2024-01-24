@@ -41,13 +41,15 @@ const AnnouncementScreen = () => {
 
   return (
     <div>
+      <div className='mx-auto px-4'>
+        <FontAwesomeIcon
+          icon={faArrowLeft}
+          onClick={handleGoBack}
+          className="text-grey hover:text-[#4B558A] cursor-pointer text-2xl mb-4"
+        />
+      </div>
       {announcementdata.map((announcementItem, index) => (
         <div className="container mx-auto p-4" key={index}>
-          <FontAwesomeIcon
-            icon={faArrowLeft}
-            onClick={handleGoBack}
-            className="text-grey hover:text-[#4B558A] cursor-pointer text-2xl mb-4"
-          />
           <h1 className="text-2xl font-bold mb-4">{announcementItem.title}</h1>
           <div className='inline-block bg-teal-700 text-white rounded-full py-1 px-2 right-2 h-6 md:h-8'>
             <p className='text-xs md:text-sm'>
@@ -57,7 +59,7 @@ const AnnouncementScreen = () => {
             </p>
           </div>
           <AdvancedImage
-            className="xs:max-w-max my-4"
+            className={`w-full h-72 my-2 object-contain ${!announcementItem.image && 'hidden'}`}
             cldImg={cld.image(publicId || announcementItem.image)}
             plugins={[responsive(), placeholder()]}
           />

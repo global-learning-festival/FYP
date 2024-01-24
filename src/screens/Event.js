@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Hero from '../images/Hero.png';
 import MapDetail from '../components/mapdetail';
 import { useParams, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage, responsive, placeholder } from "@cloudinary/react"; 
 
@@ -61,6 +62,10 @@ const ViewEvent = () => {
 
     fetchAnnouncementsData();
   }, [eventid]);
+
+  const handleGoBack = () => {
+    navigate(-1);
+  };
 
   const FilterBar = () => {
     return (
@@ -121,6 +126,13 @@ const ViewEvent = () => {
 
   return (
     <div>
+      <div className='mx-auto px-4'>
+        <FontAwesomeIcon
+          icon={faArrowLeft}
+          onClick={handleGoBack}
+          className="text-grey hover:text-[#4B558A] cursor-pointer text-2xl"
+        />
+      </div>
 
       <FilterBar /> 
 
@@ -129,7 +141,7 @@ const ViewEvent = () => {
           {eventdata.map((eventItem, index) => (
             <div key={index}>
               <AdvancedImage
-                className="xs:max-w-max my-4"
+                className="w-full h-72 my-2 object-contain"
                 cldImg={cld.image(publicId || eventItem.image_banner)}
                 plugins={[responsive(), placeholder()]}
               />
@@ -162,28 +174,38 @@ const ViewEvent = () => {
         </div>
       )}
 
-      {currentCategory === 'Announcements' && (
-        <div className="text-center">
-          {announcementsData.map((announcementItem, index) => (
-            <div key={index}>
-              <div
-                className='flex-1 block m-2 p-4 md:p-6 bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
-                onClick={() => handleViewAnnouncementClick(announcementItem.announcementid)}
-              >
-                <h5 className='mb-2 text-xl md:text-2xl font-bold tracking-tight text-black'>{announcementItem.title}</h5>
-                <p className='font-normal text-sm md:text-base text-left text-gray-500 mb-4'>{limitWords(announcementItem.description, 10)}</p>
-                <div className='flex justify-end'>
-                  <div className='bg-teal-700 text-white rounded-full mr-0.5 py-1 px-2 h-6 md:h-8'>
-                    <p className='text-xs md:text-sm'>
-                        {/* {announcementDate} */}
-                    </p>
-                  </div>
+     {currentCategory === 'Announcements' && (
+      <div className="container p-2">
+        {announcementsData.map((announcementItem, index) => (
+          <div key={index}>
+            <div
+              className='flex-1 block m-2 p-4 md:p-6 bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
+              onClick={() => handleViewAnnouncementClick(announcementItem.announcementid)}
+            >
+              <h5 className='mb-2 text-xl md:text-2xl font-bold tracking-tight text-black'>{announcementItem.title}</h5>
+              <p className='font-normal text-sm md:text-base text-left text-gray-500 mb-4'>{limitWords(announcementItem.description, 10)}</p>
+              <div className='flex justify-end'>
+                <div className='bg-teal-700 text-white rounded-full mr-0.5 py-1 px-2 h-6 md:h-8'>
+                  <p className='text-xs md:text-sm'>
+                    {new Date(announcementItem.created_on).toLocaleDateString('en-US', {
+                      weekday: 'short',
+                      month: 'short',
+                      day: 'numeric',
+                      timeZone: 'Asia/Singapore',
+                    })}{' '}
+                    {new Date(announcementItem.created_on).toLocaleTimeString('en-US', {
+                      hour: 'numeric',
+                      minute: 'numeric',
+                      timeZone: 'Asia/Singapore',
+                    })}
+                  </p>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-      )}
+          </div>
+        ))}
+      </div>
+    )}
     </div>
   );
 };
