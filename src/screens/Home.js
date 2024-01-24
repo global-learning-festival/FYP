@@ -31,8 +31,8 @@ import { colorSpace } from '@cloudinary/transformation-builder-sdk/actions/deliv
           if (loggedInUserID !== null) {
             const response = await axios.get(`${localhostapi}/saveevents/${loggedInUserID}`);
             setBookmarkedEvents(response.data.rows);
-            console.log('uid', loggedInUserID);
-            console.log('saved', response.data.rows);
+            // console.log('uid', loggedInUserID);
+            // console.log('saved', response.data.rows);
   
             // Check if the current event's ID is in bookmarkedEvents
             const isEventBookmarked = response.data.rows.some(savedEvent => savedEvent.eventid === eventid);
@@ -63,7 +63,7 @@ import { colorSpace } from '@cloudinary/transformation-builder-sdk/actions/deliv
             eventid: eventid
           });
     
-          console.log('Saved event :', response.data);
+          // console.log('Saved event :', response.data);
           setIsBookmarked(true);
         } catch (error) {
           console.error('Error adding event:', error);
@@ -81,7 +81,7 @@ import { colorSpace } from '@cloudinary/transformation-builder-sdk/actions/deliv
         const response = await axios.delete(`${localhostapi}/delevent/${loggedInUserID}`, {
           data: { eventid: eventid } // Send eventid as data in the request body
         });
-        console.log('DeletedSaved event :', response.data);
+        // console.log('DeletedSaved event :', response.data);
         setIsBookmarked(false);
       } catch (error) {
         console.error('Error deleting event:', error);
@@ -93,13 +93,13 @@ import { colorSpace } from '@cloudinary/transformation-builder-sdk/actions/deliv
       return words.slice(0, limit).join(' ') + (words.length > limit ? '...' : '');
     };
 
-    const limitedDescription = limitWords(description, 10);
+    const limitedDescription = limitWords(description, 8);
 
       return (
         <>
         <div className='m-2'>
           <div
-            className="relative mx-auto sm:mx-0 max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105"
+            className="relative h-full mx-auto sm:mx-0 max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105"
             onClick={onClick}
           >
           <AdvancedImage
@@ -109,7 +109,7 @@ import { colorSpace } from '@cloudinary/transformation-builder-sdk/actions/deliv
           />
           <div className="p-3">
             <div className="flex justify-between items-center">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{title} {eventid}</h5>
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{title}</h5>
               {loggedInUserID !== null && (
                 <div className='flex flex-col items-end'>
                   {isBookmarked ? (
@@ -186,6 +186,7 @@ import { colorSpace } from '@cloudinary/transformation-builder-sdk/actions/deliv
         try {
           const response = await axios.get(`${localhostapi}/events`);
           setEvents(response.data);
+          // console.log(response.data)
   
           if (currentCategory === 'Ongoing') {
             const currentDate = new Date().toISOString();
@@ -196,7 +197,6 @@ import { colorSpace } from '@cloudinary/transformation-builder-sdk/actions/deliv
   
               return startTime <= currentTime && currentTime <= endTime;
             });
-  
             setFilteredEvents(filtered);
           } else if (currentCategory === 'Saved') {
             const loggedInUserID = localStorage.getItem("loggedInUserID");
@@ -208,8 +208,6 @@ import { colorSpace } from '@cloudinary/transformation-builder-sdk/actions/deliv
               const savedEventIds = savedResponse.data.rows.map(savedEvent => savedEvent.eventid);
               const savedFiltered = response.data.filter(eventItem => savedEventIds.includes(eventItem.eventid));
               setFilteredEvents(savedFiltered);
-            } else {
-              // Handle the case where there is no logged-in user
             }
           } else {
             setFilteredEvents(response.data);
