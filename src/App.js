@@ -18,6 +18,9 @@ import Help from './screens/Help';
 import ImportantInfo from './screens/ImportantInfo';
 import SignIn from './screens/SignIn';
 import EditProfile from './screens/EditProfile';
+import QRCodeGenerator from './screens/QrCodeGenerator';
+import QRCodeScanner from './screens/QrCodeScanner';
+import UserList from './screens/AllUsersList';
 import { AuthContextProvider } from './context/AuthContext';
 import { LinkedinAuthContextProvider } from './context/LinkedinAuthContext';
 
@@ -39,7 +42,10 @@ class App extends React.Component {
               <Route path="/help" element={<Help />} /> 
               <Route path="/importantinfo" element={<ImportantInfo />} /> 
               <Route path="/signin" element={<SignIn />} /> 
-              <Route path="/editprofile/:userid" element={<EditProfile />} /> 
+              <Route path="/editprofile/:userid" element={<EditProfile />} />
+              <Route path="/qrcode/:userid" element={<QRCodeGenerator />} />
+              <Route path="/scan" element={<QRCodeScanner />} />
+              <Route path="/allusers" element={<UserList />} />
             </Routes>
             </LinkedinAuthContextProvider>
           </AuthContextProvider>
