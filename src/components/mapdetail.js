@@ -11,7 +11,7 @@ import toiletMarker from '../assets/marker/toilet.png';
 import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
 import polyline from 'polyline';
-import config from './config';
+import config2 from './config2';
 
 
 
@@ -64,8 +64,8 @@ const MapComponent = (props) => {
 
 
         const requestBody = {
-          email: config.email,
-          password: config.password,
+          email: config2.email,
+          password: config2.password,
         };
         const userresponse = await fetch(urluser, {
           method: 'POST',

@@ -3,6 +3,7 @@ import GoogleButton from 'react-google-button';
 import { UserAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // Import axios for making HTTP requests
+import config2 from '../components/config2';
 
 const SignIn = () => {
     const { googleSignIn, user } = UserAuth();
@@ -33,7 +34,8 @@ const SignIn = () => {
                             last_name,
                             company: '', // Assuming company is not available from Google sign-in
                             uid,
-                            userid
+                            userid,
+                            type: config2.type
                         };
     
                         axios.post(`${localhostapi}/adduser`, userData)
