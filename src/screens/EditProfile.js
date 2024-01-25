@@ -92,7 +92,18 @@ const EditProfileForm = () => {
             className="mt-1 p-2 border border-gray-300 rounded-md w-full"
           />
         </div>
-
+        <div className="mb-4">
+          <label htmlFor="jobtitle" className="block text-sm font-medium text-gray-600">
+            Job Title 
+          </label>
+          <input
+            type="text"
+            name="jobtitle"
+            value={user.jobtitle || ''}
+            onChange={handleChange}
+            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+          />
+        </div>
         <div className="mb-4">
           <label htmlFor="linkedinurl" className="block text-sm font-medium text-gray-600">
             LinkedIn URL

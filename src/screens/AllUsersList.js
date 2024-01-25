@@ -53,7 +53,8 @@ const QRCodeGenerator = () => {
         <div>
           {userData.map((user) => (
             <div key={user.id} className="bg-white p-4 rounded-lg shadow-md mb-4" onClick={() => handleCardClick(user)}>
-              <p className="mb-2">{`Username: ${user.username || user.first_name || 'N/A'} ${user.last_name || 'N/A'}`}</p>
+              <p className="mb-2">{`Name: ${user.username || user.first_name || 'N/A'} ${user.last_name || 'N/A'}`}</p>
+              <p className="mb-2">{`Job Title: ${user.jobtitle || 'N/A'}`}</p>
               <p className="mb-2">{`Company: ${user.company || 'N/A'}`}</p>
             </div>
           ))}
