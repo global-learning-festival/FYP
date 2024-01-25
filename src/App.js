@@ -18,6 +18,7 @@ import Help from './screens/Help';
 import ImportantInfo from './screens/ImportantInfo';
 import SignIn from './screens/SignIn';
 import { AuthContextProvider } from './context/AuthContext';
+import { LinkedinAuthContextProvider } from './context/LinkedinAuthContext';
 
 
 class App extends React.Component {
@@ -25,6 +26,7 @@ class App extends React.Component {
     return (
       <div className="body">
         <AuthContextProvider>
+        <LinkedinAuthContextProvider>
           <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
@@ -37,6 +39,7 @@ class App extends React.Component {
               <Route path="/importantinfo" element={<ImportantInfo />} /> 
               <Route path="/signin" element={<SignIn />} /> 
             </Routes>
+            </LinkedinAuthContextProvider>
           </AuthContextProvider>
       </div>
     );
