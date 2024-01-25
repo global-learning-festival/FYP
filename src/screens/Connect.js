@@ -1,31 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import LinkedIn from '../components/Linkedin'; // Import LinkedIn component directly
 import { useLinkedinAuth } from '../context/LinkedinAuthContext'; // Import useLinkedinAuth hook
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Import axios for making HTTP requests
 
 const Connect = ({ code }) => {
-  const { linkedinSignIn, user } = useLinkedinAuth(); // Use the useLinkedinAuth hook
-
-  useEffect(() => {
-    // Check if the user is authenticated and has a UID
-    if (user && user.uid) {
-      // Fetch additional user information from the server using the user.uid
-      // You can replace the following URL with your actual server endpoint
-      const serverEndpoint = `http:localhost:5000/api/user/${user.uid}`;
-
-      // Make a GET request to fetch user details
-      fetch(serverEndpoint)
-        .then(response => response.json())
-        .then(data => {
-          console.log('Fetched additional user information:', data);
-
-          // Optionally, you can update the user context with the fetched data
-          // setUser(prevUser => ({ ...prevUser, additionalData: data }));
-        })
-        .catch(error => {
-          console.error('Error fetching user information:', error);
-        });
-    }
-  }, [user]); // Add dependencies as needed
 
   return (
     <>
