@@ -13,7 +13,7 @@ const SignIn = () => {
 
     useEffect(() => {
         if (user !== null) {
-            const { displayName, uid } = user;
+            const { displayName, uid,userid } = user;
             const [first_name, last_name] = displayName.split(' ');
     
             // Check if user already exists in the database
@@ -23,7 +23,8 @@ const SignIn = () => {
                     if (response.data ) {
                         // User with the given UID exists, retrieve information
                         console.log('User already exists. Retrieving information:', response.data);
-                        navigate('/')
+                        console.log(response.data.userid)
+                        navigate(`/editprofile/${response.data.userid}`)
                        
                     } else {
                         // User does not exist, store user information in the database
@@ -32,6 +33,7 @@ const SignIn = () => {
                             last_name,
                             company: '', // Assuming company is not available from Google sign-in
                             uid,
+                            userid
                         };
     
                         axios.post(`${localhostapi}/adduser`, userData)
@@ -43,7 +45,6 @@ const SignIn = () => {
                             });
                     }
     
-                    navigate('/');
                     
                 })
                 .catch(error => {

@@ -17,6 +17,7 @@ import Connect from './screens/Connect';
 import Help from './screens/Help';
 import ImportantInfo from './screens/ImportantInfo';
 import SignIn from './screens/SignIn';
+import EditProfile from './screens/EditProfile';
 import { AuthContextProvider } from './context/AuthContext';
 
 
@@ -36,6 +37,7 @@ class App extends React.Component {
               <Route path="/help" element={<Help />} /> 
               <Route path="/importantinfo" element={<ImportantInfo />} /> 
               <Route path="/signin" element={<SignIn />} /> 
+              <Route path="/editprofile/:userid" element={<EditProfile />} /> 
             </Routes>
           </AuthContextProvider>
       </div>
