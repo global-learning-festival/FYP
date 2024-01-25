@@ -32,12 +32,12 @@ export const LinkedInApi = {
 
 
   export const LinkedInApi = {
-    clientId: '86bmj5hgj05pbm', // Update with your CLIENT_ID
-    redirectUrl: 'http://localhost:5000/api/linkedine/redirect', // Update with your REDIRECT_URL
-    redirect_uri: 'http://localhost:5000/api/linkedin/redirect',
+    CLIENT_ID: '86bmj5hgj05pbm', // Update with your CLIENT_ID
+    CLIENT_SECRET: 'SLqhmywaNKgICBMw',
+    redirectUrl: 'http://localhost:5000/api/linkedin/redirect', // Update with your REDIRECT_URL
+    REDIRECT_URI: 'http://localhost:5000/api/linkedin/redirect',
     oauthUrl: 'http://localhost:5000/api/linkedin/authorize',
-    scope: 'email profile', // Update with your desired scope
-    state: '123456',
+    SCOPE: 'openid profile email', // Update with your desired scope
   };
   
   export const NodeServer = {
