@@ -29,18 +29,31 @@ const EditProfileForm = () => {
     });
   };
 
+  const isValidLinkedInUrl = (url) => {
+    // Check if the LinkedIn URL includes specific characters
+    const regex = /^(https?:\/\/)?(www\.)?linkedin\.com\/.*$/;
+    return regex.test(url);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Check if the LinkedIn URL is valid
+    if (user.linkedinurl && !isValidLinkedInUrl(user.linkedinurl)) {
+      // Show error notification for an invalid LinkedIn URL
+      NotificationManager.error('Invalid LinkedIn URL. Please check and try again.');
+      return;
+    }
+
     try {
       await axios.put(`http://localhost:5000/user/${userid}`, user);
-      
+
       // Show success notification
       NotificationManager.success('Changes saved successfully');
 
       // Redirect after a delay
       setTimeout(() => {
-        navigate('/');
+        navigate(`/allusers`);
       }, 600);
     } catch (error) {
       console.error('Error updating user profile:', error.message);
@@ -106,4 +119,3 @@ const EditProfileForm = () => {
 };
 
 export default EditProfileForm;
-
