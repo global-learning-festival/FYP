@@ -99,7 +99,7 @@ import { colorSpace } from '@cloudinary/transformation-builder-sdk/actions/deliv
         <>
         <div className='m-2'>
           <div
-            className="relative h-full mx-auto sm:mx-0 max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105"
+            className="relative h-full mx-auto max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105"
             onClick={onClick}
           >
           <AdvancedImage
@@ -228,7 +228,7 @@ import { colorSpace } from '@cloudinary/transformation-builder-sdk/actions/deliv
       const row = filteredEvents.slice(i, i + cardsPerRow);
       
       rows.push(
-        <div key={i / cardsPerRow} className='sm:flex sm:flex-wrap justify-center'>
+        <div key={i / cardsPerRow} className='sm:flex justify-center'>
           {row.map((eventItem, index) => {
             const startDate = new Date(eventItem.time_start);
             const formattedDate = startDate.toLocaleDateString('en-US', {
