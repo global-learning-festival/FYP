@@ -28,8 +28,9 @@ const Announcement = ({ announcementid, title, description, announcement_posted,
 
   return (
     <>
+    <div className='m-2'>
       <div
-        className='flex-1 m-2 p-4 md:p-6 bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
+        className='flex-1 m-auto p-4 h-full max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
         onClick={onClick}
       >
         <h5 className='mb-2 text-xl md:text-2xl font-bold tracking-tight text-black'>{title}</h5>
@@ -37,6 +38,7 @@ const Announcement = ({ announcementid, title, description, announcement_posted,
         <div className='bg-teal-700 text-white rounded-full py-1 px-2 absolute bottom-2 right-2 h-6 md:h-8'>
           <p className='text-xs md:text-sm'>{formattedDate} {startTime}</p>
         </div>
+      </div>
       </div>
     </>
   );
@@ -73,7 +75,7 @@ const AnnouncementList = () => {
   for (let i = 0; i < announcements.length; i += cardsPerRow) {
     const row = announcements.slice(i, i + cardsPerRow);
     rows.push(
-      <div key={i / cardsPerRow} className='sm:flex sm:flex-wrap justify-center'>
+      <div key={i / cardsPerRow} className='sm:flex justify-center'>
         {row.map((announcementItem, index) => (
           <Announcement
             key={index}
