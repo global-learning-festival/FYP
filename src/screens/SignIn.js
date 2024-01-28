@@ -14,48 +14,48 @@ const SignIn = () => {
 
     useEffect(() => {
         if (user !== null) {
-            const { displayName, uid,userid } = user;
-            const [first_name, last_name] = displayName.split(' ');
+            const { displayName, uid, userid } = user;
     
-            // Check if user already exists in the database
-            setLoading(true);
-            axios.get(`${localhostapi}/useruid/${uid}`)
-                .then(response => {
-                    if (response.data ) {
-                        // User with the given UID exists, retrieve information
-                        console.log('User already exists. Retrieving information:', response.data);
-                        console.log(response.data.userid)
-                        navigate(`/editprofile/${response.data.userid}`)
-                       
-                    } else {
-                        // User does not exist, store user information in the database
-                        const userData = {
-                            first_name,
-                            last_name,
-                            company: '', // Assuming company is not available from Google sign-in
-                            uid,
-                            userid,
-                            type: config2.type
-                        };
+            if (displayName && typeof displayName === 'string') {
+                const [first_name, last_name] = displayName.split(' ');
     
-                        axios.post(`${localhostapi}/adduser`, userData)
-                            .then(response => {
-                                console.log('User information stored successfully:', response.data);
-                            })
-                            .catch(error => {
-                                console.error('Error storing user information:', error);
-                            });
-                    }
+                setLoading(true);
+                axios.get(`${localhostapi}/useruid/${uid}`)
+                    .then(response => {
+                        if (response.data) {
+                            console.log('User already exists. Retrieving information:', response.data);
+                            console.log(response.data.userid);
+                            navigate(`/editprofile/${response.data.userid}`);
+                        } else {
+                            const userData = {
+                                first_name,
+                                last_name,
+                                company: '',
+                                uid,
+                                userid,
+                                type: config2.type
+                            };
     
-                    
-                })
-                .catch(error => {
-                    console.error('Error checking user existence:', error);
-                    navigate('/');
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+                            axios.post(`${localhostapi}/adduser`, userData)
+                                .then(response => {
+                                    console.log('User information stored successfully:', response.data);
+                                })
+                                .catch(error => {
+                                    console.error('Error storing user information:', error);
+                                });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error checking user existence:', error);
+                        navigate('/');
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    });
+            } else {
+                console.error('User display name is undefined or not a string');
+                navigate('/signin');
+            }
         }
     }, [user, navigate, localhostapi, serverlessapi]);
     
