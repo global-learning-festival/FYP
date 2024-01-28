@@ -179,7 +179,7 @@ const MapComponent = (props) => {
 
   return (
     <div id="map">
-      <MapContainer center={position} zoom={16} style={{ width: '100%', height: '930px' }} ref={mapRef}>
+      <MapContainer center={position} zoom={16.5} style={{ width: '100%', height: '930px' }} ref={mapRef}>
         <TileLayer
           url="https://www.onemap.gov.sg/maps/tiles/Default/{z}/{x}/{y}.png"
           attribution='Map data © <a href="https://www.onemap.sg/" target="_blank">OneMap</a'
@@ -254,24 +254,28 @@ const MapComponent = (props) => {
       <button
   className={`filter-button ${selectedCategory === 'water' ? 'active water' : ''}`}
   onClick={() => handleFilterClick('water')}
+  id="FilterButton"
 >
   Water Refill Stations
 </button>
 <button
   className={`filter-button ${selectedCategory === 'register' ? 'active register' : ''}`}
   onClick={() => handleFilterClick('register')}
+  id="FilterButton"
 >
   Registration Desks
 </button>
 <button
   className={`filter-button ${selectedCategory === 'conference' ? 'active conference' : ''}`}
   onClick={() => handleFilterClick('conference')}
+  id="FilterButton"
 >
-  Conference Rooms
+  Convention Centre
 </button>
 <button
   className={`filter-button ${selectedCategory === 'toilet' ? 'active toilet' : ''}`}
   onClick={() => handleFilterClick('toilet')}
+  id="FilterButton"
 >
   Restrooms
 </button>
