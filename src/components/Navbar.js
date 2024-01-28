@@ -36,20 +36,20 @@ const Navbar = () => {
         <div onClick={handleNav} className='block md:hidden'>
           {nav ? <AiOutlineClose size={20}/> : <AiOutlineMenu size={20} />}
         </div>
-          <img src={isate2024Logo} alt="Logo" className="md:h-20 w-1/2 md:w-1/4 lg:w-1/5 md:hidden" />
+          <img src={isate2024Logo} alt="Logo" className="w-1/2 md:hidden" />
         <div className='md:hidden pt-2'>
             <Link to="/importantinfo"><AiOutlineInfoCircle className='text-black' size={25} onClick={handleImportantInfoClick} /></Link>
         </div>
         <ul className={nav ? 'fixed left-0 top-20 w-[70%] h-full bg-[#EDF1F4] ease-in-out duration-500 z-20': 'ease-in-out fixed left-[-100%] z-20'}>
-        <h3 className='w-full font-bold text-[#000] pt-10'>{ user?.displayName }</h3>
-          { user ? (<button className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 hover:bg-[#3A426C] hover:drop-shadow-xl' onClick={handleSignOut}>Logout</button>) : 
-          <button onClick={handleNav} className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 hover:bg-[#3A426C] hover:drop-shadow-xl'>
+        <h3 className='w-full font-bold text-[#000] mt-10 ml-12 mb-2.5'>{ user?.displayName }</h3>
+          { user ? (<button className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl' onClick={handleSignOut}>Logout</button>) : 
+          <button onClick={handleNav} className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl'>
             <Link to="/signin" style={{ textDecoration: 'none', color: 'inherit' }}>Login</Link></button>} 
-          <li className='p-4'><Link to="/" className='no-underline text-black' onClick={handleNav}>Home</Link></li>
-          <li className='p-4'><Link to="/map" className='no-underline text-black' onClick={handleNav}>Map</Link></li>
-          <li className='p-4'><Link to="/announcement" className='no-underline text-black' onClick={handleNav}>Announcement</Link></li>
-          <li className='p-4 '><Link to="/connect" className='no-underline text-black' onClick={handleNav}>Connect</Link></li>
-          <li className='p-4'><Link to="/help" className='no-underline text-black' onClick={handleNav}>Help</Link></li>
+          <li className='m-14'><Link to="/" className='no-underline text-black' onClick={handleNav}>Home</Link></li>
+          <li className='m-14'><Link to="/map" className='no-underline text-black' onClick={handleNav}>Map</Link></li>
+          <li className='m-14'><Link to="/announcement" className='no-underline text-black' onClick={handleNav}>Announcement</Link></li>
+          <li className='m-14'><Link to="/connect" className='no-underline text-black' onClick={handleNav}>Connect</Link></li>
+          <li className='m-14'><Link to="/help" className='no-underline text-black' onClick={handleNav}>Help</Link></li>
       </ul>
 
       <div className='hidden md:flex ml-10'>

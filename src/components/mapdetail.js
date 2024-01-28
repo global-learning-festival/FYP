@@ -13,14 +13,10 @@ import axios from 'axios';
 import polyline from 'polyline';
 import config2 from './config2';
 
-
-
-
 const MapComponent = (props) => {
-  const localhostapi= "http://localhost:5000"
-  const serverlessapi ="https://fyp-9bxz.onrender.com" 
+  const localhostapi = "http://localhost:5000";
+  const serverlessapi = "https://fyp-9bxz.onrender.com";
   const [userLocation, setUserLocation] = useState(null);
-  
   const [hasLocationPermission, setHasLocationPermission] = useState(true);
   const [isRouting, setIsRouting] = useState(false);
   const [routingControl, setRoutingControl] = useState(null);
@@ -28,10 +24,6 @@ const MapComponent = (props) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const position = [1.310411032362568, 103.77767848691333];
   const mapRef = useRef();
-  
-  
-
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,11 +35,9 @@ const MapComponent = (props) => {
         console.error('Error fetching refill locations:', error);
       }
     };
-  
+
     fetchData();
   }, []);
-
-
 
   const handleRouteButtonClick = async (coordinates) => {
     if (isRouting) {
@@ -58,10 +48,8 @@ const MapComponent = (props) => {
           console.error('Map or user location not available.');
           return;
         }
-       
-        const urluser=`https://www.onemap.gov.sg/api/auth/post/getToken`
 
-
+        const urluser = `https://www.onemap.gov.sg/api/auth/post/getToken`;
 
         const requestBody = {
           email: config2.email,
@@ -74,16 +62,10 @@ const MapComponent = (props) => {
           },
           body: JSON.stringify(requestBody),
         });
-        
-        // Assuming the response is in JSON format, you can parse it
+
         const userresponseData = await userresponse.json();
-        
-        // Now you can use the responseData as needed
-        console.log("token response",userresponseData.access_token);
+        console.log("token response", userresponseData.access_token);
 
-
-
-        // Add your OneMap API authentication token here
         const authToken = userresponseData.access_token;
         const startCoordinates = `${userLocation[0]},${userLocation[1]}`;
         const endCoordinates = `${coordinates[0]},${coordinates[1]}`;
@@ -130,9 +112,6 @@ const MapComponent = (props) => {
     }
   };
 
-  
-  
-
   const handleStopRouting = () => {
     if (isRouting && routingControl) {
       mapRef.current.removeControl(routingControl);
@@ -143,10 +122,8 @@ const MapComponent = (props) => {
 
   const handleFilterClick = (category) => {
     if (selectedCategory === category) {
-      // If the same category button is clicked again, reset selectedCategory to null (show all markers)
       setSelectedCategory(null);
     } else {
-      // If a different category button is clicked, set the selected category
       setSelectedCategory(category);
     }
   };
@@ -170,7 +147,6 @@ const MapComponent = (props) => {
 
   useEffect(() => {
     return () => {
-      // Cleanup when the component is unmounted
       if (routingControl) {
         mapRef.current.removeControl(routingControl);
       }
@@ -178,23 +154,22 @@ const MapComponent = (props) => {
   }, [routingControl]);
 
   return (
-    <div id="map">
-      <MapContainer center={position} zoom={16} style={{ width: '100%', height: '930px' }} ref={mapRef}>
+    <div id="map" className="relative">
+      <MapContainer center={position} zoom={16.5} className="w-full h-screen" ref={mapRef}>
         <TileLayer
           url="https://www.onemap.gov.sg/maps/tiles/Default/{z}/{x}/{y}.png"
           attribution='Map data © <a href="https://www.onemap.sg/" target="_blank">OneMap</a'
         />
-         
+
         {userLocation && (
           <CircleMarker center={userLocation} radius={5} color="red">
             <Popup>User's Location</Popup>
           </CircleMarker>
         )}
+
         {filteredMarkerLocations.map((markerlocation) => {
-          // Log the refillLocation data
           let iconUrl;
 
-          // Determine the iconUrl based on the category
           switch (markerlocation.category) {
             case 'water':
               iconUrl = waterMarker;
@@ -203,18 +178,15 @@ const MapComponent = (props) => {
               iconUrl = registerMarker;
               break;
             case 'conference':
-              iconUrl = conferenceMarker; 
+              iconUrl = conferenceMarker;
               break;
             case 'toilet':
               iconUrl = toiletMarker;
               break;
-            // Add more cases for other categories if needed
-    
             default:
-              // Default icon if category doesn't match any predefined cases
               iconUrl = waterMarker;
           }
-    
+
           const customIcon = L.icon({
             iconUrl: iconUrl,
             iconSize: [18, 29],
@@ -222,62 +194,56 @@ const MapComponent = (props) => {
             popupAnchor: [0, -32],
           });
 
-          const coordinates = markerlocation.coordinates.split(',').map((coord) => parseFloat(coord))
-          console.log('Refill Location:', coordinates);
-          // Add a check to ensure refillLocation.coordinates is not null or undefined
-         
-            return (
-              <Marker key={markerlocation.mapid} position={coordinates} icon={customIcon}>
-                <Popup>
-                  <div id={`divRefill${markerlocation.mapid}`}>
-                    <h3 id={`Refill${markerlocation.mapid}`}>{markerlocation.location_name}</h3>
-                    <img src={Image} alt="Myself" />
-                    <p>{markerlocation.description}</p>
-                    {hasLocationPermission && (
-                      <button
-                        id="RefillButton"
-                        onClick={() => (isRouting ? handleStopRouting() : handleRouteButtonClick(coordinates))}
-                      >
-                        {isRouting ? 'Stop Routing' : `Route to ${markerlocation.location_name}`}
-                      </button>
-                    )}
-                    {!hasLocationPermission && <p>Please enable location services to show route</p>}
-                  </div>
-                </Popup>
-              </Marker>
-            );
-           // or you can render a default marker or handle it according to your use case
-          
+          const coordinates = markerlocation.coordinates.split(',').map((coord) => parseFloat(coord));
+
+          return (
+            <Marker key={markerlocation.mapid} position={coordinates} icon={customIcon}>
+              <Popup>
+                <div id={`divRefill${markerlocation.mapid}`}>
+                  <h3 id={`Refill${markerlocation.mapid}`}>{markerlocation.location_name}</h3>
+                  <img src={Image} alt="Myself" />
+                  <p>{markerlocation.description}</p>
+                  {hasLocationPermission && (
+                    <button
+                      id="RefillButton"
+                      onClick={() => (isRouting ? handleStopRouting() : handleRouteButtonClick(coordinates))}
+                    >
+                      {isRouting ? 'Stop Routing' : `Route to ${markerlocation.location_name}`}
+                    </button>
+                  )}
+                  {!hasLocationPermission && <p>Please enable location services to show route</p>}
+                </div>
+              </Popup>
+            </Marker>
+          );
         })}
       </MapContainer>
-      <div id="buttons-container" className="flex fixed bottom-10 left-1/2 transform -translate-x-1/2 z-10">
-      <button
-  className={`filter-button ${selectedCategory === 'water' ? 'active water' : ''}`}
-  onClick={() => handleFilterClick('water')}
->
-  Water Refill Stations
-</button>
-<button
-  className={`filter-button ${selectedCategory === 'register' ? 'active register' : ''}`}
-  onClick={() => handleFilterClick('register')}
->
-  Registration Desks
-</button>
-<button
-  className={`filter-button ${selectedCategory === 'conference' ? 'active conference' : ''}`}
-  onClick={() => handleFilterClick('conference')}
->
-  Conference Rooms
-</button>
-<button
-  className={`filter-button ${selectedCategory === 'toilet' ? 'active toilet' : ''}`}
-  onClick={() => handleFilterClick('toilet')}
->
-  Restrooms
-</button>
-    </div>
-      <div>
-      
+
+      <div id="buttons-container" className="flex flex-wrap justify-center items-center fixed bottom-4 sm:bottom-10 left-1/2 transform -translate-x-1/2 z-20">
+        <button
+          className={`filter-button ${selectedCategory === 'water' ? 'water' : ''} px-3 py-2 mx-1 my-1 bg-blue-500 text-white rounded-md`}
+          onClick={() => handleFilterClick('water')}
+        >
+          Water Refill Stations
+        </button>
+        <button
+          className={`filter-button ${selectedCategory === 'register' ? 'register' : ''} px-3 py-2 mx-1 my-1 bg-[#B76711] text-white rounded-md`}
+          onClick={() => handleFilterClick('register')}
+        >
+          Registration Desks
+        </button>
+        <button
+          className={`filter-button ${selectedCategory === 'conference' ? 'conference' : ''} px-3 py-2 mx-1 my-1 bg-[#39B54A] text-white rounded-md`}
+          onClick={() => handleFilterClick('conference')}
+        >
+          Conference Rooms
+        </button>
+        <button
+          className={`filter-button ${selectedCategory === 'toilet' ? 'toilet' : ''} px-3 py-2 mx-1 my-1 bg-red-500 text-white rounded-md`}
+          onClick={() => handleFilterClick('toilet')}
+        >
+          Restrooms
+        </button>
       </div>
     </div>
   );
