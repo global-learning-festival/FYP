@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import GoogleButton from 'react-google-button';
-import LinkedIn from '../components/Linkedin'; // Import LinkedIn component directly
 import { UserAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // Import axios for making HTTP requests
@@ -70,14 +69,7 @@ const SignIn = () => {
                     <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500 dark:text-gray-400">
                         Have access to personalised features by signing in with Google!
                     </p>
-                    <div className="flex items-center justify-center mt-3">
                     <GoogleButton onClick={googleSignIn} />
-                    </div>
-                    <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500 dark:text-gray-400 mt-3">or</p>
-                    <div className="flex items-center justify-center mt-3">
-                        <LinkedIn></LinkedIn>
-                    </div>
-                    
                 </div>
             </div>
         </>
