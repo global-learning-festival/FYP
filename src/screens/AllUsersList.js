@@ -18,7 +18,7 @@ const QRCodePopupCard = ({ title, qrCodeValue, onClose }) => {
   );
 };
 
-const AllUsersList = () => {
+const QRCodeGenerator = () => {
   const [userData, setUserData] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -67,4 +67,4 @@ const AllUsersList = () => {
   );
 };
 
-export default AllUsersList;
+export default QRCodeGenerator;
