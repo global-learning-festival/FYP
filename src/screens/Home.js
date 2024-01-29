@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Hero from '../images/Hero.png';
 import { useNavigate } from 'react-router-dom';
 import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import { Cloudinary } from "@cloudinary/url-gen";
