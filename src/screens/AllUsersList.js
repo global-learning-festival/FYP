@@ -21,11 +21,13 @@ const QRCodePopupCard = ({ title, qrCodeValue, onClose }) => {
 const AllUsersList = () => {
   const [userData, setUserData] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
+   const localhostapi = "http://localhost:5000";
+  const serverlessapi = "https://fyp-9bxz.onrender.com";
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/userlist`);
+        const response = await axios.get(`${serverlessapi}/userlist`);
         setUserData(response.data);
         console.log(response.data);
       } catch (error) {
