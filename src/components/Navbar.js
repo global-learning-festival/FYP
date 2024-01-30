@@ -4,10 +4,16 @@ import { Link } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
 import '../styles/navbar.css';
 import isate2024Logo from '../images/isate2024-logo.png';
+import QRCodeGenerator from '../screens/QrCodeGenerator'
+import { useParams } from 'react-router-dom';
+
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
   const [showImportantInfo, setShowImportantInfo] = useState(false);
+  const loggedInUserID = localStorage.getItem("loggedInUserID");
+  const [userData, setUserData] = useState(null);
+  const { userid } = useParams();
 
   const {user, logout} = UserAuth();
 
@@ -30,6 +36,46 @@ const Navbar = () => {
     }
   }
 
+  const MyQR = ({ loggedInUserID }) => {
+    const [showQRCode, setShowQRCode] = useState(false);
+  
+    const handleQRButtonClick = () => {
+      setShowQRCode(!showQRCode);
+    };
+  
+    return (
+      <div>
+        {loggedInUserID !== null && (
+          <>
+            <button
+              onClick={handleQRButtonClick}
+              className={`text-white bg-[#4B558A] font-medium rounded-md font-medium rounded-md text-sm px-5 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl`}
+            >
+              My QR
+            </button>
+            {showQRCode && <QRCodeGenerator userid={userid} />}
+          </>
+        )}
+      </div>
+    );
+  };
+
+  const QRScanner = ({ loggedInUserID }) => {
+    return (
+      <div>
+        {loggedInUserID !== null && (
+        <>
+        <button className={`text-white bg-[#4B558A] font-medium rounded-md font-medium rounded-md text-sm px-5 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl`}>
+            QR Scanner
+        </button>
+        </>
+            )}
+      </div>
+    );
+  };
+
+
+
   return (
     
     <div className='bg-[#FFF] flex justify-between items-center h-20 mt-auto px-4 text-black z-100'>
@@ -45,6 +91,16 @@ const Navbar = () => {
           { user ? (<button className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl' onClick={handleSignOut}>Logout</button>) : 
           <button onClick={handleNav} className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl'>
             <Link to="/signin" style={{ textDecoration: 'none', color: 'inherit' }}>Login</Link></button>} 
+            <>
+            {loggedInUserID !== null && (
+              <Link><MyQR/></Link>
+            )}
+            </>
+            <>
+            {loggedInUserID !== null && (
+              <Link to="/scan"><QRScanner/></Link>
+            )}
+            </>
           <li className='m-14'><Link to="/" className='no-underline text-black' onClick={handleNav}>Home</Link></li>
           <li className='m-14'><Link to="/map" className='no-underline text-black' onClick={handleNav}>Map</Link></li>
           <li className='m-14'><Link to="/announcement" className='no-underline text-black' onClick={handleNav}>Announcement</Link></li>
@@ -52,14 +108,12 @@ const Navbar = () => {
           <li className='m-14'><Link to="/help" className='no-underline text-black' onClick={handleNav}>Help</Link></li>
       </ul>
 
-      <div className='hidden md:flex ml-10'>
-        
+      <div className='hidden md:flex ml-10'> 
           <h4 className='w-full font-bold text-[#000] mt-2 mr-3'>{ user?.displayName }</h4>
           { user ? (<button className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 hover:bg-[#3A426C] hover:drop-shadow-xl' 
           onClick={handleSignOut}>Logout</button>) 
           : <button className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 hover:bg-[#3A426C] hover:drop-shadow-xl'>
             <Link to="/signin" style={{ textDecoration: 'none', color: 'inherit' }}>Login</Link></button>}
-    
       </div>
 
       <ul className='hidden md:flex mr-20 pt-3'>

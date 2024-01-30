@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AllUsersList from './AllUsersList'
-import QRCodeGenerator from './QrCodeGenerator'
-import QRCodeVerifier from './QrCodeScanner'
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+
 
 
 const Connect = () => {
@@ -43,57 +40,24 @@ const Connect = () => {
       )}
       <>
       {loggedInUserID !== null && (
-      <FilterBar currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} />
+      <UserList></UserList>
       )}
       </>
-      
     </>
     
   );
 };
 
-const FilterBar = ({ currentCategory, setCurrentCategory, loggedInUserID }) => {
+const UserList = ({ loggedInUserID }) => {
   return (
     <div className="mt-4">
       {loggedInUserID !== null && (
       <>
-      <div className="flex justify-center"><button
-        className={`mx-2 px-4 py-2 ${
-          currentCategory === 'All Users' ? 'text-violet-950 transition border-b-2 border-violet-900 shadow-none' : 'shadow-none'
-        }`}
-        onClick={() => setCurrentCategory('All Users')}
-      >
-        All Users
-      </button>
-      <button
-        className={`mx-2 px-4 py-2 ${
-          currentCategory === 'My QR Code' ? 'text-violet-950 transition border-b-2 border-violet-900 shadow-none' : 'shadow-none'
-        }`}
-        onClick={() => setCurrentCategory('My QR Code')}
-      >
-        My QR Code
-      </button>
-      <button
-        className={`mx-2 px-4 py-2 ${
-          currentCategory === 'QR Code Scanner' ? 'text-violet-950 transition border-b-2 border-violet-900 shadow-none' : 'shadow-none'
-        }`}
-        onClick={() => setCurrentCategory('QR Code Scanner')}
-      >
-        QR Code Scanner
-      </button>
-      </div>
-      <div>
-      {currentCategory === 'All Users' && <AllUsersList />}
-      </div>
-      <div>
-      {currentCategory === 'My QR Code' && <QRCodeGenerator />}
-      </div>
-      <div>
-      {currentCategory === 'QR Code Scanner' && <QRCodeVerifier />}
+      <div className="">
+      <AllUsersList />
       </div>
       </>
           )}
-          
     </div>
   );
 };
