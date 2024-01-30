@@ -92,24 +92,7 @@ MapContainer {
 #userLocationMarker {
     color: red;
 }
-button {
-    background-color: #ffffff;
-    color: #000000;
-    padding: 0; /* Remove the default padding */
-    width: 190px; /* Set fixed width */
-    height: 42px; /* Set fixed height */
-    margin: 5px;
-    cursor: pointer;
-    border-radius: 5px;
-    box-shadow: 0 6px 6px -3px rgba(0, 0, 0,0.5);
-    font-size: 15px;
-    font-family: notosans;
-    z-index: 0;
 
-}
-/* Change button color on hover */
-
- 
   /* Add this CSS to hide direction steps on smaller screens */
 
 
