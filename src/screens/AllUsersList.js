@@ -5,9 +5,6 @@ import blankprofilepicture from '../images/blank-profile-picture.png'
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage, responsive, placeholder } from "@cloudinary/react"; 
 
-import { Cloudinary } from "@cloudinary/url-gen";
-import { AdvancedImage, responsive, placeholder } from "@cloudinary/react"; 
-
 const QRCodePopupCard = ({ title, qrCodeValue, profilePic, onClose }) => {
   const [cloudName] = useState("dxkozpx6g");
   const cld = new Cloudinary({
@@ -44,13 +41,18 @@ const AllUsersList = () => {
   const [userData, setUserData] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
    const localhostapi = "http://localhost:5000";
-  const serverlessapi = "https://fyp-9bxz.onrender.com";
+  const [cloudName] = useState("dxkozpx6g");
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName
+    }
+  });
 
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`${serverlessapi}/userlist`);
+        const response = await axios.get(`${localhostapi}/userlist`);
         setUserData(response.data);
         console.log(response.data);
       } catch (error) {
@@ -71,24 +73,27 @@ const AllUsersList = () => {
     setSelectedUser(null);
   };
 
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName
-    }
-  });
-
   return (
     <div className="max-w-screen-md mx-auto p-6">
       <h2 className="text-center text-2xl font-bold mb-4">Expand your connection today!</h2>
       {userData && (
-        <div>
-          {userData.map((user) => (
-            <div key={user.id} className="mx-auto h-auto max-w-48  bg-white p-4 rounded-lg shadow-md mb-4" onClick={() => handleCardClick(user)}>
-              <img
-                src={user.profile_pic || blankprofilepicture}
-                className="mx-auto h-auto max-w-24 rounded-full w-24 h-full"
-                alt={`${user.username || user.first_name || 'N/A'} ${user.last_name || 'N/A'}`}
-              />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {userData.map((user, index) => (
+            <div key={user.id || index} className="mx-auto bg-white p-4 rounded-lg shadow-md" onClick={() => handleCardClick(user)}>
+              {user.profile_pic ? (
+                <AdvancedImage
+                  className="object-contain w-16 h-16 md:w-24 md:h-24 rounded-full mx-auto"
+                  cldImg={cld.image(user.profile_pic)}
+                  plugins={[responsive(), placeholder()]}
+                />
+              ) : (
+                <img
+                  className="object-contain w-16 h-16 md:w-24 md:h-24 rounded-full mx-auto"
+                  src={blankprofilepicture}
+                  alt={`${user.username || user.first_name || 'N/A'} ${user.last_name || 'N/A'}`}
+                />
+              )}
+              {console.log("userprofile_pic: " + user.profile_pic)}
               <p className="text-center mx-auto">{`${user.username || user.first_name || 'N/A'} ${user.last_name || 'N/A'}`}</p>
               <p className="text-center mx-auto ">{`${user.jobtitle || 'N/A'}`}</p>
               <p className="text-center mx-auto ">{`${user.company || 'N/A'}`}</p>
@@ -96,11 +101,10 @@ const AllUsersList = () => {
           ))}
         </div>
       )}
-      {selectedUser &&  (
+      {selectedUser && (
         <QRCodePopupCard
           title={`QR Code for ${selectedUser.username || selectedUser.first_name || 'N/A'} ${selectedUser.last_name || 'N/A'}`}
           qrCodeValue={selectedUser.linkedinurl}
-          profilePic={selectedUser.profile_pic}  // Assuming the user object has a 'profile_pic' property
           onClose={handlePopupClose}
         />
       )}
