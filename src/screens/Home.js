@@ -76,7 +76,7 @@ const Home = ({ eventid, title, description, image, formattedDate, startTime, en
     return words.slice(0, limit).join(' ') + (words.length > limit ? '...' : '');
   };
 
-  const limitedDescription = limitWords(description, 8);
+  const limitedDescription = limitWords(description, 5);
 
   return (
     <>
@@ -92,7 +92,7 @@ const Home = ({ eventid, title, description, image, formattedDate, startTime, en
           />
           <div className="p-3">
             <div className="flex justify-between items-center">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{title}</h5>
+              <h5 className="mb-2 text-2xl md:text-xl font-bold tracking-tight text-gray-900">{title}</h5>
               {loggedInUserID !== null && (
                 <div className='flex flex-col items-end'>
                   {isBookmarked ? (
@@ -105,12 +105,12 @@ const Home = ({ eventid, title, description, image, formattedDate, startTime, en
             </div>
             <p className="mb-3 font-normal text-gray-700">{limitedDescription}</p>
             <div className='flex justify-end'>
-              <div className='bg-[#293262] text-white rounded-full mr-0.5 py-1 px-2.5 h-6 sm:h-10 lg:h-8'>
+              <div className='bg-[#293262] text-white rounded-full mr-0.5 py-1 md:py-1.5 px-2.5 h-6 sm:h-10 lg:h-8'>
                 <p className='text-xs md:text-sm'>
                   {formattedDate}
                 </p>
               </div>
-              <div className='bg-[#487572] text-white rounded-full py-1 px-2.5 h-6 sm:h-10 lg:h-8'>
+              <div className='bg-[#487572] text-white rounded-full py-1 md:py-1.5 px-2.5 h-6 sm:h-10 lg:h-8'>
                 <p className='text-xs md:text-sm'>
                   {startTime} - {endTime}
                 </p>

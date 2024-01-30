@@ -54,10 +54,10 @@ const Navbar = () => {
 
       <div className='hidden md:flex ml-10'>
         
-          <h4 className='w-full font-bold text-[#000] mt-2 mr-3'>{ user?.displayName }</h4>
-          { user ? (<button className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 hover:bg-[#3A426C] hover:drop-shadow-xl' 
+          <h4 className='w-full font-bold text-[#000] mt-2 mr-3'>{user?.displayName }</h4>
+          { user ? (<button className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl' 
           onClick={handleSignOut}>Logout</button>) 
-          : <button className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 hover:bg-[#3A426C] hover:drop-shadow-xl'>
+          : <button className='text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl'>
             <Link to="/signin" style={{ textDecoration: 'none', color: 'inherit' }}>Login</Link></button>}
     
       </div>

@@ -23,28 +23,31 @@ const PopupCard = ({ title, description, image, onClose }) => {
   const [publicId, setPublicId] = useState("");
   const [cloudName] = useState("dxkozpx6g");
 
-  const handleCopyToClipboard = () => {
-    const textToCopy = description || "";
-    // Create a textarea element to hold the text
-    const textArea = document.createElement('textarea');
-    textArea.value = textToCopy;
+  console.log("publicId:", publicId);
+  console.log("image:", image);
 
-    // Append the textarea to the document
-    document.body.appendChild(textArea);
+  // const handleCopyToClipboard = () => {
+  //   const textToCopy = description || "";
+  //   // Create a textarea element to hold the text
+  //   const textArea = document.createElement('textarea');
+  //   textArea.value = textToCopy;
 
-    // Select the text in the textarea
-    textArea.select();
-    textArea.setSelectionRange(0, 99999); // For mobile devices
+  //   // Append the textarea to the document
+  //   document.body.appendChild(textArea);
 
-    // Copy the text to the clipboard
-    document.execCommand('copy');
+  //   // Select the text in the textarea
+  //   textArea.select();
+  //   textArea.setSelectionRange(0, 99999); // For mobile devices
 
-    // Remove the textarea from the document
-    document.body.removeChild(textArea);
+  //   // Copy the text to the clipboard
+  //   document.execCommand('copy');
 
-    // Optionally, provide some user feedback
-    alert('Text copied to clipboard!');
-  };
+  //   // Remove the textarea from the document
+  //   document.body.removeChild(textArea);
+
+  //   // Optionally, provide some user feedback
+  //   alert('Text copied to clipboard!');
+  // };
 
   const cld = new Cloudinary({
     cloud: {
@@ -54,7 +57,7 @@ const PopupCard = ({ title, description, image, onClose }) => {
 
   return (
     <div className='fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50'>
-      <div className='bg-white p-6 border border-gray-200 rounded-md shadow'>
+      <div className='bg-white p-6 border border-gray-200 rounded-md shadow m-4'>
         <h5 className='mb-2 text-2xl font-bold tracking-tight text-black'>{title}</h5>
         {image && (
           <AdvancedImage
@@ -115,13 +118,14 @@ const ImportantInfoList = () => {
   for (let i = 0; i < importantInformation.length; i += cardsPerRow) {
     const row = importantInformation.slice(i, i + cardsPerRow);
     rows.push(
-      <div key={i / cardsPerRow} className='lg:flex justify-center'>
+      <div key={i} className='lg:flex justify-center'>
         {row.map((info, index) => (
-          <ImportantInfoCard
-            key={info.id}
-            {...info}
-            onClick={() => handleCardClick(info)}
-          />
+          <div key={`${i}-${index}`} className='m-2 flex'>
+            <ImportantInfoCard
+              {...info}
+              onClick={() => handleCardClick(info)}
+            />
+          </div>
         ))}
       </div>
     );
