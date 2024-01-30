@@ -1,9 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import 'tailwindcss/tailwind.css'; // Import Tailwind CSS
 import { Html5QrcodeScanner } from 'html5-qrcode';
 
 const QRCodeVerifier = () => {
+  const scannerRef = useRef(null);
+  const [scannerActive, setScannerActive] = useState(true);
+
   useEffect(() => {
+
     const docReady = (fn) => {
       if (document.readyState === 'complete' || document.readyState === 'interactive') {
         setTimeout(fn, 1);
@@ -14,6 +18,8 @@ const QRCodeVerifier = () => {
 
     const onScanSuccess = (decodedText, decodedResult) => {
       window.open(decodedText, '_blank');
+      // Set scannerActive to false after successful scan to allow reactivation later
+      setScannerActive(false);
     };
 
     const qrboxFunction = (viewfinderWidth, viewfinderHeight) => {
@@ -36,22 +42,51 @@ const QRCodeVerifier = () => {
       return { width: qrboxEdgeSize, height: qrboxEdgeSize };
     };
 
-    docReady(() => {
-      const html5QrcodeScanner = new Html5QrcodeScanner('reader', {
-        fps: 144,
-        qrbox: qrboxFunction,
-        experimentalFeatures: {
-          useBarCodeDetectorIfSupported: true,
-        },
-        rememberLastUsedCamera: true,
-        showTorchButtonIfSupported: true,
-      });
+    const startScanner = () => {
+      if (!scannerRef.current) {
+        setScannerActive(true);
+        scannerRef.current = new Html5QrcodeScanner('reader', {
+          fps: 144,
+          qrbox: qrboxFunction,
+          experimentalFeatures: {
+            useBarCodeDetectorIfSupported: true,
+          },
+          rememberLastUsedCamera: true,
+          showTorchButtonIfSupported: true,
+        });
 
-      html5QrcodeScanner.render(onScanSuccess);
+        scannerRef.current.render(onScanSuccess);
+      }
+    };
+
+    const stopScanner = () => {
+      if (scannerRef.current) {
+        scannerRef.current.clear();
+        scannerRef.current = null;
+      }
+      // Set scannerActive to false when stopping the scanner
+      setScannerActive(false);
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        stopScanner();
+      } else {
+        startScanner();
+      }
+    };
+
+    startScanner();
+
+    docReady(() => {
+      document.addEventListener('visibilitychange', handleVisibilityChange);
     });
 
-    return () => {};
-  }, []);
+    return () => {
+      stopScanner();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []); // Pass an empty dependency array
 
   return (
     <>

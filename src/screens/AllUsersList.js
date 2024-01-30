@@ -2,11 +2,30 @@ import QRCode from 'qrcode.react';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const QRCodePopupCard = ({ title, qrCodeValue, onClose }) => {
+import { Cloudinary } from "@cloudinary/url-gen";
+import { AdvancedImage, responsive, placeholder } from "@cloudinary/react"; 
+
+const QRCodePopupCard = ({ title, qrCodeValue, profilePic, onClose }) => {
+  const [cloudName] = useState("dxkozpx6g");
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName
+    }
+  });
+
   return (
     <div className='fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50'>
       <div className='bg-white p-6 border border-gray-200 rounded-md shadow'>
         <h5 className='mb-2 text-2xl font-bold tracking-tight text-black'>{title}</h5>
+        {profilePic && (
+          <div className="mb-4">
+            <AdvancedImage
+              className="object-contain w-32 h-32 rounded-full"
+              cldImg={cld.image(profilePic)}
+              plugins={[responsive(), placeholder()]}
+            />
+          </div>
+        )}
         <div className="mb-4">
           <QRCode value={qrCodeValue} />
         </div>
@@ -63,7 +82,12 @@ const AllUsersList = () => {
         </div>
       )}
       {selectedUser &&  (
-        <QRCodePopupCard title={`QR Code for ${selectedUser.username || selectedUser.first_name || 'N/A'} ${selectedUser.last_name || 'N/A'}`} qrCodeValue={selectedUser.linkedinurl} onClose={handlePopupClose} />
+        <QRCodePopupCard
+          title={`QR Code for ${selectedUser.username || selectedUser.first_name || 'N/A'} ${selectedUser.last_name || 'N/A'}`}
+          qrCodeValue={selectedUser.linkedinurl}
+          profilePic={selectedUser.profile_pic}  // Assuming the user object has a 'profile_pic' property
+          onClose={handlePopupClose}
+        />
       )}
     </div>
   );
