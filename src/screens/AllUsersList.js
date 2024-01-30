@@ -1,6 +1,9 @@
 import QRCode from 'qrcode.react';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import blankprofilepicture from '../images/blank-profile-picture.png'
+import { Cloudinary } from "@cloudinary/url-gen";
+import { AdvancedImage, responsive, placeholder } from "@cloudinary/react"; 
 
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage, responsive, placeholder } from "@cloudinary/react"; 
@@ -43,6 +46,7 @@ const AllUsersList = () => {
    const localhostapi = "http://localhost:5000";
   const serverlessapi = "https://fyp-9bxz.onrender.com";
 
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -67,16 +71,27 @@ const AllUsersList = () => {
     setSelectedUser(null);
   };
 
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName
+    }
+  });
+
   return (
     <div className="max-w-screen-md mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-4">Users and QR Codes</h2>
+      <h2 className="text-center text-2xl font-bold mb-4">Expand your connection today!</h2>
       {userData && (
         <div>
           {userData.map((user) => (
-            <div key={user.id} className="bg-white p-4 rounded-lg shadow-md mb-4" onClick={() => handleCardClick(user)}>
-              <p className="mb-2">{`Name: ${user.username || user.first_name || 'N/A'} ${user.last_name || 'N/A'}`}</p>
-              <p className="mb-2">{`Job Title: ${user.jobtitle || 'N/A'}`}</p>
-              <p className="mb-2">{`Company: ${user.company || 'N/A'}`}</p>
+            <div key={user.id} className="mx-auto h-auto max-w-48  bg-white p-4 rounded-lg shadow-md mb-4" onClick={() => handleCardClick(user)}>
+              <img
+                src={user.profile_pic || blankprofilepicture}
+                className="mx-auto h-auto max-w-24 rounded-full w-24 h-full"
+                alt={`${user.username || user.first_name || 'N/A'} ${user.last_name || 'N/A'}`}
+              />
+              <p className="text-center mx-auto">{`${user.username || user.first_name || 'N/A'} ${user.last_name || 'N/A'}`}</p>
+              <p className="text-center mx-auto ">{`${user.jobtitle || 'N/A'}`}</p>
+              <p className="text-center mx-auto ">{`${user.company || 'N/A'}`}</p>
             </div>
           ))}
         </div>
