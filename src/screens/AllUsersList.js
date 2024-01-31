@@ -5,6 +5,7 @@ import blankprofilepicture from "../images/blank-profile-picture.png";
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
 
+
 const QRCodePopupCard = ({ title, qrCodeValue, profilePic, onClose }) => {
   const [cloudName] = useState("dxkozpx6g");
   const cld = new Cloudinary({
