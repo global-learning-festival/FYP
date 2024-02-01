@@ -3,15 +3,17 @@ import QRCode from "qrcode.react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-const QRCodeGenerator = ({ userId }) => {
+const QRCodeGenerator = () => {
   const [userData, setUserData] = useState(null);
-  const { userid } = useParams();
+  const loggedInUserID = localStorage.getItem("loggedInUserID");
+  const localhostapi = "http://localhost:5000";
+  const serverlessapi = "https://fyp-9bxz.onrender.com";
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/user/${userid}`
+          `${localhostapi}/useruid/${loggedInUserID}`
         );
         // Use response.data instead of await response.json()
         setUserData(response.data);
@@ -21,7 +23,7 @@ const QRCodeGenerator = ({ userId }) => {
       }
     };
     fetchUserData();
-  }, [userid]);
+  }, [loggedInUserID]);
 
   return (
     <div className="max-w-screen-md mx-auto p-6">

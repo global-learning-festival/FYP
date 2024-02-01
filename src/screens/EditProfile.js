@@ -14,7 +14,8 @@ const EditProfileForm = () => {
   const [user, setUser] = useState({});
   const { userid } = useParams();
   const navigate = useNavigate();
-
+  const localhostapi = "http://localhost:5000";
+  const serverlessapi = "https://fyp-9bxz.onrender.com";
   const [publicId, setPublicId] = useState("");
   const [cloudName] = useState("dxkozpx6g");
   const [uploadPreset] = useState("jcck4okm");
@@ -33,7 +34,7 @@ const EditProfileForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/user/${userid}`);
+        const response = await axios.get(`${localhostapi}/user/${userid}`);
         setUser(response.data);
         console.log(response.data)
       } catch (error) {
@@ -70,7 +71,7 @@ const EditProfileForm = () => {
 
     try {
       // Update user profile with Cloudinary publicId
-      await axios.put(`http://localhost:5000/user/${userid}`, {
+      await axios.put(`${localhostapi}/user/${userid}`, {
         ...user,
         publicId,
       });
