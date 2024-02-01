@@ -145,13 +145,17 @@ const ViewEvent = () => {
                 cldImg={cld.image(publicId || eventItem.image_banner)}
                 plugins={[responsive(), placeholder()]}
               />
-              <h1 className="text-2xl font-bold mb-4">Title: {eventItem.title}</h1>
+              <h1 className="text-2xl font-bold mb-4">{eventItem.title}</h1>
+              <h4 className="text-md font-bold mb-2">Date</h4>
               <p className="mb-3 font-normal text-gray-700">
-                Date: {formattedDate}, {startTime} - {endTime}
+                {formattedDate}, {startTime} - {endTime}
               </p>
-              <p className="mb-3 font-normal text-gray-700">Location: {eventItem.location}</p>
-              <p className="mb-3 font-normal text-gray-700">Keynote Speaker: {eventItem.keynote_speaker}</p>
-              <p className="mb-3 font-normal text-gray-700">Description: {eventItem.description}</p>
+              <h4 className="text-md font-bold mb-2">Location</h4>
+              <p className="mb-3 font-normal text-gray-700">{eventItem.location}</p>
+              <h4 className="text-md font-bold mb-2">Keynote Speaker</h4>
+              <p className="mb-3 font-normal text-gray-700">{eventItem.keynote_speaker}</p>
+              <h4 className="text-md font-bold mb-2">Description</h4>
+              <p className="mb-3 font-normal text-gray-700">{eventItem.description}</p>
               <div className='text-center'>
                 <h1 className="text-2xl font-bold mb-4">We Need Your Feedback!</h1>
                 <p className="mb-3 font-normal text-gray-700">
