@@ -13,7 +13,7 @@ const QRCodeGenerator = () => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `${localhostapi}/useruid/${loggedInUserID}`
+          `${serverlessapi}/useruid/${loggedInUserID}`
         );
         // Use response.data instead of await response.json()
         setUserData(response.data);

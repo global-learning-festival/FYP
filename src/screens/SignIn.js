@@ -18,7 +18,7 @@ const SignIn = ({ code }) => {
     const code = new URL(window.location.href).searchParams.get("code");
     if (code) {
       // Send this code to your backend
-      fetch("http://localhost:5000/linkedin/token", {
+      fetch(`${serverlessapi}/linkedin/token`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const SignIn = ({ code }) => {
 
         setLoading(true);
         axios
-          .get(`${localhostapi}/useruid/${uid}`)
+          .get(`${serverlessapi}/useruid/${uid}`)
           .then((response) => {
             if (response.data) {
               console.log(
@@ -64,7 +64,7 @@ const SignIn = ({ code }) => {
               };
 
               axios
-                .post(`${localhostapi}/adduser`, userData)
+                .post(`${serverlessapi}/adduser`, userData)
                 .then((response) => {
                   console.log(
                     "User information stored successfully:",

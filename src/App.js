@@ -47,7 +47,7 @@ class App extends React.Component {
               <Route path="/importantinfo" element={<ImportantInfo />} />
               <Route path="/signin" element={<SignIn />} />
               <Route path="/editprofile/:userid" element={<EditProfile />} />
-              <Route path="/qrcode/:userid" element={<QRCodeGenerator />} />
+              <Route path="/qrcode/:uid" element={<QRCodeGenerator />} />
               <Route path="/scan" element={<QRCodeScanner />} />
               <Route path="/allusers" element={<UserList />} />
               <Route path="/connect2" element={<Connect2 />} />

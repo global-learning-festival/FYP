@@ -8,7 +8,9 @@ function LinkedInRedirectHandler() {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-
+    const localhostapi = "http://localhost:5000";
+    const serverlessapi = "https://fyp-9bxz.onrender.com";
+  
     const code = urlParams.get("code");
     console.log("code", code);
 
@@ -17,7 +19,7 @@ function LinkedInRedirectHandler() {
       setIsLoading(true);
       try {
         const response = await axios.post(
-          "http://localhost:5000/getLinkedInUserData",
+          `${serverlessapi}/getLinkedInUserData`,
           { code: code }
         );
         // Axios automatically parses the JSON response,

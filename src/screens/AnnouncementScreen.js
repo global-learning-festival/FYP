@@ -25,7 +25,7 @@ const AnnouncementScreen = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${localhostapi}/announcements/${announcementid}`);
+        const response = await axios.get(`${serverlessapi}/announcements/${announcementid}`);
         setAnnouncementdata(response.data);
       } catch (error) {
         console.error('Error fetching information:', error);
