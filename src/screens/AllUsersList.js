@@ -58,7 +58,7 @@ const AllUsersList = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`${localhostapi}/userlist`);
+        const response = await axios.get(`${serverlessapi}/userlist`);
         setUserData(response.data);
         console.log(response.data);
       } catch (error) {

@@ -34,7 +34,7 @@ const EditProfileForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${localhostapi}/user/${userid}`);
+        const response = await axios.get(`${serverlessapi}/user/${userid}`);
         setUser(response.data);
         console.log(response.data)
       } catch (error) {
@@ -71,7 +71,7 @@ const EditProfileForm = () => {
 
     try {
       // Update user profile with Cloudinary publicId
-      await axios.put(`${localhostapi}/user/${userid}`, {
+      await axios.put(`${serverlessapi}/user/${userid}`, {
         ...user,
         publicId,
       });

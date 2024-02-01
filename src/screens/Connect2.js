@@ -5,12 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // Import axios for making HTTP requests
 
 const Connect2 = ({ code }) => {
+
+  const localhostapi = "http://localhost:5000";
+  const serverlessapi = "https://fyp-9bxz.onrender.com";
   // Example React component method or useEffect
   const handleLinkedInRedirect = () => {
     const code = new URL(window.location.href).searchParams.get("code");
     if (code) {
       // Send this code to your backend
-      fetch('http://localhost:5000/linkedin/token', {
+      fetch(`${serverlessapi}/linkedin/token`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
