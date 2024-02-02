@@ -20,7 +20,7 @@ import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
 
 const MapComponent = (props) => {
   const localhostapi = "http://localhost:5000";
-  const serverlessapi = "https://fyp-9bxz.onrender.com";
+  const serverlessapi = "https://adminilftest.onrender.com";
   const [userLocation, setUserLocation] = useState(null);
   const [hasLocationPermission, setHasLocationPermission] = useState(true);
   const [isRouting, setIsRouting] = useState(false);

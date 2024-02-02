@@ -15,7 +15,7 @@ const EditProfileForm = () => {
   const { userid } = useParams();
   const navigate = useNavigate();
   const localhostapi = "http://localhost:5000";
-  const serverlessapi = "https://fyp-9bxz.onrender.com";
+  const serverlessapi = "https://adminilftest.onrender.com";
   const [publicId, setPublicId] = useState("");
   const [cloudName] = useState("dxkozpx6g");
   const [uploadPreset] = useState("jcck4okm");

@@ -7,7 +7,7 @@ import axios from 'axios'; // Import axios for making HTTP requests
 const Connect2 = ({ code }) => {
 
   const localhostapi = "http://localhost:5000";
-  const serverlessapi = "https://fyp-9bxz.onrender.com";
+  const serverlessapi = "https://adminilftest.onrender.com";
   // Example React component method or useEffect
   const handleLinkedInRedirect = () => {
     const code = new URL(window.location.href).searchParams.get("code");

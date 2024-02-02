@@ -9,7 +9,7 @@ function LinkedInRedirectHandler() {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const localhostapi = "http://localhost:5000";
-    const serverlessapi = "https://fyp-9bxz.onrender.com";
+    const serverlessapi = "https://adminilftest.onrender.com";
   
     const code = urlParams.get("code");
     console.log("code", code);
