@@ -12,6 +12,11 @@ import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
 import polyline from 'polyline';
 import config2 from './config2';
+import starbucks1 from '../assets/marker/starbucks.png'
+import mcdonalds from '../assets/marker/mcodnald.png'
+import foodcourt from '../assets/marker/foodcourt.png'
+import { Cloudinary } from "@cloudinary/url-gen";
+import { AdvancedImage, responsive, placeholder } from "@cloudinary/react"; 
 
 const MapComponent = (props) => {
   const localhostapi = "http://localhost:5000";
@@ -24,11 +29,40 @@ const MapComponent = (props) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const position = [1.310411032362568, 103.77767848691333];
   const mapRef = useRef();
+  const [cloudName] = useState("dxkozpx6g");
+  const [uploadPreset] = useState("jcck4okm");
+  const [publicId, setPublicId] = useState("");
+
+  const [uwConfig] = useState({
+    cloudName,
+    uploadPreset,
+    cropping: true, //add a cropping step
+    // showAdvancedOptions: true,  //add advanced options (public_id and tag)
+    // sources: [ "local", "url"], // restrict the upload sources to URL and local files
+    multiple: false, //restrict upload to a single file
+    // folder: "user_images", //upload files to the specified folder
+    // tags: ["users", "profile"], //add the given tags to the uploaded files
+    // context: {alt: "user_uploaded"}, //add the given context data to the uploaded files
+    // clientAllowedFormats: ["images"], //restrict uploading to image files only
+    // maxImageFileSize: 2000000,  //restrict file size to less than 2MB
+    // maxImageWidth: 500, //Scales the image down to a width of 2000 pixels before uploading
+    // theme: "purple", //change to a purple theme
+  });
+
+
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName,
+    },
+  });
+
+  const myImage = cld.image(publicId);
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${serverlessapi}/markers`);
+        const response = await axios.get(`${localhostapi}/markers`);
         setMarkers(response.data);
         console.log('Refill data:', response.data);
       } catch (error) {
@@ -169,30 +203,50 @@ const MapComponent = (props) => {
 
         {filteredMarkerLocations.map((markerlocation) => {
           let iconUrl;
+          let iconSize;
 
           switch (markerlocation.category) {
             case 'water':
               iconUrl = waterMarker;
+              iconSize = [18, 29];
               break;
             case 'register':
               iconUrl = registerMarker;
+              iconSize = [18, 29];
               break;
             case 'conference':
               iconUrl = conferenceMarker;
+              iconSize = [18, 29];
               break;
             case 'toilet':
               iconUrl = toiletMarker;
+              iconSize = [18, 29];
               break;
+            case 'sbux':
+              iconUrl = starbucks1;
+              iconSize = [30, 29]; // Set different size for 'sbux'
+              break;
+            case 'mcd':
+              iconUrl = mcdonalds;
+              iconSize = [30, 29]; // Set different size for 'mcd'
+              break;
+            case 'fc':
+                iconUrl = foodcourt;
+                iconSize = [40, 40]; // Set different size for 'mcd'
+                break;
             default:
               iconUrl = waterMarker;
+              iconSize = [18, 29];
           }
 
           const customIcon = L.icon({
             iconUrl: iconUrl,
-            iconSize: [18, 29],
+            iconSize: iconSize,
             iconAnchor: [16, 32],
             popupAnchor: [0, -32],
           });
+
+       
 
           const coordinates = markerlocation.coordinates.split(',').map((coord) => parseFloat(coord));
 
@@ -201,7 +255,11 @@ const MapComponent = (props) => {
               <Popup>
                 <div id={`divRefill${markerlocation.mapid}`}>
                   <h3 id={`Refill${markerlocation.mapid}`}>{markerlocation.location_name}</h3>
-                  <img src={Image} alt="Myself" />
+                  <AdvancedImage
+                        style={{ maxWidth: "100%" }}
+                        cldImg={cld.image(publicId || markerlocation.image)}
+                        plugins={[responsive(), placeholder()]}
+                      />
                   <p>{markerlocation.description}</p>
                   {hasLocationPermission && (
                     <button
