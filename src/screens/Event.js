@@ -33,7 +33,7 @@ const ViewEvent = () => {
   };
 
   const localhostapi= "http://localhost:5000"
-  const serverlessapi = "https://fyp-9bxz.onrender.com";
+  const serverlessapi = "https://adminilftest.onrender.com";
 
   useEffect(() => {
     const fetchData = async () => {
