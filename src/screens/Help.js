@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useCollapse } from 'react-collapsed';
 import map from "../images/sp_map.png";
 import { BsPlus, BsDash } from 'react-icons/bs';
+import "../styles/App.css";
 
 function Collapsible() {
   const [isExpanded1, setExpanded1] = useState(false);

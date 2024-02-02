@@ -3,43 +3,17 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
-import "../styles/App.css";
-
-import CloudinaryUploadWidget from "../components/CloudinaryUpload";
-import { Cloudinary } from "@cloudinary/url-gen";
-import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
-
-
 
 const EditProfileForm = () => {
   const [user, setUser] = useState({});
   const { userid } = useParams();
   const navigate = useNavigate();
-  const localhostapi = "http://localhost:5000";
-  const serverlessapi = "https://adminilftest.onrender.com";
-  const [publicId, setPublicId] = useState("");
-  const [cloudName] = useState("dxkozpx6g");
-  const [uploadPreset] = useState("jcck4okm");
-  const [loading, setLoading] = useState(false);
 
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName,
-    },
-  });
-  const uwConfig = {
-    cloudName,
-    uploadPreset,
-    cropping: true,
-    multiple: false,
-  };
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${localhostapi}/user/${userid}`);
+        const response = await axios.get(`http://localhost:5000/user/${userid}`);
         setUser(response.data);
-        setPublicId(response.data.profile_pic || '');
-        console.log(response.data)
       } catch (error) {
         console.error('Error fetching user information:', error);
       }
@@ -64,7 +38,6 @@ const EditProfileForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(publicId)
     // Check if the LinkedIn URL is valid
     if (user.linkedinurl && !isValidLinkedInUrl(user.linkedinurl)) {
       // Show error notification for an invalid LinkedIn URL
@@ -73,17 +46,14 @@ const EditProfileForm = () => {
     }
 
     try {
-      // Update user profile with Cloudinary publicId
-      await axios.put(`${serverlessapi}/user/${userid}`, {
-        ...user,
-        publicId,
-      });
+      await axios.put(`http://localhost:5000/user/${userid}`, user);
+
       // Show success notification
       NotificationManager.success('Changes saved successfully');
 
       // Redirect after a delay
       setTimeout(() => {
-        navigate(`/`);
+        navigate(`/allusers`);
       }, 600);
     } catch (error) {
       console.error('Error updating user profile:', error.message);
@@ -92,13 +62,10 @@ const EditProfileForm = () => {
     }
   };
 
-
-
-  const myImage = cld.image(publicId);
   return (
-    <div className="container mx-auto p-4 max-w-xl">
-      <h1 className="text-2xl font-bold mb-4">Complete Your Profile</h1>
-      <div id="form" onSubmit={handleSubmit} className="max-w-md">
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Edit Profile</h1>
+      <form onSubmit={handleSubmit} className="max-w-md">
         <div className="mb-4">
           <label htmlFor="username" className="block text-sm font-medium text-gray-600">
             Username
@@ -127,7 +94,7 @@ const EditProfileForm = () => {
         </div>
         <div className="mb-4">
           <label htmlFor="jobtitle" className="block text-sm font-medium text-gray-600">
-            Job Title
+            Job Title 
           </label>
           <input
             type="text"
@@ -149,35 +116,15 @@ const EditProfileForm = () => {
             className="mt-1 p-2 border border-gray-300 rounded-md w-full"
           />
         </div>
-        <div className="mb-4">
-          <label
-            htmlFor="cloudinary"
-            className="block text-sm font-medium text-gray-600"
-          >
-            Cloudinary Upload
-          </label>
-          {/* Pass publicId and setPublicId to CloudinaryUploadWidget */}
-          <CloudinaryUploadWidget
-            uwConfig={uwConfig}
-            setPublicId={setPublicId}
-            publicId={publicId}
-          />
-          <div style={{ width: '200px' }}>
-            <AdvancedImage
-              style={{ maxWidth: '100%' }}
-              cldImg={cld.image(publicId)}
-              plugins={[responsive(), placeholder()]}
-            />
-          </div>
-        </div>
+
         <button
-          onClick={handleSubmit}
+          type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
         >
-          Proceed
+          Save Changes
         </button>
-      </div>
-      <NotificationContainer />
+      </form>
+<NotificationContainer />
     </div>
   );
 };

@@ -5,12 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage, responsive, placeholder } from "@cloudinary/react"; 
+import "../styles/App.css";
 
 const AnnouncementScreen = () => {
   const [announcementdata, setAnnouncementdata] = useState([]);
   const { announcementid } = useParams();
   const [publicId, setPublicId] = useState("");
   const [cloudName] = useState("dxkozpx6g");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const localhostapi = "http://localhost:5000";

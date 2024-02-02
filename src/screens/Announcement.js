@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import "../styles/App.css";
 
 const Announcement = ({ announcementid, title, description, announcement_posted, announcement_updated, onClick }) => {
+  const [loading, setLoading] = useState(false);
+
   // Function to limit words in a string
   const limitWords = (str, limit) => {
     const words = str.split(' ');

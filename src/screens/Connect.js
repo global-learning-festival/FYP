@@ -1,8 +1,11 @@
-import React, { useState } from "react";
-import AllUsersList from "./AllUsersList";
-import QRCodeGenerator from "../screens/QrCodeGenerator";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import AllUsersList from './AllUsersList'
+import QRCodeGenerator from './QrCodeGenerator'
+import QRCodeVerifier from './QrCodeScanner'
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import "../styles/App.css";
+
 
 const Connect = () => {
   const [userData, setUserData] = useState(null);

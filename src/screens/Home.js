@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage, responsive, placeholder } from "@cloudinary/react"; 
+import "../styles/App.css";
 
 const Home = ({ eventid, title, description, image, formattedDate, startTime, endTime, onClick }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -13,6 +14,7 @@ const Home = ({ eventid, title, description, image, formattedDate, startTime, en
   const localhostapi = "http://localhost:5000";
   const serverlessapi = "https://adminilftest.onrender.com";
   const loggedInUserID = localStorage.getItem("loggedInUserID");
+  const [loading, setLoading] = useState(false);
 
   const cld = new Cloudinary({
     cloud: {

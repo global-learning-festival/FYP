@@ -54,6 +54,7 @@ const AllUsersList = () => {
       cloudName,
     },
   });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -80,10 +81,14 @@ const AllUsersList = () => {
   };
 
   return (
-    <div className="max-w-screen-md mx-auto p-6">
-      <h2 className="text-center text-2xl font-bold mb-4">
-        Expand your connection today!
-      </h2>
+    <div>
+{loading ? (
+      <div className="loader-container">
+        <div className="spinner"></div>
+      </div>
+    ) : (
+      <div className="max-w-screen-md mx-auto p-6">
+      <h2 className="text-2xl font-bold mb-4">Users and QR Codes</h2>
       {userData && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {userData.map((user, index) => (
@@ -131,6 +136,10 @@ const AllUsersList = () => {
         />
       )}
     </div>
+    )}
+
+    </div>
+    
   );
 };
 

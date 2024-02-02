@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage, responsive, placeholder } from "@cloudinary/react"; 
+import "../styles/App.css";
 
 const ViewEvent = () => {
   const [eventdata, setEventdata] = useState([]);
@@ -15,6 +16,7 @@ const ViewEvent = () => {
   const navigate = useNavigate();
   const [publicId, setPublicId] = useState("");
   const [cloudName] = useState("dxkozpx6g");
+  const [loading, setLoading] = useState(false);
 
   const cld = new Cloudinary({
     cloud: {

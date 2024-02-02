@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage, responsive, placeholder } from "@cloudinary/react"; 
 import { IoCopyOutline } from 'react-icons/io5';
+import "../styles/App.css";
 
 const ImportantInfoCard = ({ infoid, title, subtitle, description, onClick }) => {
   return (
