@@ -3,6 +3,7 @@ import AllUsersList from './AllUsersList'
 import QRCodeGenerator from './QrCodeGenerator'
 import QRCodeVerifier from './QrCodeScanner'
 import { useParams, useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import "../styles/App.css";
 

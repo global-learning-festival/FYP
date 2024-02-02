@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import GoogleButton from 'react-google-button';
-import LinkedIn from '../components/Linkedin'; // Import LinkedIn component directly
-import { UserAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Import axios for making HTTP requests
-import config2 from '../components/config2';
-import "../styles/App.css";
+import React, { useEffect, useState } from "react";
+import GoogleButton from "react-google-button";
+import LinkedIn from "../components/Linkedin"; // Import LinkedIn component directly
+import { UserAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import axios from "axios"; // Import axios for making HTTP requests
+import config2 from "../components/config2";
 
-const SignIn = () => {
-    const { googleSignIn, user } = UserAuth();
-    const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
-    const localhostapi = "http://localhost:5000"; // Update with your backend API URL
-    const serverlessapi = "https://adminilftest.onrender.com";
-
+const SignIn = ({ code }) => {
+  const { googleSignIn, user } = UserAuth();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const localhostapi = "http://localhost:5000"; // Update with your backend API URL
+  const serverlessapi = "https://adminilftest.onrender.com";
   // Example React component method or useEffect
   const handleLinkedInRedirect = () => {
     const code = new URL(window.location.href).searchParams.get("code");
