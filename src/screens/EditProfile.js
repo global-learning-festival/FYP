@@ -34,8 +34,9 @@ const EditProfileForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${serverlessapi}/user/${userid}`);
+        const response = await axios.get(`${localhostapi}/user/${userid}`);
         setUser(response.data);
+        setPublicId(response.data.profile_pic || '');
         console.log(response.data)
       } catch (error) {
         console.error('Error fetching user information:', error);
@@ -147,24 +148,26 @@ const EditProfileForm = () => {
           />
         </div>
         <div className="mb-4">
-        <label
-          htmlFor="cloudinary"
-          className="block text-sm font-medium text-gray-600"
-        >
-          Cloudinary Upload
-        </label>
-        <CloudinaryUploadWidget
-          uwConfig={uwConfig}
-          setPublicId={setPublicId}
-        />
-        <div style={{ width: '400px' }}>
-          <AdvancedImage
-            style={{ maxWidth: '100%' }}
-            cldImg={cld.image(publicId)}
-            plugins={[responsive(), placeholder()]}
+          <label
+            htmlFor="cloudinary"
+            className="block text-sm font-medium text-gray-600"
+          >
+            Cloudinary Upload
+          </label>
+          {/* Pass publicId and setPublicId to CloudinaryUploadWidget */}
+          <CloudinaryUploadWidget
+            uwConfig={uwConfig}
+            setPublicId={setPublicId}
+            publicId={publicId}
           />
+          <div style={{ width: '200px' }}>
+            <AdvancedImage
+              style={{ maxWidth: '100%' }}
+              cldImg={cld.image(publicId)}
+              plugins={[responsive(), placeholder()]}
+            />
+          </div>
         </div>
-      </div>
         <button
           onClick={handleSubmit}
           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
