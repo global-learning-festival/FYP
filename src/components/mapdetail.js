@@ -15,6 +15,7 @@ import config2 from './config2';
 import starbucks1 from '../assets/marker/starbucks.png'
 import mcdonalds from '../assets/marker/mcodnald.png'
 import foodcourt from '../assets/marker/foodcourt.png'
+import default1 from '../assets/marker/default.png'
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage, responsive, placeholder } from "@cloudinary/react"; 
 
@@ -235,7 +236,7 @@ const MapComponent = (props) => {
                 iconSize = [40, 40]; // Set different size for 'mcd'
                 break;
             default:
-              iconUrl = waterMarker;
+              iconUrl = default1;
               iconSize = [18, 29];
           }
 
