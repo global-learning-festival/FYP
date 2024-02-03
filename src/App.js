@@ -1,13 +1,7 @@
 import React from "react";
-
 import "bootstrap/dist/css/bootstrap.css";
-import { Routes, Route } from "react-router-dom";
-
-//Importing Navbar
+import { Routes,Route, BrowserRouter as Router } from "react-router-dom";  // Removed duplicate import
 import Navbar from "./components/Navbar";
-
-//Importing Screens
-
 import Home from "./screens/Home";
 import ViewEvent from "./screens/Event";
 import Map from "./screens/Map";
@@ -25,13 +19,13 @@ import Connect2 from "./screens/Connect2";
 import { AuthContextProvider } from "./context/AuthContext";
 import { LinkedinAuthContextProvider } from "./context/LinkedinAuthContext";
 import LinkedInRedirectHandler from "./components/LinkedinRedirectHandler";
-
 class App extends React.Component {
   render() {
     return (
       <div className="body">
         <AuthContextProvider>
           <LinkedinAuthContextProvider>
+          <Router>
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
@@ -56,6 +50,7 @@ class App extends React.Component {
                 element={<LinkedInRedirectHandler />}
               />
             </Routes>
+            </Router>
           </LinkedinAuthContextProvider>
         </AuthContextProvider>
       </div>
