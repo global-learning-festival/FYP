@@ -28,7 +28,7 @@ const MapComponent = (props) => {
   const [routingControl, setRoutingControl] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const position = [1.310411032362568, 103.77767848691333];
+  const position = [1.308437408372863, 103.77671290142386];
   const mapRef = useRef();
   const [cloudName] = useState("dxkozpx6g");
   const [uploadPreset] = useState("jcck4okm");
@@ -160,6 +160,12 @@ const MapComponent = (props) => {
       setSelectedCategory(null);
     } else {
       setSelectedCategory(category);
+    }
+  };
+
+  const handleRecenterClick = () => {
+    if (mapRef.current ) {
+      mapRef.current.setView(position, 16.5);
     }
   };
 
@@ -302,6 +308,13 @@ const MapComponent = (props) => {
           onClick={() => handleFilterClick('toilet')}
         >
           Restrooms
+        </button>
+
+        <button
+          className="px-3 py-2 mx-1 my-1 bg-gray-500 text-white rounded-md text-xs w-[5.5rem] h-12 md:text-sm md:w-40"
+          onClick={handleRecenterClick}
+        >
+          Recenter
         </button>
       </div>
     </div>
