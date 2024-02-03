@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import { Routes,Route, BrowserRouter   } from "react-router-dom";  // Removed duplicate import
+import { Routes,Route, BrowserRouter as Router } from "react-router-dom";  // Removed duplicate import
 import Navbar from "./components/Navbar";
 import Home from "./screens/Home";
 import ViewEvent from "./screens/Event";
@@ -25,7 +25,7 @@ class App extends React.Component {
       <div className="body">
         <AuthContextProvider>
           <LinkedinAuthContextProvider>
-          <BrowserRouter>
+          <Router>
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
@@ -50,7 +50,7 @@ class App extends React.Component {
                 element={<LinkedInRedirectHandler />}
               />
             </Routes>
-            </BrowserRouter>
+            </Router>
           </LinkedinAuthContextProvider>
         </AuthContextProvider>
       </div>
