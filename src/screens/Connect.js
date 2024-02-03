@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import AllUsersList from './AllUsersList'
-import QRCodeGenerator from './QrCodeGenerator'
-import QRCodeVerifier from './QrCodeScanner'
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import AllUsersList from "./AllUsersList";
+import QRCodeGenerator from "./QrCodeGenerator";
+import QRCodeVerifier from "./QrCodeScanner";
+import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import axios from 'axios';
 import "../styles/App.css";
-
+import qrcodeimg from "../assets/qr-code.png";
+import scanimg from "../assets/scan.png";
 
 const Connect = () => {
   const [userData, setUserData] = useState(null);
@@ -27,12 +27,12 @@ const Connect = () => {
       <div>
         {loggedInUserID !== null && (
           <>
-            <button
-              onClick={handleQRButtonClick}
-              className={`text-white bg-[#4B558A] font-medium rounded-md font-medium rounded-md text-sm px-5 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl`}
-            >
-              My QR
-            </button>
+            <a onClick={handleQRButtonClick}>
+              <img
+                src={qrcodeimg}
+                className="object-contain h-12 w-24  md:object-scale-down"
+              ></img>
+            </a>
 
             {showQRCode && <QRCodeGenerator uid={loggedInUserID} />}
           </>
@@ -46,11 +46,12 @@ const Connect = () => {
       <div>
         {loggedInUserID !== null && (
           <>
-            <button
-              className={`text-white bg-[#4B558A] font-medium rounded-md font-medium rounded-md text-sm px-5 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl`}
-            >
-              QR Scanner
-            </button>
+            <a>
+              <img
+                src={scanimg}
+                className="object-contain h-12 w-24  md:object-scale-down"
+              ></img>
+            </a>
           </>
         )}
       </div>
@@ -86,20 +87,22 @@ const Connect = () => {
         </>
       )}
       <>{loggedInUserID !== null && <UserList></UserList>}</>
-      <>
-        {loggedInUserID !== null && (
-          <Link to={`/qrcode/${userid}`}>
-            <MyQR />
-          </Link>
-        )}
-      </>
-      <>
-        {loggedInUserID !== null && (
-          <Link to="/scan">
-            <QRScanner />
-          </Link>
-        )}
-      </>
+      <div className="flex justify-center">
+        <>
+          {loggedInUserID !== null && (
+            <Link to={`/qrcode/${userid}`}>
+              <MyQR />
+            </Link>
+          )}
+        </>
+        <>
+          {loggedInUserID !== null && (
+            <Link to="/scan">
+              <QRScanner />
+            </Link>
+          )}
+        </>
+      </div>
     </>
   );
 };
