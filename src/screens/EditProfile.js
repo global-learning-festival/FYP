@@ -36,7 +36,7 @@ const EditProfileForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${localhostapi}/user/${userid}`);
+        const response = await axios.get(`${serverlessapi}/user/${userid}`);
         setUser(response.data);
         setPublicId(response.data.profile_pic || '');
         console.log(response.data)
