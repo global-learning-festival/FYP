@@ -5,7 +5,6 @@ import blankprofilepicture from "../images/blank-profile-picture.png";
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
 
-
 const QRCodePopupCard = ({ title, qrCodeValue, profilePic, onClose }) => {
   const [cloudName] = useState("dxkozpx6g");
   const cld = new Cloudinary({
@@ -17,7 +16,7 @@ const QRCodePopupCard = ({ title, qrCodeValue, profilePic, onClose }) => {
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-6 border border-gray-200 rounded-md shadow">
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-black">
+        <h5 className="mb-2 text-2xl font-bold tracking-tight text-black text-center">
           {title}
         </h5>
         {profilePic && (
@@ -29,12 +28,12 @@ const QRCodePopupCard = ({ title, qrCodeValue, profilePic, onClose }) => {
             />
           </div>
         )}
-        <div className="mb-4">
+        <div className="mt-6 flex justify-center items-center">
           <QRCode value={qrCodeValue} />
         </div>
         <button
           onClick={onClose}
-          className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md"
+          className="mt-6 bg-[#4B558A] text-white px-4 py-2 rounded-md"
         >
           Close
         </button>
@@ -60,8 +59,13 @@ const AllUsersList = () => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(`${serverlessapi}/userlist`);
-        setUserData(response.data);
-        console.log(response.data);
+        const sortedUserData = response.data.sort((a, b) => {
+          // Move users with LinkedIn URLs to the front
+          if (a.linkedinurl && !b.linkedinurl) return -1;
+          if (!a.linkedinurl && b.linkedinurl) return 1;
+          return 0;
+        });
+        setUserData(sortedUserData);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -81,54 +85,62 @@ const AllUsersList = () => {
   };
 
   return (
-    <div>
-{loading ? (
-      <div className="loader-container">
-        <div className="spinner"></div>
-      </div>
-    ) : (
-      <div className="max-w-screen-md mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-4">Users and QR Codes</h2>
+    <div className="max-w-screen-md mx-auto p-6">
       {userData && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="flex flex-wrap">
           {userData.map((user, index) => (
+            <>
             <div
               key={user.id || index}
-              className="mx-auto h-auto max-w-48 bg-white p-4 rounded-lg shadow-md mb-4"
-              onClick={() => handleCardClick(user)}
+              className="w-1/2 lg:w-1/2 xl:w-1/3 px-2 mb-4"
             >
-              {user.profile_pic ? (
-                <AdvancedImage
-                  className="object-contain w-24 h-24 rounded-full mx-auto"
-                  cldImg={cld.image(user.profile_pic)}
-                  plugins={[responsive(), placeholder()]}
-                />
-              ) : (
-                <img
-                  className="object-contain w-24 h-24 rounded-full mx-auto"
-                  src={blankprofilepicture}
-                  alt={`${user.username || user.first_name || "N/A"} ${
-                    user.last_name || "N/A"
-                  }`}
-                />
-              )}
-              {console.log("userprofile_pic: " + user.profile_pic)}
-              <p className="text-center mx-auto">{`${
-                user.username || user.first_name || "N/A"
-              } ${user.last_name || "N/A"}`}</p>
-              <p className="text-center mx-auto ">{`${
-                user.jobtitle || "N/A"
-              }`}</p>
-              <p className="text-center mx-auto ">{`${
-                user.company || "N/A"
-              }`}</p>
+              <div className="bg-white p-4 rounded-lg shadow">
+                {user.profile_pic ? (
+                  <AdvancedImage
+                    className="object-contain w-24 h-24 rounded-full mx-auto mb-2"
+                    cldImg={cld.image(user.profile_pic)}
+                    plugins={[responsive(), placeholder()]}
+                  />
+                ) : (
+                  <img
+                    className="object-contain w-24 h-24 rounded-full mx-auto mb-2"
+                    src={blankprofilepicture}
+                    alt={`${user.username || user.first_name || "N/A"} ${
+                      user.last_name || "N/A"
+                    }`}
+                  />
+                )}
+                <p className="text-center mb-1">{`${
+                  user.username || user.first_name || "N/A"
+                } ${user.last_name || "N/A"}`}</p>
+                {/* <p className="text-center mb-1">{`${
+                  user.jobtitle || "N/A"
+                }`}</p> */}
+                <p className="text-center mb-1">{`From ${
+                  user.company || "N/A"
+                }`}</p>
+                {user.linkedinurl ? (
+                  <div className="flex justify-center">
+                    <button 
+                      className="mt-4 bg-[#4B558A] text-white px-4 py-2 rounded-md"
+                      onClick={() => handleCardClick(user)}>
+                        Connect
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex justify-center">
+                    <p className="mt-4 bg-gray-400 text-white px-4 py-2 rounded-md">Connect</p>
+                  </div>
+                )}
+              </div>
             </div>
+            </>
           ))}
         </div>
       )}
       {selectedUser && (
         <QRCodePopupCard
-          title={`QR Code for ${
+          title={`Scan this QR Code to connect with ${
             selectedUser.username || selectedUser.first_name || "N/A"
           } ${selectedUser.last_name || "N/A"}`}
           qrCodeValue={selectedUser.linkedinurl}
@@ -136,10 +148,6 @@ const AllUsersList = () => {
         />
       )}
     </div>
-    )}
-
-    </div>
-    
   );
 };
 
