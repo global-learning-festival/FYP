@@ -158,11 +158,11 @@ const ViewEvent = () => {
               <p className="mb-3 font-normal text-gray-700">{eventItem.keynote_speaker}</p>
               <h4 className="text-md font-bold mb-2">Description</h4>
               <p className="mb-3 font-normal text-gray-700">{eventItem.description}</p>
-              <div className='text-center'>
+              {eventItem.survey_link && (
+              <div className='text-center bg-gray-100 rounded-xl p-4'>
                 <h1 className="text-2xl font-bold mb-4">We Need Your Feedback!</h1>
-                <p className="mb-3 font-normal text-gray-700">
-                  If you have attended this event, 
-                  your feedback will be much appreciated
+                <p className="mb-4 font-normal">
+                  If you have attended this event, your feedback will be much appreciated
                 </p>
                 <a
                   href={eventItem.survey_link}
@@ -174,6 +174,7 @@ const ViewEvent = () => {
                   Survey
                 </a>
               </div>
+            )}
             </div>
           ))}
           {/* <MapDetail className="md:h-12 h-8" /> */}
@@ -185,13 +186,16 @@ const ViewEvent = () => {
         {announcementsData.map((announcementItem, index) => (
           <div key={index}>
             <div
-              className='flex-1 block m-2 p-4 md:p-6 bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
+              className='flex-1 block m-2 md:p-6 bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
               onClick={() => handleViewAnnouncementClick(announcementItem.announcementid)}
             >
-              <h5 className='mb-2 text-xl md:text-2xl font-bold tracking-tight text-black'>{announcementItem.title}</h5>
-              <p className='font-normal text-sm md:text-base text-left text-gray-500 mb-4'>{limitWords(announcementItem.description, 10)}</p>
+              <div className="announcement-header bg-[#293262] text-white rounded-t-md mb-2 p-2">
+                <h3 className='text-xl md:text-2xl font-bold tracking-tight text-center'>Announcement</h3>
+              </div>
+              <h5 className='mb-2 text-xl md:text-2xl font-bold tracking-tight text-black px-4 pt-3'>{announcementItem.title}</h5>
+              <p className='font-normal text-sm md:text-base text-left text-gray-500 mb-4 px-4 pb-4'>{limitWords(announcementItem.description, 10)}</p>
               <div className='flex justify-end'>
-                <div className='bg-teal-700 text-white rounded-full mr-0.5 py-1 px-2 h-6 md:h-8'>
+                <div className='bg-teal-700 text-white rounded-full py-1 px-2 absolute bottom-2 right-2 h-6 md:h-8'>
                   <p className='text-xs md:text-sm'>
                     {new Date(announcementItem.created_on).toLocaleDateString('en-US', {
                       weekday: 'short',

@@ -5,8 +5,10 @@ import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage, responsive, placeholder } from "@cloudinary/react"; 
 import "../styles/App.css";
+import GoogleButton from "react-google-button";
+import { UserAuth } from "../context/AuthContext";
 
-const Home = ({ eventid, title, description, image, formattedDate, startTime, endTime, onClick }) => {
+const Home = ({ eventid, title, description, image, formattedDate, location, startTime, endTime, onClick }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [publicId, setPublicId] = useState("");
   const [cloudName] = useState("dxkozpx6g");
@@ -105,8 +107,13 @@ const Home = ({ eventid, title, description, image, formattedDate, startTime, en
                 </div>
               )}
             </div>
-            <p className="mb-3 font-normal text-gray-700">{limitedDescription}</p>
+            <p className="mb-3 font-normal text-gray-700 underline underline-offset-4">{limitedDescription}</p>
             <div className='flex justify-end'>
+            <div className='bg-[#9a4c68] text-white rounded-full mr-0.5 py-1 md:py-1.5 px-2.5 h-6 sm:h-10 lg:h-8'>
+                <p className='text-xs md:text-sm'>
+                  At {location}
+                </p>
+              </div>
               <div className='bg-[#293262] text-white rounded-full mr-0.5 py-1 md:py-1.5 px-2.5 h-6 sm:h-10 lg:h-8'>
                 <p className='text-xs md:text-sm'>
                   {formattedDate}
@@ -162,6 +169,7 @@ const EventsList = () => {
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [savedEvents, setSavedEvents] = useState([]);
   const [currentCategory, setCurrentCategory] = useState('All');
+  const { googleSignIn, user } = UserAuth();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const localhostapi = "http://localhost:5000";
@@ -274,9 +282,19 @@ const EventsList = () => {
       ) : (
         <>
           {loggedInUserID === null && currentCategory === 'Saved' ? (
-            <div className="text-center text-red-500 mt-4">
-              Please login to view saved events.
+            <div className="flex items-center justify-center mt-5">
+            <div className="flex flex-col items-center w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 dark:bg-gray-800 dark:border-gray-700">
+              <h5 className="mb-3 text-xl font-semibold text-gray-900 md:text-xl">
+                Save Your Favourite Event!
+              </h5>
+              <p className="flex flex-col items-center text-center text-md font-normal text-gray-500 dark:text-gray-400">
+                Log in to effortlessly save and track the events that you are interested in.
+              </p>
+              <div className="flex items-center justify-center mt-3">
+                <GoogleButton onClick={googleSignIn} />
+              </div>
             </div>
+          </div>
           ) : (
             rows
           )}
