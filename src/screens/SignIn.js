@@ -97,17 +97,17 @@ const SignIn = ({ code }) => {
             Sign In With Google
           </h5>
           <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500 dark:text-gray-400">
-            Have access to personalised features by signing in with Google!
+            Connect with others and have access to personalised features by signing in with Google!
           </p>
           <div className="flex items-center justify-center mt-3">
             <GoogleButton onClick={googleSignIn} />
           </div>
-          <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500 dark:text-gray-400 mt-3">
+          {/* <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500 dark:text-gray-400 mt-3">
             or
           </p>
           <div className="flex items-center justify-center mt-3">
             <LinkedIn></LinkedIn>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

@@ -122,7 +122,7 @@ const AllUsersList = () => {
                 {user.linkedinurl ? (
                   <div className="flex justify-center">
                     <button 
-                      className="mt-4 bg-[#4B558A] text-white px-4 py-2 rounded-md"
+                      className="mt-4 bg-[#4B558A] text-white px-4 py-2 rounded-md hover:bg-[#3A426C] hover:drop-shadow-xl"
                       onClick={() => handleCardClick(user)}>
                         Connect
                     </button>

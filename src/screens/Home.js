@@ -16,7 +16,6 @@ const Home = ({ eventid, title, description, image, formattedDate, location, sta
   const localhostapi = "http://localhost:5000";
   const serverlessapi = "https://adminilftest.onrender.com";
   const loggedInUserID = localStorage.getItem("loggedInUserID");
-  const [loading, setLoading] = useState(false);
 
   const cld = new Cloudinary({
     cloud: {
@@ -271,6 +270,7 @@ const EventsList = () => {
   const handleViewEventClick = (eventid) => {
     navigate(`/viewevent/${eventid}`);
   };
+
   const loggedInUserID = localStorage.getItem("loggedInUserID");
   return (
     <>
