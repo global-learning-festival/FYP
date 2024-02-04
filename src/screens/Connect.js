@@ -101,7 +101,7 @@ const Connect = () => {
                   Connect With Others
                 </h5>
                 <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500 dark:text-gray-400">
-                  Network with Guest Speakers and other Attendees of the
+                  Network with guest speakers and other attendees of the
                   International Learning Festival!
                 </p>
                 <div className="flex items-center justify-center mt-3">

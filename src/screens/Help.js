@@ -86,7 +86,9 @@ initTE({ Collapse });
             data-te-target="#collapseOne"
             aria-expanded="true"
             aria-controls="collapseOne">
-            <p>How many people will be participating?</p>
+            <div>
+             <p>How many people will be participating?</p>
+            </div>
             <span
               className="ml-auto h-5 w-5 shrink-0 rotate-[-180deg] fill-[#336dec] transition-transform duration-200 ease-in-out group-[[data-te-collapse-collapsed]]:rotate-0 group-[[data-te-collapse-collapsed]]:fill-[#212529] motion-reduce:transition-none dark:fill-blue-300 dark:group-[[data-te-collapse-collapsed]]:fill-white">
               <svg
@@ -112,7 +114,9 @@ initTE({ Collapse });
           aria-labelledby="headingOne"
           data-te-parent="#accordionExample">
           <div className="px-5 py-4">
+          <div>
             <p>SP will host an International Learning Festival that will see about 400 external guests joining 500 SP staff in this event.</p>
+          </div>
           </div>
         </div>
       </div>
@@ -127,7 +131,9 @@ initTE({ Collapse });
             data-te-target="#collapseTwo"
             aria-expanded="false"
             aria-controls="collapseTwo">
-            <p>Will there be food provided?</p>
+            <div>
+              <p>Will there be food provided?</p>
+            </div>
             <span
               className="-mr-1 ml-auto h-5 w-5 shrink-0 rotate-[-180deg] fill-[#336dec] transition-transform duration-200 ease-in-out group-[[data-te-collapse-collapsed]]:mr-0 group-[[data-te-collapse-collapsed]]:rotate-0 group-[[data-te-collapse-collapsed]]:fill-[#212529] motion-reduce:transition-none dark:fill-blue-300 dark:group-[[data-te-collapse-collapsed]]:fill-white">
               <svg
@@ -152,7 +158,9 @@ initTE({ Collapse });
           aria-labelledby="headingTwo"
           data-te-parent="#accordionExample">
           <div className="px-5 py-4">
+          <div>
             <p>Yes, Of Course!</p>
+          </div>
           </div>
         </div>
       </div>
@@ -167,7 +175,9 @@ initTE({ Collapse });
             data-te-target="#collapseThree"
             aria-expanded="false"
             aria-controls="collapseThree">
-            <p>How do I get to the venue?</p>
+            <div>
+              <p>How do I get to the venue?</p>
+            </div>
             <span
               className="-mr-1 ml-auto h-5 w-5 shrink-0 rotate-[-180deg] fill-[#336dec] transition-transform duration-200 ease-in-out group-[[data-te-collapse-collapsed]]:mr-0 group-[[data-te-collapse-collapsed]]:rotate-0 group-[[data-te-collapse-collapsed]]:fill-[#212529] motion-reduce:transition-none dark:fill-blue-300 dark:group-[[data-te-collapse-collapsed]]:fill-white">
               <svg
@@ -192,7 +202,9 @@ initTE({ Collapse });
           aria-labelledby="headingThree"
           data-te-parent="#accordionExample">
           <div className="px-5 py-4">
+          <div>
             <p>Do follow the steps above.</p>
+          </div>
           </div>
         </div>
       </div>

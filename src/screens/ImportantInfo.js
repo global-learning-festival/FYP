@@ -76,7 +76,7 @@ const PopupCard = ({ title, description, image, onClose }) => {
             <IoCopyOutline size={18} />
           </button> */}
         </div>
-        <button onClick={onClose} className='mt-4 bg-[#4B558A] text-white px-4 py-2 rounded-md'>
+        <button onClick={onClose} className='mt-4 bg-[#4B558A] text-white px-4 py-2 rounded-md hover:bg-[#3A426C] hover:drop-shadow-xl'>
           Close
         </button>
       </div>

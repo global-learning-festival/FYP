@@ -5,13 +5,9 @@ import "../styles/App.css";
 
 const Map = () => {
   return (
-    <div>
-            
-    <main>
-    <MapComponent/>
-    </main>
-
-</div>
+    <div> 
+      <MapComponent/>
+    </div>
   )
 }
 
