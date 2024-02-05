@@ -38,8 +38,12 @@ const QRCodeVerifier = () => {
       }
     };
     const onScanSuccess = (decodedText, decodedResult) => {
-      navigate(decodedText, "_blank");
-      // Set scannerActive to false after successful scan to allow reactivation later
+      const anchor = document.createElement('a');
+      anchor.href = decodedText;
+      anchor.target = '_blank';
+      anchor.rel = 'noopener noreferrer';
+      anchor.click();
+
       setScannerActive(false);
     };
 
