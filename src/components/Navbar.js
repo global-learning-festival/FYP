@@ -84,14 +84,14 @@ const Navbar = () => {
           </button>
         )}
         <li className="m-14">
-          <Link to="/" className="no-underline text-black" onClick={handleNav}>
+          <Link to="/" className="no-underline text-black hover:underline" onClick={handleNav}>
             Home
           </Link>
         </li>
         <li className="m-14">
           <Link
             to="/map"
-            className="no-underline text-black"
+            className="no-underline text-black hover:underline"
             onClick={handleNav}
           >
             Map
@@ -100,7 +100,7 @@ const Navbar = () => {
         <li className="m-14">
           <Link
             to="/announcement"
-            className="no-underline text-black"
+            className="no-underline text-black hover:underline"
             onClick={handleNav}
           >
             Announcement
@@ -109,7 +109,7 @@ const Navbar = () => {
         <li className="m-14">
           <Link
             to="/connect"
-            className="no-underline text-black"
+            className="no-underline text-black hover:underline"
             onClick={handleNav}
           >
             Connect
@@ -118,7 +118,7 @@ const Navbar = () => {
         <li className="m-14">
           <Link
             to="/help"
-            className="no-underline text-black"
+            className="no-underline text-black hover:underline"
             onClick={handleNav}
           >
             Help
@@ -151,32 +151,32 @@ const Navbar = () => {
 
       <ul className="hidden md:flex mr-20 pt-3">
         <li className="p-4" href="/">
-          <Link to="/" className="no-underline text-black">
+          <Link to="/" className="no-underline text-black hover:underline">
             Home
           </Link>
         </li>
         <li className="p-4">
-          <Link to="/map" className="no-underline text-black">
+          <Link to="/map" className="no-underline text-black hover:underline">
             Map
           </Link>
         </li>
         <li className="p-4">
-          <Link to="/announcement" className="no-underline text-black">
+          <Link to="/announcement" className="no-underline text-black hover:underline">
             Announcement
           </Link>
         </li>
         <li className="p-4">
-          <Link to="/connect" className="no-underline text-black">
+          <Link to="/connect" className="no-underline text-black hover:underline">
             Connect
           </Link>
         </li>
         <li className="p-4">
-          <Link to="/help" className="no-underline text-black">
+          <Link to="/help" className="no-underline text-black hover:underline">
             Help
           </Link>
         </li>
         <li className="p-4">
-          <Link to="/importantinfo" className="no-underline text-black">
+          <Link to="/importantinfo" className="no-underline text-black hover:underline">
             <AiOutlineInfoCircle size={25} />
           </Link>
         </li>
