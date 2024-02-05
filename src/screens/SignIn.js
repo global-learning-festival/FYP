@@ -4,7 +4,6 @@ import LinkedIn from "../components/Linkedin"; // Import LinkedIn component dire
 import { UserAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"; // Import axios for making HTTP requests
-import config2 from "../components/config2";
 
 const SignIn = ({ code }) => {
   const { googleSignIn, user } = UserAuth();
@@ -12,6 +11,7 @@ const SignIn = ({ code }) => {
   const [loading, setLoading] = useState(false);
   const localhostapi = "http://localhost:5000"; // Update with your backend API URL
   const serverlessapi = "https://adminilftest.onrender.com";
+ 
   // Example React component method or useEffect
   const handleLinkedInRedirect = () => {
     const code = new URL(window.location.href).searchParams.get("code");
@@ -59,9 +59,10 @@ const SignIn = ({ code }) => {
                 company: "",
                 uid,
                 userid,
-                type: config2.type,
+                type: process.env.REACT_APP_TYPE
+                ,
               };
-
+              console.log("userdata:", userData)
               axios
                 .post(`${serverlessapi}/adduser`, userData)
                 .then((response) => {
