@@ -38,11 +38,7 @@ const QRCodeVerifier = () => {
       }
     };
     const onScanSuccess = (decodedText, decodedResult) => {
-      const anchor = document.createElement('a');
-      anchor.href = decodedText;
-      anchor.target = '_blank';
-      anchor.rel = 'noopener noreferrer';
-      anchor.click();
+      window.location.href = decodedText
 
       setScannerActive(false);
     };
