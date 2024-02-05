@@ -38,7 +38,11 @@ const QRCodeVerifier = () => {
     };
 
     const onScanSuccess = (decodedText, decodedResult) => {
-      window.open(decodedText, "_blank");
+      const newWindow = window.open(decodedText, '_blank');
+      if (newWindow) {
+        newWindow.opener = null; // Ensure that the new window is not linked to the opener
+        newWindow.focus();
+      }
       // Set scannerActive to false after successful scan to allow reactivation later
       setScannerActive(false);
     };

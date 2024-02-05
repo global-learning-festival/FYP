@@ -5,15 +5,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { HashRouter , BrowserRouter} from "react-router-dom"; // Import HashRouter instead of BrowserRouter
 
-// const root = ReactDOM.createRoot(document.getElementById("root"));
-// root.render(
-//   <React.StrictMode>
-//     {/* Use HashRouter instead of BrowserRouter */}
-//     <HashRouter>
-//       <App />
-//     </HashRouter>
-//   </React.StrictMode>
-// );
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    {/* Use HashRouter instead of BrowserRouter */}
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
