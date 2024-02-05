@@ -33,7 +33,7 @@ const Connect = () => {
             <a onClick={handleQRButtonClick}>
               <img
                 src={qrcodeimg}
-                className="object-contain h-12 w-24  md:object-scale-down"
+                className="object-contain h-12 w-20  md:object-scale-down"
               ></img>
             </a>
 
@@ -52,7 +52,7 @@ const Connect = () => {
             <a>
               <img
                 src={scanimg}
-                className="object-contain h-12 w-24  md:object-scale-down"
+                className="object-contain h-12 w-20  md:object-scale-down"
               ></img>
             </a>
           </>
