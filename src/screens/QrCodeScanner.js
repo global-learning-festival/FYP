@@ -8,6 +8,7 @@ const QRCodeVerifier = () => {
   const scannerRef = useRef(null);
   const [scannerActive, setScannerActive] = useState(true);
   const loggedInUserID = localStorage.getItem("loggedInUserID");
+  const navigate = useNavigate();
 
   const BackButton = ({ loggedInUserID }) => {
     return (
@@ -21,7 +22,7 @@ const QRCodeVerifier = () => {
             </button>
           </>
         )}
-      </div>
+      </div>    
     );
   };
 
@@ -36,7 +37,6 @@ const QRCodeVerifier = () => {
         document.addEventListener("DOMContentLoaded", fn);
       }
     };
-    const navigate = useNavigate();
     const onScanSuccess = (decodedText, decodedResult) => {
       navigate(decodedText, "_blank");
       // Set scannerActive to false after successful scan to allow reactivation later
