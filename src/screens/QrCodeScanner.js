@@ -115,6 +115,12 @@ const QRCodeVerifier = () => {
       <div className="container mx-auto my-8 text-center">
         <h1 className="text-2xl font-bold">QRCode Scanner</h1>
       </div>
+      <div className="flex justify-center items-center mb-2">
+        <p>
+          To use the QR Code Scanner, please press on "Request Camera
+          Permissions" and press "Allow"
+        </p>
+      </div>
 
       <section className="container mx-auto">
         <div className="flex justify-center items-center">
