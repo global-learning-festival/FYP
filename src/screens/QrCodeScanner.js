@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "tailwindcss/tailwind.css"; // Import Tailwind CSS
 import { Html5QrcodeScanner } from "html5-qrcode";
 import "../styles/App.css";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 
 const QRCodeVerifier = () => {
   const scannerRef = useRef(null);
@@ -36,13 +36,9 @@ const QRCodeVerifier = () => {
         document.addEventListener("DOMContentLoaded", fn);
       }
     };
-
+    const navigate = useNavigate();
     const onScanSuccess = (decodedText, decodedResult) => {
-      const newWindow = window.open(decodedText, '_blank');
-      if (newWindow) {
-        newWindow.opener = null; // Ensure that the new window is not linked to the opener
-        newWindow.focus();
-      }
+      navigate(decodedText, "_blank");
       // Set scannerActive to false after successful scan to allow reactivation later
       setScannerActive(false);
     };
@@ -117,7 +113,7 @@ const QRCodeVerifier = () => {
   return (
     <>
       <div className="container mx-auto my-8 text-center">
-        <h1 className="text-2xl font-bold">QRCode Scanner</h1>
+        <h1 className="text-2xl font-bold">Scan a LinkedIn Qr Code</h1>
       </div>
       <div className="flex justify-center items-center mb-2">
         <p>
