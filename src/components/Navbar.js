@@ -84,14 +84,14 @@ const Navbar = () => {
           </button>
         )}
         <li className="m-14">
-          <Link to="/" className="no-underline text-black hover:underline" onClick={handleNav}>
+          <Link to="/" className="no-underline text-black" onClick={handleNav}>
             Home
           </Link>
         </li>
         <li className="m-14">
           <Link
             to="/map"
-            className="no-underline text-black hover:underline"
+            className="no-underline text-black"
             onClick={handleNav}
           >
             Map
@@ -100,7 +100,7 @@ const Navbar = () => {
         <li className="m-14">
           <Link
             to="/announcement"
-            className="no-underline text-black hover:underline"
+            className="no-underline text-black"
             onClick={handleNav}
           >
             Announcement
@@ -109,7 +109,7 @@ const Navbar = () => {
         <li className="m-14">
           <Link
             to="/connect"
-            className="no-underline text-black hover:underline"
+            className="no-underline text-black"
             onClick={handleNav}
           >
             Connect
@@ -118,7 +118,7 @@ const Navbar = () => {
         <li className="m-14">
           <Link
             to="/help"
-            className="no-underline text-black hover:underline"
+            className="no-underline text-black"
             onClick={handleNav}
           >
             Help
@@ -151,38 +151,33 @@ const Navbar = () => {
 
       <ul className="hidden md:flex mr-20 pt-3">
         <li className="p-4" href="/">
-          <Link to="/" className="no-underline text-black hover:underline">
+          <Link to="/" className="no-underline text-black">
             Home
           </Link>
         </li>
         <li className="p-4">
-          <Link to="/map" className="no-underline text-black hover:underline">
+          <Link to="/map" className="no-underline text-black">
             Map
           </Link>
         </li>
         <li className="p-4">
-          <Link to="/announcement" className="no-underline text-black hover:underline">
+          <Link to="/announcement" className="no-underline text-black">
             Announcement
           </Link>
         </li>
         <li className="p-4">
-          <Link to="/connect" className="no-underline text-black hover:underline">
+          <Link to="/connect" className="no-underline text-black">
             Connect
           </Link>
         </li>
         <li className="p-4">
-          <Link to="/help" className="no-underline text-black hover:underline">
+          <Link to="/help" className="no-underline text-black">
             Help
           </Link>
         </li>
         <li className="p-4">
-          <Link to="/importantinfo" className="no-underline text-black hover:underline">
-            <span class="changeColor">
-            <AiOutlineInfoCircle size="25px"
-              onMouseOver={({target})=>target.style.color="white"}
-              onMouseOut={({target})=>target.style.color="black"}
-            />
-            </span>
+          <Link to="/importantinfo" className="no-underline text-black">
+            <AiOutlineInfoCircle size={25} />
           </Link>
         </li>
       </ul>
