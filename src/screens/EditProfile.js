@@ -21,6 +21,7 @@ const EditProfileForm = () => {
   const [publicId, setPublicId] = useState("");
   const [cloudName] = useState("dxkozpx6g");
   const [uploadPreset] = useState("jcck4okm");
+  const [loading, setLoading] = useState(false);
   const loggedInUserID = localStorage.getItem("loggedInUserID");
 
   const cld = new Cloudinary({
@@ -99,6 +100,7 @@ const EditProfileForm = () => {
     }
   };
 
+  const myImage = cld.image(publicId);
   return (
     <div className="container mx-auto p-4 max-w-xl">
       <h1 className="text-2xl font-bold mb-4">Complete Your Profile</h1>
