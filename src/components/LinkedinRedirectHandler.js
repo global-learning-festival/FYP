@@ -8,13 +8,13 @@ function LinkedInRedirectHandler() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const loggedInUserID = localStorage.getItem("loggedInUserID");
 
   const urlParams = new URLSearchParams(window.location.search);
   const localhostapi = "http://localhost:5000";
   const serverlessapi = "https://adminilftest-4tmd.onrender.com";
 
   const code = urlParams.get("code");
-  console.log("code", code);
 
   //setIsLoading(true);
   const fetchUserData = async (code) => {
@@ -29,7 +29,6 @@ function LinkedInRedirectHandler() {
       // Axios automatically parses the JSON response,
       // so you can directly access `response.data`
       const data = response.data;
-      console.log("Data received from LinkedIn API:", data);
 
       // Check if data has the expected properties
       const {
@@ -40,27 +39,13 @@ function LinkedInRedirectHandler() {
         localizedLastName,
       } = data;
 
-      console.log("firstName:", localizedFirstName);
-      console.log("headline:", localizedHeadline);
-      console.log("vanityName:", vanityName);
-      console.log("id:", id);
-      console.log("lastName:", localizedLastName);
-
       const first_name = localizedFirstName;
       const company = localizedHeadline ? localizedHeadline : "";
       const last_name = localizedLastName;
       const linkedinurl = `https://www.linkedin.com/in/${vanityName}`;
       const uid = id;
 
-      console.log("first_name", first_name);
-      console.log("company", company);
-      console.log("last_name", last_name);
-      console.log("linkedinurl", linkedinurl);
-      console.log("uid", uid);
-
-      console.log("Before if block");
       if (first_name && company && last_name && linkedinurl && uid) {
-        console.log("Inside if block");
         setUserData(data);
         setIsLoading(false);
 
@@ -85,9 +70,8 @@ function LinkedInRedirectHandler() {
 
         // Post user data to adduser endpoint
         console.log("User added to the database:", addUserResponse.data);
-
         // Navigate to the edit profile page using the uid from the response
-        navigate(`/editprofile`);
+        navigate(`/editprofile/${loggedInUserID}`);
       } else {
         console.error("Missing expected properties in data:", data);
         setIsLoading(false);
@@ -102,7 +86,6 @@ function LinkedInRedirectHandler() {
 
   useEffect(() => {
     // ... (existing code)
-
     fetchUserData(code)
       .then((data) => {
         console.log(`FetchData: ${JSON.stringify(data)}`);
@@ -115,12 +98,6 @@ function LinkedInRedirectHandler() {
       });
   }, [code]);
 
-  // Logout function to clear loggedinUserId from localStorage
-  const handleLogout = () => {
-    localStorage.removeItem("loggedinUserID");
-    // Perform any other logout-related actions here
-  };
-
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
@@ -129,8 +106,6 @@ function LinkedInRedirectHandler() {
       <h1>User Data</h1>
       {/* Render your userData here */}
       <pre>{JSON.stringify(userData, null, 2)}</pre>
-
-      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 }
