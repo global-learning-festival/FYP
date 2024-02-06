@@ -8,31 +8,9 @@ import axios from "axios";
 const SignIn = ({ code }) => {
   const { googleSignIn, user } = UserAuth();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [setLoading] = useState(false);
   const localhostapi = "http://localhost:5000"; // Update with your backend API URL
   const serverlessapi = "https://adminilftest-4tmd.onrender.com";
- 
-  // Example React component method or useEffect
-  const handleLinkedInRedirect = () => {
-    const code = new URL(window.location.href).searchParams.get("code");
-    if (code) {
-      // Send this code to your backend
-      fetch(`${serverlessapi}/linkedin/token`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ code }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // Handle the data from the backend (e.g., access token)
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    }
-  };
 
   useEffect(() => {
     const handleUserExistence = async () => {
@@ -47,12 +25,12 @@ const SignIn = ({ code }) => {
           try {
             const response = await axios.get(`${serverlessapi}/useruid/${uid}`);
             if (response.data) {
-              console.log(
-                "User already exists. Redirecting to home page."
-              );
+              console.log("User already exists. Redirecting to home page.");
               navigate(`/`);
             } else {
-              console.log("User does not exist. Navigating to edit profile page.");
+              console.log(
+                "User does not exist. Navigating to edit profile page."
+              );
               const userData = {
                 first_name,
                 last_name,
