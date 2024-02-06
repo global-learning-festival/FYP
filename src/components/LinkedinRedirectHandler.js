@@ -8,7 +8,6 @@ function LinkedInRedirectHandler() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const loggedInUserID = localStorage.loggedInUserID;
 
   const urlParams = new URLSearchParams(window.location.search);
   const localhostapi = "http://localhost:5000";
@@ -65,15 +64,17 @@ function LinkedInRedirectHandler() {
         setUserData(data);
         setIsLoading(false);
 
-        if (data !== null) {
-          console.log("User exists. Logging data:", data);
+        console.log("User exists. Logging data:", data);
 
           // Store uid in localStorage
           localStorage.setItem("loggedInUserID", uid);
           console.log("loggedInUserID inserted");
           navigate(`/editprofile/${loggedInUserID}`);
-        } else {
-          const userData = {
+
+        // Post user data to adduser endpoint
+        const addUserResponse = await axios.post(
+          `${serverlessapi}/addlinkedinuser`,
+          {
             first_name,
             company,
             last_name,
