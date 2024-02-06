@@ -1,96 +1,62 @@
-//Signin.js
 import React, { useEffect, useState } from "react";
 import GoogleButton from "react-google-button";
-import LinkedIn from "../components/Linkedin"; // Import LinkedIn component directly
+import LinkedIn from "../components/Linkedin";
 import { UserAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Import axios for making HTTP requests
+import axios from "axios";
 
 const SignIn = ({ code }) => {
   const { googleSignIn, user } = UserAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const localhostapi = "http://localhost:5000"; // Update with your backend API URL
   const serverlessapi = "https://adminilftest.onrender.com";
- 
-  // Example React component method or useEffect
-  const handleLinkedInRedirect = () => {
-    const code = new URL(window.location.href).searchParams.get("code");
-    if (code) {
-      // Send this code to your backend
-      fetch(`${serverlessapi}/linkedin/token`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ code }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // Handle the data from the backend (e.g., access token)
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    }
-  };
 
   useEffect(() => {
-    if (user !== null) {
-      const { displayName, uid, userid } = user;
+    const handleUserExistence = async () => {
+      if (user !== null) {
+        const { displayName, uid, userid } = user;
 
-      if (displayName && typeof displayName === "string") {
-        const [first_name, last_name] = displayName.split(" ");
+        if (displayName && typeof displayName === "string") {
+          const [first_name, last_name] = displayName.split(" ");
 
-        setLoading(true);
-        axios
-          .get(`${serverlessapi}/useruid/${uid}`)
-          .then((response) => {
+          setLoading(true);
+
+          try {
+            const response = await axios.get(`${serverlessapi}/useruid/${uid}`);
             if (response.data) {
               console.log(
-                "User already exists. Retrieving information:",
-                response.data
+                "User already exists. Redirecting to home page."
               );
-              console.log(response.data.uid);
-              navigate(`/editprofile/${uid}`);
+              navigate(`/`);
             } else {
+              console.log("User does not exist. Navigating to edit profile page.");
               const userData = {
                 first_name,
                 last_name,
                 company: "",
                 uid,
                 userid,
-                type: process.env.REACT_APP_TYPE
-                ,
+                type: process.env.REACT_APP_TYPE,
               };
-              console.log("userdata:", userData)
-              axios
-                .post(`${serverlessapi}/adduser`, userData)
-                .then((response) => {
-                  console.log(
-                    "User information stored successfully:",
-                    response.data
-                  );
-                  navigate(`/editprofile/${uid}`);
-                })
-                .catch((error) => {
-                  console.error("Error storing user information:", error);
-                });
+              console.log("userdata:", userData);
+              await axios.post(`${serverlessapi}/adduser`, userData);
+              navigate(`/editprofile/${uid}`);
             }
-          })
-          .catch((error) => {
+          } catch (error) {
             console.error("Error checking user existence:", error);
             navigate("/");
-          })
-          .finally(() => {
+          } finally {
             setLoading(false);
-          });
-      } else {
-        console.error("User display name is undefined or not a string");
-        navigate("/signin");
+          }
+        } else {
+          console.error("User display name is undefined or not a string");
+          navigate("/signin");
+        }
       }
-    }
-  }, [user, navigate, localhostapi, serverlessapi]);
+    };
+
+    handleUserExistence();
+  }, [user, navigate, serverlessapi]);
 
   return (
     <>
@@ -109,7 +75,7 @@ const SignIn = ({ code }) => {
             or
           </p>
           <div className="flex items-center justify-center mt-3">
-            <LinkedIn></LinkedIn>
+            <LinkedIn />
           </div>
         </div>
       </div>
