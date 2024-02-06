@@ -20,12 +20,9 @@ function LinkedInRedirectHandler() {
   const fetchUserData = async (code) => {
     setIsLoading(true);
     try {
-      const response = await axios.post(
-        `${serverlessapi}/getLinkedInUserData`,
-        {
-          code: code,
-        }
-      );
+      const response = await axios.post(`${localhostapi}/getLinkedInUserData`, {
+        code: code,
+      });
       // Axios automatically parses the JSON response,
       // so you can directly access `response.data`
       const data = response.data;
@@ -48,10 +45,15 @@ function LinkedInRedirectHandler() {
       if (first_name && company && last_name && linkedinurl && uid) {
         // Check if user with the same UID already exists
         const userExistsResponse = await axios.get(
-          `${serverlessapi}/useruid/${uid}`
+          `${localhostapi}/useruid/${uid}`
         );
 
-        if (userExistsResponse.data.exists) {
+        console.log("userExistsResponse:", userExistsResponse);
+
+        if (
+          userExistsResponse.data !== null &&
+          userExistsResponse.data.exists !== null
+        ) {
           setUserData(data);
           setIsLoading(false);
 
@@ -64,7 +66,7 @@ function LinkedInRedirectHandler() {
         } else {
           // User doesn't exist, insert new user
           const addUserResponse = await axios.post(
-            `${serverlessapi}/addlinkedinuser`,
+            `${localhostapi}/addlinkedinuser`,
             {
               first_name,
               company,
