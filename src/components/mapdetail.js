@@ -300,7 +300,7 @@ const MapComponent = (props) => {
 
       <div id="buttons-container" className="flex flex-wrap justify-center items-center fixed bottom-4 sm:bottom-10 left-1/2 transform -translate-x-1/2 z-20">
         <button
-          className={`filter-button ${selectedCategory === 'water' ? 'water' : ''} px-3 py-2 mx-1 my-1 bg-blue-500 text-white rounded-md text-xs w-[5.5rem] h-12 md:text-sm  md:w-40`}
+          className={`filter-button ${selectedCategory === 'water' ? 'water' : ''} px-3 py-2 mx-1 my-1 bg-blue-500 hover:bg-blue-600 text-white rounded-md text-xs w-[5.5rem] h-12 md:text-sm  md:w-40`}
           onClick={() => handleFilterClick('water')}
         >
           Water Refill

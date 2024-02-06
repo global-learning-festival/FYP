@@ -136,7 +136,7 @@ const FilterBar = ({ currentCategory, setCurrentCategory }) => {
   return (
     <div className="flex justify-center mt-4">
       <button
-        className={`mx-2 px-4 py-2 hover:underline${
+        className={`mx-2 px-4 py-2 hover:underline ${
           currentCategory === 'All' ? 'text-violet-950 transition border-b-2 border-violet-900 shadow-none' : 'shadow-none'
         }`}
         onClick={() => setCurrentCategory('All')}
