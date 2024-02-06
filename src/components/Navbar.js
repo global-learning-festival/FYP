@@ -159,14 +159,14 @@ const Navbar = () => {
         </h4>
         {(user || user2) && (
           <button
-            className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl"
+            className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-12 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl"
             onClick={handleSignOut}
           >
             Logout
           </button>
         )}
         {!user && !user2 && (
-          <button className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl">
+          <button className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-12 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl">
             <Link
               to="/signin"
               style={{ textDecoration: "none", color: "inherit" }}

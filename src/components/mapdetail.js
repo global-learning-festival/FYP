@@ -311,7 +311,7 @@ const MapComponent = (props) => {
           Registration Desks
         </button>
         <button
-          className={`filter-button ${selectedCategory === 'conference' ? 'conference' : ''} px-3 py-2 mx-1 my-1 bg-[#39B54A] hover:bg[#1B6B26] text-white rounded-md text-xs w-[5.5rem] h-12 md:text-sm  md:w-40`}
+          className={`filter-button ${selectedCategory === 'conference' ? 'conference' : ''} px-3 py-2 mx-1 my-1 bg-[#39B54A] hover:bg-[#1B6B26] text-white rounded-md text-xs w-[5.5rem] h-12 md:text-sm  md:w-40`}
           onClick={() => handleFilterClick('conference')}
         >
           Convention Centre

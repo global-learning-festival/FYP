@@ -1,7 +1,6 @@
 //LinkedinRedirectHandler.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import config2 from "../components/config2";
 import { useNavigate } from "react-router-dom";
 
 function LinkedInRedirectHandler() {
@@ -80,7 +79,7 @@ function LinkedInRedirectHandler() {
             last_name,
             linkedinurl,
             uid,
-            type: config2.type,
+            type: process.env.REACT_APP_TYPE
           };
           // Post user data to adduser endpoint
           const addUserResponse = await axios.post(
