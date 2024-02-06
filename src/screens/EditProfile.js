@@ -36,6 +36,10 @@ const EditProfileForm = () => {
     multiple: false,
   };
   useEffect(() => {
+    if (loggedInUserID !== uid) {
+      navigate("/"); // Redirect to home page or show a message indicating unauthorized access
+      return;
+    }
     const fetchData = async () => {
       try {
         const response = await axios.get(`${serverlessapi}/useruid/${uid}`);

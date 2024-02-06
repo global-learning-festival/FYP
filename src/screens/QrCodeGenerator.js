@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import QRCode from "qrcode.react";
 import axios from "axios";
 import "../styles/App.css";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 
 const QRCodeGenerator = () => {
   const [userData, setUserData] = useState(null);
@@ -27,20 +27,25 @@ const QRCodeGenerator = () => {
   };
 
   useEffect(() => {
+    if (!loggedInUserID) {
+      // Redirect to login page or display a message indicating the need to log in
+      navigate("/signin"); // Redirect to login page
+      return;
+    }
+
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
           `${serverlessapi}/useruid/${loggedInUserID}`
         );
-        // Use response.data instead of await response.json()
         setUserData(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
+
     fetchUserData();
-  }, [loggedInUserID]);
+  }, [loggedInUserID ]);
 
   return (
     <div className="max-w-screen-md mx-auto p-6">

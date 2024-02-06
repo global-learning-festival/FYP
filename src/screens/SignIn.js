@@ -1,10 +1,9 @@
-//Signin.js
 import React, { useEffect, useState } from "react";
 import GoogleButton from "react-google-button";
-import LinkedIn from "../components/Linkedin"; // Import LinkedIn component directly
+import LinkedIn from "../components/Linkedin";
 import { UserAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Import axios for making HTTP requests
+import axios from "axios";
 
 const SignIn = ({ code }) => {
   const { googleSignIn, user } = UserAuth();
@@ -36,66 +35,56 @@ const SignIn = ({ code }) => {
   };
 
   useEffect(() => {
-    if (user !== null) {
-      const { displayName, uid, userid } = user;
+    const handleUserExistence = async () => {
+      if (user !== null) {
+        const { displayName, uid, userid } = user;
 
-      if (displayName && typeof displayName === "string") {
-        const [first_name, last_name] = displayName.split(" ");
+        if (displayName && typeof displayName === "string") {
+          const [first_name, last_name] = displayName.split(" ");
 
-        setLoading(true);
-        axios
-          .get(`${serverlessapi}/useruid/${uid}`)
-          .then((response) => {
+          setLoading(true);
+
+          try {
+            const response = await axios.get(`${serverlessapi}/useruid/${uid}`);
             if (response.data) {
               console.log(
-                "User already exists. Retrieving information:",
-                response.data
+                "User already exists. Redirecting to home page."
               );
-              console.log(response.data.uid);
-              navigate(`/editprofile/${uid}`);
+              navigate(`/`);
             } else {
+              console.log("User does not exist. Navigating to edit profile page.");
               const userData = {
                 first_name,
                 last_name,
                 company: "",
                 uid,
                 userid,
-                type: process.env.REACT_APP_TYPE
-                ,
+                type: process.env.REACT_APP_TYPE,
               };
-              console.log("userdata:", userData)
-              axios
-                .post(`${serverlessapi}/adduser`, userData)
-                .then((response) => {
-                  console.log(
-                    "User information stored successfully:",
-                    response.data
-                  );
-                  navigate(`/editprofile/${uid}`);
-                })
-                .catch((error) => {
-                  console.error("Error storing user information:", error);
-                });
+              console.log("userdata:", userData);
+              await axios.post(`${serverlessapi}/adduser`, userData);
+              navigate(`/editprofile/${uid}`);
             }
-          })
-          .catch((error) => {
+          } catch (error) {
             console.error("Error checking user existence:", error);
             navigate("/");
-          })
-          .finally(() => {
+          } finally {
             setLoading(false);
-          });
-      } else {
-        console.error("User display name is undefined or not a string");
-        navigate("/signin");
+          }
+        } else {
+          console.error("User display name is undefined or not a string");
+          navigate("/signin");
+        }
       }
-    }
-  }, [user, navigate, localhostapi, serverlessapi]);
+    };
+
+    handleUserExistence();
+  }, [user, navigate, serverlessapi]);
 
   return (
     <>
       <div className="flex items-center justify-center mt-20">
-        <div className="flex flex-col items-center w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 dark:bg-gray-800 dark:border-gray-700">
+        <div className="flex flex-col items-center w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6">
           <h5 className="mb-3 text-base font-semibold text-gray-900 md:text-xl">
             Sign In With Google
           </h5>
@@ -109,7 +98,7 @@ const SignIn = ({ code }) => {
             or
           </p>
           <div className="flex items-center justify-center mt-3">
-            <LinkedIn></LinkedIn>
+            <LinkedIn />
           </div>
         </div>
       </div>

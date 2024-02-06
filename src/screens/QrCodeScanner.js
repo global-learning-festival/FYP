@@ -27,6 +27,11 @@ const QRCodeVerifier = () => {
   };
 
   useEffect(() => {
+    if (!loggedInUserID) {
+      // Redirect to login page or display a message indicating the need to log in
+      navigate("/signin"); // Redirect to login page
+      return;
+    }
     const docReady = (fn) => {
       if (
         document.readyState === "complete" ||
@@ -108,8 +113,16 @@ const QRCodeVerifier = () => {
       stopScanner();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, []); // Pass an empty dependency array
+  }, [loggedInUserID]); 
 
+  if (!loggedInUserID) {
+    // Render a message indicating the need to log in
+    return (
+      <div className="max-w-screen-md mx-auto p-6">
+        <p>Please log in to access this page.</p>
+      </div>
+    );
+  }
   return (
     <>
       <div className="container mx-auto my-8 text-center">
