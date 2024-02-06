@@ -33,7 +33,7 @@ const Announcement = ({ announcementid, title, description, announcement_posted,
     <>
     <div className='m-2'>
         <div
-            className='flex-1 m-auto min-h-72 h-full max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
+            className='flex-1 m-auto min-h-min h-full max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
             onClick={onClick}
         >
             <div className="announcement-header bg-[#293262] text-white rounded-t-md mb-2 p-2">
