@@ -1,34 +1,27 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Cloudinary } from "@cloudinary/url-gen";
-import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
+import { AdvancedImage, responsive, placeholder } from "@cloudinary/react"; 
+import { IoCopyOutline } from 'react-icons/io5';
 import "../styles/App.css";
 
-const ImportantInfoCard = ({
-  infoid,
-  title,
-  subtitle,
-  description,
-  onClick,
-}) => {
+const ImportantInfoCard = ({ infoid, title, subtitle, description, onClick }) => {
   return (
-    <div className="m-2 mx-auto">
-      <div
-        key={infoid}
-        className="flex-1 p-4 h-48 w-96 max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105"
-        onClick={onClick}
-      >
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-black">
-          {title}
-        </h5>
-        <p className="text-xs text-gray-500">{subtitle}</p>
-      </div>
+    <div className='m-2 mx-auto'>
+    <div
+      key={infoid}
+      className='flex-1 p-4 h-48 w-96 max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
+      onClick={onClick}
+    >
+      <h5 className='mb-2 text-2xl font-bold tracking-tight text-black'>{title}</h5>
+      <p className='text-xs text-gray-500'>{subtitle}</p>
     </div>
+  </div>
   );
 };
 
 const PopupCard = ({ title, description, image, onClose }) => {
-  const [publicId] = useState("");
+  const [publicId, setPublicId] = useState("");
   const [cloudName] = useState("dxkozpx6g");
 
   console.log("publicId:", publicId);
@@ -59,16 +52,14 @@ const PopupCard = ({ title, description, image, onClose }) => {
 
   const cld = new Cloudinary({
     cloud: {
-      cloudName,
-    },
+      cloudName
+    }
   });
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 border border-gray-200 rounded-md shadow m-4">
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-black">
-          {title}
-        </h5>
+    <div className='fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50'>
+      <div className='bg-white p-6 border border-gray-200 rounded-md shadow m-4'>
+        <h5 className='mb-2 text-2xl font-bold tracking-tight text-black'>{title}</h5>
         {image && (
           <AdvancedImage
             className="object-contain w-96 h-36"
@@ -77,7 +68,7 @@ const PopupCard = ({ title, description, image, onClose }) => {
           />
         )}
         <div className="flex items-center">
-          <p className="text-sm text-gray-500">{description}</p>
+          <p className='text-sm text-gray-500'>{description}</p>
           {/* <button
             onClick={handleCopyToClipboard}
             className='p-2 ml-2 bg-blue-500 text-white w-8 h-8 rounded-md'
@@ -85,10 +76,7 @@ const PopupCard = ({ title, description, image, onClose }) => {
             <IoCopyOutline size={18} />
           </button> */}
         </div>
-        <button
-          onClick={onClose}
-          className="mt-4 bg-[#4B558A] text-white px-4 py-2 rounded-md hover:bg-[#3A426C] hover:drop-shadow-xl"
-        >
+        <button onClick={onClose} className='mt-4 bg-[#4B558A] text-white px-4 py-2 rounded-md hover:bg-[#3A426C] hover:drop-shadow-xl'>
           Close
         </button>
       </div>
@@ -105,14 +93,12 @@ const ImportantInfoList = () => {
   useEffect(() => {
     const fetchImportantInformation = async () => {
       try {
-        const response = await axios.get(
-          `${serverlessapi}/importantInformation`
-        );
+        const response = await axios.get(`${serverlessapi}/importantInformation`);
         const sortedData = response.data.sort((a, b) => a.infoid - b.infoid);
         setImportantInformation(sortedData);
         console.log(response.data);
       } catch (error) {
-        console.error("Error fetching announcements:", error);
+        console.error('Error fetching announcements:', error);
       }
     };
 
@@ -133,9 +119,9 @@ const ImportantInfoList = () => {
   for (let i = 0; i < importantInformation.length; i += cardsPerRow) {
     const row = importantInformation.slice(i, i + cardsPerRow);
     rows.push(
-      <div key={i} className="lg:flex justify-center">
+      <div key={i} className='lg:flex justify-center'>
         {row.map((info, index) => (
-          <div key={`${i}-${index}`} className="m-2 flex">
+          <div key={`${i}-${index}`} className='m-2 flex'>
             <ImportantInfoCard
               {...info}
               onClick={() => handleCardClick(info)}

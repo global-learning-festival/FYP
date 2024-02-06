@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AllUsersList from "./AllUsersList";
 import QRCodeGenerator from "./QrCodeGenerator";
-import { useParams } from "react-router-dom";
+import QRCodeVerifier from "./QrCodeScanner";
+import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "../styles/App.css";
 import qrcodeimg from "../assets/qr-code.png";
@@ -9,9 +10,12 @@ import scanimg from "../assets/scan.png";
 import LinkedIn from "../components/Linkedin"; // Import LinkedIn component directly
 
 const Connect = () => {
+  const [userData, setUserData] = useState(null);
   const loggedInUserID = localStorage.getItem("loggedInUserID");
   const [loading] = useState(false);
+  const [currentCategory, setCurrentCategory] = useState("All");
   const { userid } = useParams();
+  const rows = [];
 
   const MyQR = ({ loggedInUserID }) => {
     const [showQRCode, setShowQRCode] = useState(false);

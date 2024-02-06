@@ -80,8 +80,7 @@ function LinkedInRedirectHandler() {
             }
           );
 
-          // Store uid in localStorage
-          localStorage.setItem("loggedInUserID", uid);
+          // Post user data to adduser endpoint
           console.log("User added to the database:", addUserResponse.data);
           // Navigate to the edit profile page using the uid from the response
           navigate(`/editprofile/${loggedInUserID}`);
