@@ -11,7 +11,6 @@ import toiletMarker from '../assets/marker/toilet.png';
 import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
 import polyline from 'polyline';
-import config2 from './config2';
 import starbucks1 from '../assets/marker/starbucks.png'
 import mcdonalds from '../assets/marker/mcodnald.png'
 import foodcourt from '../assets/marker/foodcourt.png'
@@ -88,8 +87,8 @@ const MapComponent = (props) => {
         const urluser = `https://www.onemap.gov.sg/api/auth/post/getToken`;
 
         const requestBody = {
-          email: config2.email,
-          password: config2.password,
+          email: process.env.REACT_APP_EMAIL,
+          password: process.env.REACT_APP_PASSWORD,
         };
         const userresponse = await fetch(urluser, {
           method: 'POST',
