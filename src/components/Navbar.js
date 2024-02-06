@@ -64,17 +64,17 @@ const Navbar = () => {
           {user?.displayName}
         </h3>
         {user ? (
-          <button
-            className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl"
-            onClick={handleSignOut}
-          >
-            Logout
-          </button>
-        ) : (
-          <button
-            onClick={handleNav}
-            className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl"
-          >
+        <button
+        className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-8 py-3 mx-auto my-5 hover:bg-[#3A426C] hover:drop-shadow-xl"
+        onClick={handleSignOut}
+      >
+        Logout
+      </button>
+    ) : (
+      <button
+        onClick={handleNav}
+        className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-8 py-3 mx-auto my-5 hover:bg-[#3A426C] hover:drop-shadow-xl"
+      >
             <Link
               to="/signin"
               style={{ textDecoration: "none", color: "inherit" }}
@@ -151,27 +151,27 @@ const Navbar = () => {
 
       <ul className="hidden md:flex mr-20 pt-3">
         <li className="p-4" href="/">
-          <Link to="/" className="no-underline text-black">
+          <Link to="/" className="no-underline text-black hover:underline">
             Home
           </Link>
         </li>
         <li className="p-4">
-          <Link to="/map" className="no-underline text-black">
+          <Link to="/map" className="no-underline text-black hover:underline">
             Map
           </Link>
         </li>
         <li className="p-4">
-          <Link to="/announcement" className="no-underline text-black">
+          <Link to="/announcement" className="no-underline text-black hover:underline">
             Announcement
           </Link>
         </li>
         <li className="p-4">
-          <Link to="/connect" className="no-underline text-black">
+          <Link to="/connect" className="no-underline text-black hover:underline">
             Connect
           </Link>
         </li>
         <li className="p-4">
-          <Link to="/help" className="no-underline text-black">
+          <Link to="/help" className="no-underline text-black hover:underline">
             Help
           </Link>
         </li>
