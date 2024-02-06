@@ -93,7 +93,8 @@ function LinkedInRedirectHandler() {
           console.log("loggedinUserID");
 
           // Navigate to the edit profile page using the uid from the response
-          navigate(`/editprofile`);
+          navigate(`/editprofile/${loggedInUserID}`);
+          window.location.reload();
         }
       } else {
         console.error("Missing expected properties in data:", data);
