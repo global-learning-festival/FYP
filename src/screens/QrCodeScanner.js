@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import "tailwindcss/tailwind.css"; // Import Tailwind CSS
 import { Html5QrcodeScanner } from "html5-qrcode";
 import "../styles/App.css";
-import { Link , useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const QRCodeVerifier = () => {
   const scannerRef = useRef(null);
-  const [scannerActive, setScannerActive] = useState(true);
+  const [setScannerActive] = useState(true);
   const loggedInUserID = localStorage.getItem("loggedInUserID");
   const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ const QRCodeVerifier = () => {
             </button>
           </>
         )}
-      </div>    
+      </div>
     );
   };
 
@@ -43,7 +43,7 @@ const QRCodeVerifier = () => {
       }
     };
     const onScanSuccess = (decodedText, decodedResult) => {
-      window.location.href = decodedText
+      window.location.href = decodedText;
 
       setScannerActive(false);
     };
@@ -113,7 +113,7 @@ const QRCodeVerifier = () => {
       stopScanner();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [loggedInUserID]); 
+  }, [loggedInUserID]);
 
   if (!loggedInUserID) {
     // Render a message indicating the need to log in

@@ -11,7 +11,7 @@ const firebaseConfig = {
   projectId: "oauth-ilf",
   storageBucket: "oauth-ilf.appspot.com",
   messagingSenderId: "858497295593",
-  appId: "1:858497295593:web:f9d83a87303a5555f63c78"
+  appId: "1:858497295593:web:f9d83a87303a5555f63c78",
 };
 
 // Initialize Firebase
