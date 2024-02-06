@@ -47,7 +47,7 @@ function LinkedInRedirectHandler() {
 
       if (first_name && company && last_name && linkedinurl && uid) {
         // Check if user with the same UID already exists
-        const userExistsResponse = await axios.post(
+        const userExistsResponse = await axios.get(
           `${serverlessapi}/useruid/${uid}`
         );
 
