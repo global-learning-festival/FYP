@@ -16,7 +16,7 @@ const QRCodePopupCard = ({ title, qrCodeValue, profilePic, onClose }) => {
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-6 border border-gray-200 rounded-md shadow">
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-black text-center">
+        <h5 className="mb-2 text-2xl font-normal tracking-tight text-black text-center">
           {title}
         </h5>
         {profilePic && (
@@ -90,50 +90,53 @@ const AllUsersList = () => {
         <div className="flex flex-wrap">
           {userData.map((user, index) => (
             <>
-            <div
-              key={user.id || index}
-              className="w-1/2 lg:w-1/2 xl:w-1/3 px-2 mb-4"
-            >
-              <div className="bg-white p-4 rounded-lg shadow">
-                {user.profile_pic ? (
-                  <AdvancedImage
-                    className="object-contain w-24 h-24 rounded-full mx-auto mb-2"
-                    cldImg={cld.image(user.profile_pic)}
-                    plugins={[responsive(), placeholder()]}
-                  />
-                ) : (
-                  <img
-                    className="object-contain w-24 h-24 rounded-full mx-auto mb-2"
-                    src={blankprofilepicture}
-                    alt={`${user.username || user.first_name || "N/A"} ${
-                      user.last_name || "N/A"
-                    }`}
-                  />
-                )}
-                <p className="text-center mb-1">{`${
-                  user.username || user.first_name || "N/A"
-                } ${user.last_name || "N/A"}`}</p>
-                {/* <p className="text-center mb-1">{`${
+              <div
+                key={user.id || index}
+                className="w-1/2 lg:w-1/2 xl:w-1/3 px-2 mb-4"
+              >
+                <div className="bg-white p-4 rounded-lg shadow">
+                  {user.profile_pic ? (
+                    <AdvancedImage
+                      className="object-contain w-24 h-24 rounded-full mx-auto mb-2"
+                      cldImg={cld.image(user.profile_pic)}
+                      plugins={[responsive(), placeholder()]}
+                    />
+                  ) : (
+                    <img
+                      className="object-contain w-24 h-24 rounded-full mx-auto mb-2"
+                      src={blankprofilepicture}
+                      alt={`${user.username || user.first_name || "N/A"} ${
+                        user.last_name || "N/A"
+                      }`}
+                    />
+                  )}
+                  <p className="text-center mb-1">{`${
+                    user.username || user.first_name || "N/A"
+                  } ${user.last_name || "N/A"}`}</p>
+                  {/* <p className="text-center mb-1">{`${
                   user.jobtitle || "N/A"
                 }`}</p> */}
-                <p className="text-center mb-1">{`From ${
-                  user.company || "N/A"
-                }`}</p>
-                {user.linkedinurl ? (
-                  <div className="flex justify-center">
-                    <button 
-                      className="mt-4 bg-[#4B558A] text-white px-4 py-2 rounded-md hover:bg-[#3A426C] hover:drop-shadow-xl"
-                      onClick={() => handleCardClick(user)}>
+                  <p className="text-center mb-1">{`From ${
+                    user.company || "N/A"
+                  }`}</p>
+                  {user.linkedinurl ? (
+                    <div className="flex justify-center">
+                      <button
+                        className="mt-4 bg-[#4B558A] text-white px-4 py-2 rounded-md hover:bg-[#3A426C] hover:drop-shadow-xl"
+                        onClick={() => handleCardClick(user)}
+                      >
                         Connect
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flex justify-center">
-                    <p className="mt-4 bg-gray-400 text-white px-4 py-2 rounded-md">Connect</p>
-                  </div>
-                )}
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex justify-center">
+                      <p className="mt-4 bg-gray-400 text-white px-4 py-2 rounded-md">
+                        Connect
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
             </>
           ))}
         </div>

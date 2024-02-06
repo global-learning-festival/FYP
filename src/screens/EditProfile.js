@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
-import { NotificationContainer, NotificationManager } from 'react-notifications';
-import 'react-notifications/lib/notifications.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
+import "react-notifications/lib/notifications.css";
 import "../styles/App.css";
 
 import CloudinaryUploadWidget from "../components/CloudinaryUpload";
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
 
-
-
 const EditProfileForm = () => {
   const [user, setUser] = useState({});
-  const { userid } = useParams();
+  const { uid } = useParams();
   const navigate = useNavigate();
   const localhostapi = "http://localhost:5000";
   const serverlessapi = "https://adminilftest.onrender.com";
@@ -21,6 +22,7 @@ const EditProfileForm = () => {
   const [cloudName] = useState("dxkozpx6g");
   const [uploadPreset] = useState("jcck4okm");
   const [loading, setLoading] = useState(false);
+  const loggedInUserID = localStorage.getItem("loggedInUserID");
 
   const cld = new Cloudinary({
     cloud: {
@@ -36,17 +38,17 @@ const EditProfileForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${serverlessapi}/user/${userid}`);
+        const response = await axios.get(`${serverlessapi}/useruid/${uid}`);
         setUser(response.data);
-        setPublicId(response.data.profile_pic || '');
-        console.log(response.data)
+        setPublicId(response.data.profile_pic || "");
+        console.log(response.data);
       } catch (error) {
-        console.error('Error fetching user information:', error);
+        console.error("Error fetching user information:", error);
       }
     };
 
     fetchData();
-  }, [userid]);
+  }, [uid]);
 
   const handleChange = (e) => {
     setUser({
@@ -64,35 +66,35 @@ const EditProfileForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(publicId)
+    console.log(publicId);
     // Check if the LinkedIn URL is valid
     if (user.linkedinurl && !isValidLinkedInUrl(user.linkedinurl)) {
       // Show error notification for an invalid LinkedIn URL
-      NotificationManager.error('Invalid LinkedIn URL. Please check and try again.');
+      NotificationManager.error(
+        "Invalid LinkedIn URL. Please check and try again."
+      );
       return;
     }
 
     try {
       // Update user profile with Cloudinary publicId
-      await axios.put(`${serverlessapi}/user/${userid}`, {
+      await axios.put(`${serverlessapi}/user/${uid}`, {
         ...user,
         publicId,
       });
       // Show success notification
-      NotificationManager.success('Changes saved successfully');
+      NotificationManager.success("Changes saved successfully");
 
       // Redirect after a delay
       setTimeout(() => {
         navigate(`/`);
       }, 600);
     } catch (error) {
-      console.error('Error updating user profile:', error.message);
+      console.error("Error updating user profile:", error.message);
       // Show error notification
-      NotificationManager.error('Error updating user profile');
+      NotificationManager.error("Error updating user profile");
     }
   };
-
-
 
   const myImage = cld.image(publicId);
   return (
@@ -100,13 +102,19 @@ const EditProfileForm = () => {
       <h1 className="text-2xl font-bold mb-4">Complete Your Profile</h1>
       <div id="form" onSubmit={handleSubmit} className="max-w-md">
         <div className="mb-4">
-          <label htmlFor="username" className="block text-sm font-medium text-gray-600">
+          <label
+            htmlFor="username"
+            className="block text-sm font-medium text-gray-600"
+          >
             Username
           </label>
           <input
             type="text"
             name="username"
-            value={user.username || `${user.first_name || 'N/A'} ${user.last_name || 'N/A'}`}
+            value={
+              user.username ||
+              `${user.first_name || "N/A"} ${user.last_name || "N/A"}`
+            }
             onChange={handleChange}
             readOnly // Make the username field non-editable
             className="mt-1 p-2 border border-gray-300 rounded-md w-full"
@@ -114,37 +122,46 @@ const EditProfileForm = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="company" className="block text-sm font-medium text-gray-600">
+          <label
+            htmlFor="company"
+            className="block text-sm font-medium text-gray-600"
+          >
             Company Name
           </label>
           <input
             type="text"
             name="company"
-            value={user.company || ''}
+            value={user.company || ""}
             onChange={handleChange}
             className="mt-1 p-2 border border-gray-300 rounded-md w-full"
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="jobtitle" className="block text-sm font-medium text-gray-600">
+          <label
+            htmlFor="jobtitle"
+            className="block text-sm font-medium text-gray-600"
+          >
             Job Title
           </label>
           <input
             type="text"
             name="jobtitle"
-            value={user.jobtitle || ''}
+            value={user.jobtitle || ""}
             onChange={handleChange}
             className="mt-1 p-2 border border-gray-300 rounded-md w-full"
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="linkedinurl" className="block text-sm font-medium text-gray-600">
+          <label
+            htmlFor="linkedinurl"
+            className="block text-sm font-medium text-gray-600"
+          >
             LinkedIn URL
           </label>
           <input
             type="text"
             name="linkedinurl"
-            value={user.linkedinurl || ''}
+            value={user.linkedinurl || ""}
             onChange={handleChange}
             className="mt-1 p-2 border border-gray-300 rounded-md w-full"
           />
@@ -162,9 +179,9 @@ const EditProfileForm = () => {
             setPublicId={setPublicId}
             publicId={publicId}
           />
-          <div style={{ width: '200px' }}>
+          <div style={{ width: "200px" }}>
             <AdvancedImage
-              style={{ maxWidth: '100%' }}
+              style={{ maxWidth: "100%" }}
               cldImg={cld.image(publicId)}
               plugins={[responsive(), placeholder()]}
             />

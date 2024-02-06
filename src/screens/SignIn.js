@@ -1,3 +1,4 @@
+//Signin.js
 import React, { useEffect, useState } from "react";
 import GoogleButton from "react-google-button";
 import LinkedIn from "../components/Linkedin"; // Import LinkedIn component directly
@@ -50,8 +51,8 @@ const SignIn = ({ code }) => {
                 "User already exists. Retrieving information:",
                 response.data
               );
-              console.log(response.data.userid);
-              navigate(`/editprofile/${response.data.userid}`);
+              console.log(response.data.uid);
+              navigate(`/editprofile/${uid}`);
             } else {
               const userData = {
                 first_name,
@@ -70,6 +71,7 @@ const SignIn = ({ code }) => {
                     "User information stored successfully:",
                     response.data
                   );
+                  navigate(`/editprofile/${uid}`);
                 })
                 .catch((error) => {
                   console.error("Error storing user information:", error);
@@ -98,17 +100,17 @@ const SignIn = ({ code }) => {
             Sign In With Google
           </h5>
           <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500 dark:text-gray-400">
-            Connect with others and have access to personalised features by signing in with Google!
+            Have access to personalised features by signing in with Google!
           </p>
           <div className="flex items-center justify-center mt-3">
             <GoogleButton onClick={googleSignIn} />
           </div>
-          {/* <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500 dark:text-gray-400 mt-3">
+          <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500 dark:text-gray-400 mt-3">
             or
           </p>
           <div className="flex items-center justify-center mt-3">
             <LinkedIn></LinkedIn>
-          </div> */}
+          </div>
         </div>
       </div>
     </>

@@ -70,7 +70,7 @@ const LinkedInLogin = () => {
   const handleLinkedInClick = () => {
     console.log("LinkedIn button clicked");
     // Redirect to LinkedIn OAuth URL
-    const authUrl = `${process.env.REACT_APP_OAUTH_URL}?client_id=${process.env.REACT_APP_CLIENT_ID}&response_type=code&scope=${LinkedInApi.SCOPE}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`;
+    const authUrl = `${process.env.REACT_APP_OAUTH_URL}?response_type=code&client_id=${process.env.REACT_APP_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&scope=${process.env.REACT_APP_SCOPE}`;
     window.location.href = authUrl;
   };
 
