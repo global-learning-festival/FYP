@@ -1,6 +1,6 @@
 import React from "react";
 
-import "bootstrap/dist/css/bootstrap.css";
+
 import { Routes, Route } from "react-router-dom";
 
 //Importing Navbar
@@ -21,7 +21,6 @@ import EditProfile from "./screens/EditProfile";
 import QRCodeGenerator from "./screens/QrCodeGenerator";
 import QRCodeScanner from "./screens/QrCodeScanner";
 import UserList from "./screens/AllUsersList";
-import Connect2 from "./screens/Connect2";
 import { AuthContextProvider } from "./context/AuthContext";
 import { LinkedinAuthContextProvider } from "./context/LinkedinAuthContext";
 import LinkedInRedirectHandler from "./components/LinkedinRedirectHandler";
@@ -46,11 +45,10 @@ class App extends React.Component {
               <Route path="/help" element={<Help />} />
               <Route path="/importantinfo" element={<ImportantInfo />} />
               <Route path="/signin" element={<SignIn />} />
-              <Route path="/editprofile/:userid" element={<EditProfile />} />
+              <Route path="/editprofile/:uid" element={<EditProfile />} />
               <Route path="/qrcode/:uid" element={<QRCodeGenerator />} />
               <Route path="/scan" element={<QRCodeScanner />} />
               <Route path="/allusers" element={<UserList />} />
-              <Route path="/connect2" element={<Connect2 />} />
               <Route
                 path="/linkedin/redirect"
                 element={<LinkedInRedirectHandler />}

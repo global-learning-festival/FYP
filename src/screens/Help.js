@@ -3,39 +3,7 @@ import { useCollapse } from 'react-collapsed';
 import map from "../images/sp_map.png";
 import { BsPlus, BsDash } from 'react-icons/bs';
 import "../styles/App.css";
-import {
-  Collapse,
-  initTE,
-} from "tw-elements";
-
-initTE({ Collapse });
-
-// function Collapsible() {
-//   const [isExpanded1, setExpanded1] = useState(false);
-//   const [isExpanded2, setExpanded2] = useState(false);
-//   const [isExpanded3, setExpanded3] = useState(false);
-
-//   const { getCollapseProps: getCollapseProps1, getToggleProps: getToggleProps1 } = useCollapse({ isExpanded: isExpanded1 });
-//   const { getCollapseProps: getCollapseProps2, getToggleProps: getToggleProps2 } = useCollapse({ isExpanded: isExpanded2 });
-//   const { getCollapseProps: getCollapseProps3, getToggleProps: getToggleProps3 } = useCollapse({ isExpanded: isExpanded3 });
-
-//   const handleToggle1 = () => {
-//     setExpanded1(!isExpanded1);
-//     setExpanded2(false);
-//     setExpanded3(false);
-//   };
-
-//   const handleToggle2 = () => {
-//     setExpanded1(false);
-//     setExpanded2(!isExpanded2);
-//     setExpanded3(false);
-//   };
-
-//   const handleToggle3 = () => {
-//     setExpanded1(false);
-//     setExpanded2(false);
-//     setExpanded3(!isExpanded3);
-//   };
+import Accordion from 'react-bootstrap/Accordion';
 
   const Help = () => {
 
@@ -74,202 +42,27 @@ initTE({ Collapse });
               </a>
           </div>
         </div>
-        
-    <div id="accordionExample">
-      <div
-        className="rounded-t-lg border border-neutral-200 bg-white dark:border-neutral-600 dark:bg-neutral-800">
-        <h2 className="mb-0" id="headingOne">
-          <button
-            className="group relative flex w-full items-center rounded-t-[15px] border-0 bg-white px-5 py-4 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-neutral-800 dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-primary [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] dark:[&:not([data-te-collapse-collapsed])]:bg-neutral-800 dark:[&:not([data-te-collapse-collapsed])]:text-primary-400 dark:[&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
-            type="button"
-            data-te-collapse-init
-            data-te-target="#collapseOne"
-            aria-expanded="true"
-            aria-controls="collapseOne">
-            <div>
-             <p>How many people will be participating?</p>
-            </div>
-            <span
-              className="ml-auto h-5 w-5 shrink-0 rotate-[-180deg] fill-[#336dec] transition-transform duration-200 ease-in-out group-[[data-te-collapse-collapsed]]:rotate-0 group-[[data-te-collapse-collapsed]]:fill-[#212529] motion-reduce:transition-none dark:fill-blue-300 dark:group-[[data-te-collapse-collapsed]]:fill-white">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="h-6 w-6">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-              </svg>
-            </span>
-          </button>
-        </h2>
-        <div
-          id="collapseOne"
-          className="!visible"
-          data-te-collapse-item
-          data-te-collapse-show
-          aria-labelledby="headingOne"
-          data-te-parent="#accordionExample">
-          <div className="px-5 py-4">
-          <div>
-            <p>SP will host an International Learning Festival that will see about 400 external guests joining 500 SP staff in this event.</p>
-          </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="border border-t-0 border-neutral-200 bg-white dark:border-neutral-600 dark:bg-neutral-800">
-        <h2 className="mb-0" id="headingTwo">
-          <button
-            className="group relative flex w-full items-center rounded-none border-0 bg-white px-5 py-4 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-neutral-800 dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-primary [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] dark:[&:not([data-te-collapse-collapsed])]:bg-neutral-800 dark:[&:not([data-te-collapse-collapsed])]:text-primary-400 dark:[&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
-            type="button"
-            data-te-collapse-init
-            data-te-collapse-collapsed
-            data-te-target="#collapseTwo"
-            aria-expanded="false"
-            aria-controls="collapseTwo">
-            <div>
-              <p>Will there be food provided?</p>
-            </div>
-            <span
-              className="-mr-1 ml-auto h-5 w-5 shrink-0 rotate-[-180deg] fill-[#336dec] transition-transform duration-200 ease-in-out group-[[data-te-collapse-collapsed]]:mr-0 group-[[data-te-collapse-collapsed]]:rotate-0 group-[[data-te-collapse-collapsed]]:fill-[#212529] motion-reduce:transition-none dark:fill-blue-300 dark:group-[[data-te-collapse-collapsed]]:fill-white">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="h-6 w-6">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-              </svg>
-            </span>
-          </button>
-        </h2>
-        <div
-          id="collapseTwo"
-          className="!visible hidden"
-          data-te-collapse-item
-          aria-labelledby="headingTwo"
-          data-te-parent="#accordionExample">
-          <div className="px-5 py-4">
-          <div>
-            <p>Yes, Of Course!</p>
-          </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="rounded-b-lg border border-t-0 border-neutral-200 bg-white dark:border-neutral-600 dark:bg-neutral-800">
-        <h2 className="accordion-header mb-0" id="headingThree">
-          <button
-            className="group relative flex w-full items-center border-0 bg-white px-5 py-4 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-neutral-800 dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-primary [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] dark:[&:not([data-te-collapse-collapsed])]:bg-neutral-800 dark:[&:not([data-te-collapse-collapsed])]:text-primary-400 dark:[&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)] [&[data-te-collapse-collapsed]]:rounded-b-[15px] [&[data-te-collapse-collapsed]]:transition-none"
-            type="button"
-            data-te-collapse-init
-            data-te-collapse-collapsed
-            data-te-target="#collapseThree"
-            aria-expanded="false"
-            aria-controls="collapseThree">
-            <div>
-              <p>How do I get to the venue?</p>
-            </div>
-            <span
-              className="-mr-1 ml-auto h-5 w-5 shrink-0 rotate-[-180deg] fill-[#336dec] transition-transform duration-200 ease-in-out group-[[data-te-collapse-collapsed]]:mr-0 group-[[data-te-collapse-collapsed]]:rotate-0 group-[[data-te-collapse-collapsed]]:fill-[#212529] motion-reduce:transition-none dark:fill-blue-300 dark:group-[[data-te-collapse-collapsed]]:fill-white">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="h-6 w-6">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-              </svg>
-            </span>
-          </button>
-        </h2>
-        <div
-          id="collapseThree"
-          className="!visible hidden"
-          data-te-collapse-item
-          aria-labelledby="headingThree"
-          data-te-parent="#accordionExample">
-          <div className="px-5 py-4">
-          <div>
-            <p>Do follow the steps above.</p>
-          </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-        {/* <div className='border-primary rounded border-black p-2 mb-4' style={{ border: '2px solid red', width: '100%' }}>
-        <div className="collapsible flex justify-between">
-          <div className="header" {...getToggleProps1({ onClick: handleToggle1 })}>
-            {isExpanded1 ? (
-              <span>
-                How many people will be participating? <BsDash style={{ display: 'inline-block', color: 'red', fontSize: '150%', marginLeft: '4px', marginBottom: '2px' }} />
-              </span>
-            ) : (
-              <span>
-                How many people will be participating? <BsPlus style={{ display: 'inline-block', color: 'red', fontSize: '150%', marginLeft: '4px', marginBottom: '2px' }} />
-              </span>
-            )}
-          </div>
-          <div {...getCollapseProps1()}>
-            <div className="content1">
-              SP will host an International Learning Festival that will see about 400 external guests joining 500 SP staff in this event.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className='border-primary rounded border-black p-2 mb-4' style={{ border: '2px solid red', width: '100%' }}>
-        <div className="collapsible">
-          <div className="header" {...getToggleProps2({ onClick: handleToggle2 })}>
-            {isExpanded2 ? (
-              <>
-                Will there be food provided? <BsDash style={{ display: 'inline-block', color: 'red', fontSize: '150%', marginLeft: '4px', marginBottom: '2px' }} />
-              </>
-            ) : (
-              <>
-                Will there be food provided? <BsPlus style={{ display: 'inline-block', color: 'red', fontSize: '150%', marginLeft: '4px', marginBottom: '2px' }} />
-              </>
-            )}
-          </div>
-          <div {...getCollapseProps2()}>
-            <div className="content2">
-              Yes, Of Course!
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className='border-primary rounded border-black p-2 mb-4' style={{ border: '2px solid red', width: '100%' }}>
-        <div className="collapsible">
-          <div className="header" {...getToggleProps3({ onClick: handleToggle3 })}>
-            {isExpanded3 ? (
-              <>
-                How do I get to the venue? <BsDash style={{ display: 'inline-block', color: 'red', fontSize: '150%', marginLeft: '4px', marginBottom: '2px' }} />
-              </>
-            ) : (
-              <>
-                How do I get to the venue? <BsPlus style={{ display: 'inline-block', color: 'red', fontSize: '150%', marginLeft: '4px', marginBottom: '2px' }} />
-              </>
-            )}
-          </div>
-          <div {...getCollapseProps3()}>
-            <div className="content3">
-              Do follow the steps above.
-            </div>
-          </div>
-        </div>
-      </div> */}
+      <Accordion defaultActiveKey="0">
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>How many people will be participating?</Accordion.Header>
+          <Accordion.Body>
+          SP will host an International Learning Festival that will see about 400 external guests joining 500 SP staff in this event.
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey="1">
+          <Accordion.Header>Will there be food provided?</Accordion.Header>
+          <Accordion.Body>
+          Yes, Of Course!
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey="2">
+          <Accordion.Header>How do I get to the venue?</Accordion.Header>
+          <Accordion.Body>
+          Do follow the steps above.
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
       
         <div className="bg-gray-100 rounded-xl p-4 mb-4 mt-4">
           <h5 className='mb-3 font-bold text-center'>Medical Information</h5>

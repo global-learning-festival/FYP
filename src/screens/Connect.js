@@ -7,11 +7,9 @@ import { Link } from "react-router-dom";
 import "../styles/App.css";
 import qrcodeimg from "../assets/qr-code.png";
 import scanimg from "../assets/scan.png";
-import GoogleButton from "react-google-button";
-import { UserAuth } from "../context/AuthContext";
+import LinkedIn from "../components/Linkedin"; // Import LinkedIn component directly
 
 const Connect = () => {
-  const { googleSignIn, user } = UserAuth();
   const [userData, setUserData] = useState(null);
   const loggedInUserID = localStorage.getItem("loggedInUserID");
   const [loading] = useState(false);
@@ -33,7 +31,7 @@ const Connect = () => {
             <a onClick={handleQRButtonClick}>
               <img
                 src={qrcodeimg}
-                className="object-contain h-12 w-24  md:object-scale-down"
+                className="object-contain h-12 w-20  md:object-scale-down"
               ></img>
             </a>
 
@@ -52,7 +50,7 @@ const Connect = () => {
             <a>
               <img
                 src={scanimg}
-                className="object-contain h-12 w-24  md:object-scale-down"
+                className="object-contain h-12 w-20  md:object-scale-down"
               ></img>
             </a>
           </>
@@ -105,7 +103,7 @@ const Connect = () => {
                   International Learning Festival!
                 </p>
                 <div className="flex items-center justify-center mt-3">
-                  <GoogleButton onClick={googleSignIn} />
+                  <LinkedIn></LinkedIn>
                 </div>
               </div>
             </div>

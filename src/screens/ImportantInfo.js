@@ -7,16 +7,16 @@ import "../styles/App.css";
 
 const ImportantInfoCard = ({ infoid, title, subtitle, description, onClick }) => {
   return (
-    <div className='m-2 flex'>
-      <div
-        key={infoid}
-        className='flex-1 p-4 h-48 w-96 mx-auto max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
-        onClick={onClick}
-      >
-        <h5 className='mb-2 text-2xl font-bold tracking-tight text-black'>{title}</h5>
-        <p className='text-xs text-gray-500'>{subtitle}</p>
-      </div>
+    <div className='m-2 mx-auto'>
+    <div
+      key={infoid}
+      className='flex-1 p-4 h-48 w-96 max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
+      onClick={onClick}
+    >
+      <h5 className='mb-2 text-2xl font-bold tracking-tight text-black'>{title}</h5>
+      <p className='text-xs text-gray-500'>{subtitle}</p>
     </div>
+  </div>
   );
 };
 

@@ -2,12 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import "tailwindcss/tailwind.css"; // Import Tailwind CSS
 import { Html5QrcodeScanner } from "html5-qrcode";
 import "../styles/App.css";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 
 const QRCodeVerifier = () => {
   const scannerRef = useRef(null);
   const [scannerActive, setScannerActive] = useState(true);
   const loggedInUserID = localStorage.getItem("loggedInUserID");
+  const navigate = useNavigate();
 
   const BackButton = ({ loggedInUserID }) => {
     return (
@@ -21,11 +22,16 @@ const QRCodeVerifier = () => {
             </button>
           </>
         )}
-      </div>
+      </div>    
     );
   };
 
   useEffect(() => {
+    if (!loggedInUserID) {
+      // Redirect to login page or display a message indicating the need to log in
+      navigate("/signin"); // Redirect to login page
+      return;
+    }
     const docReady = (fn) => {
       if (
         document.readyState === "complete" ||
@@ -36,10 +42,9 @@ const QRCodeVerifier = () => {
         document.addEventListener("DOMContentLoaded", fn);
       }
     };
-
     const onScanSuccess = (decodedText, decodedResult) => {
-      window.open(decodedText, "_blank");
-      // Set scannerActive to false after successful scan to allow reactivation later
+      window.location.href = decodedText
+
       setScannerActive(false);
     };
 
@@ -108,12 +113,26 @@ const QRCodeVerifier = () => {
       stopScanner();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, []); // Pass an empty dependency array
+  }, [loggedInUserID]); 
 
+  if (!loggedInUserID) {
+    // Render a message indicating the need to log in
+    return (
+      <div className="max-w-screen-md mx-auto p-6">
+        <p>Please log in to access this page.</p>
+      </div>
+    );
+  }
   return (
     <>
       <div className="container mx-auto my-8 text-center">
-        <h1 className="text-2xl font-bold">QRCode Scanner</h1>
+        <h1 className="text-2xl font-bold">Scan a LinkedIn Qr Code</h1>
+      </div>
+      <div className="flex justify-center items-center mb-2">
+        <p>
+          To use the QR Code Scanner, please press on "Request Camera
+          Permissions" and press "Allow"
+        </p>
       </div>
 
       <section className="container mx-auto">
