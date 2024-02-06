@@ -305,19 +305,19 @@ const MapComponent = (props) => {
           Water Refill
         </button>
         <button
-          className={`filter-button ${selectedCategory === 'register' ? 'register' : ''} px-3 py-2 mx-1 my-1 bg-[#B76711] text-white rounded-md text-xs w-[5.5rem] h-12 md:text-sm  md:w-40`}
+          className={`filter-button ${selectedCategory === 'register' ? 'register' : ''} px-3 py-2 mx-1 my-1 bg-[#B76711] hover:bg-[#9E5A10] text-white rounded-md text-xs w-[5.5rem] h-12 md:text-sm  md:w-40`}
           onClick={() => handleFilterClick('register')}
         >
           Registration Desks
         </button>
         <button
-          className={`filter-button ${selectedCategory === 'conference' ? 'conference' : ''} px-3 py-2 mx-1 my-1 bg-[#39B54A] text-white rounded-md text-xs w-[5.5rem] h-12 md:text-sm  md:w-40`}
+          className={`filter-button ${selectedCategory === 'conference' ? 'conference' : ''} px-3 py-2 mx-1 my-1 bg-[#39B54A] hover:bg[#1B6B26] text-white rounded-md text-xs w-[5.5rem] h-12 md:text-sm  md:w-40`}
           onClick={() => handleFilterClick('conference')}
         >
           Convention Centre
         </button>
         <button
-          className={`filter-button ${selectedCategory === 'toilet' ? 'toilet' : ''} px-3 py-2 mx-1 my-1 bg-red-500 text-white rounded-md text-xs  w-[5.5rem] h-12 md:text-sm  md:w-40`}
+          className={`filter-button ${selectedCategory === 'toilet' ? 'toilet' : ''} px-3 py-2 mx-1 my-1 bg-red-500 hover:bg-red-600 text-white rounded-md text-xs  w-[5.5rem] h-12 md:text-sm  md:w-40`}
           onClick={() => handleFilterClick('toilet')}
         >
           Restrooms

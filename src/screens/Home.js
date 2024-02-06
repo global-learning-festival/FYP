@@ -95,7 +95,7 @@ const Home = ({ eventid, title, description, image, formattedDate, location, sta
           />
           <div className="p-3">
             <div className="flex justify-between items-center">
-              <h5 className="mb-2 text-2xl md:text-xl font-bold tracking-tight text-gray-900">{title}</h5>
+              <h5 className="mb-2 h-12 text-2xl md:text-xl font-bold tracking-tight text-gray-900">{title}</h5>
               {loggedInUserID !== null && (
                 <div className='flex flex-col items-end'>
                   {isBookmarked ? (
