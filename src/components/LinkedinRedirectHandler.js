@@ -71,7 +71,7 @@ function LinkedInRedirectHandler() {
           // Store uid in localStorage
           localStorage.setItem("loggedInUserID", uid);
           console.log("loggedInUserID inserted");
-          navigate(`/editprofile/${uid}`);
+          navigate(`/editprofile/${loggedInUserID}`);
         } else {
           const userData = {
             first_name,
@@ -94,7 +94,6 @@ function LinkedInRedirectHandler() {
 
           // Navigate to the edit profile page using the uid from the response
           navigate(`/editprofile/${loggedInUserID}`);
-          window.location.reload();
         }
       } else {
         console.error("Missing expected properties in data:", data);
