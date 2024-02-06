@@ -33,14 +33,14 @@ const Announcement = ({ announcementid, title, description, announcement_posted,
     <>
     <div className='m-2'>
         <div
-            className='flex-1 m-auto min-h-min h-full max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
+            className='flex-1 m-auto h-full max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
             onClick={onClick}
         >
             <div className="announcement-header bg-[#293262] text-white rounded-t-md mb-2 p-2">
               <h3 className='text-xl md:text-2xl font-bold tracking-tight text-center'>Announcement</h3>
             </div>
             <h5 className='mb-2 text-xl md:text-2xl font-bold tracking-tight text-black px-4 pt-3'>{title}</h5>
-            <p className='font-normal text-sm md:text-base text-gray-500 mb-4 px-4 pb-4'>{limitedDescription}</p>
+            <p className='font-normal text-sm md:text-base text-gray-500 mb-4 px-4 pb-4 overflow-hidden '>{limitedDescription}</p>
             <div className='bg-teal-700 text-white rounded-full py-1 px-2 absolute bottom-2 right-2 h-6 md:h-8'>
                 <p className='text-xs md:text-sm'>{formattedDate} {startTime}</p>
             </div>
