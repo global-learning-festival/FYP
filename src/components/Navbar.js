@@ -178,7 +178,7 @@ const Navbar = () => {
         <li className="p-4">
           <Link to="/importantinfo" className="no-underline text-black hover:underline">
             <span class="changeColor">
-            <AiOutlineInfoCircle size="80px"
+            <AiOutlineInfoCircle size="25px"
               onMouseOver={({target})=>target.style.color="white"}
               onMouseOut={({target})=>target.style.color="black"}
             />
