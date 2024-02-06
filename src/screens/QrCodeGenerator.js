@@ -9,7 +9,7 @@ const QRCodeGenerator = () => {
   const loggedInUserID = localStorage.getItem("loggedInUserID");
   const localhostapi = "http://localhost:5000";
   const serverlessapi = "https://adminilftest-4tmd.onrender.com";
-
+  const navigate = useNavigate();
   const BackButton = ({ loggedInUserID }) => {
     return (
       <div>
