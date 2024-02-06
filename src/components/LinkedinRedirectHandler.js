@@ -64,7 +64,9 @@ function LinkedInRedirectHandler() {
 
           // Store uid in localStorage
           localStorage.setItem("loggedInUserID", uid);
-          console.log("loggedInUserID inserted");
+          // Refresh the page
+          window.location.reload();
+          // Navigate to the edit profile page using the uid from the response
           navigate(`/editprofile/${loggedInUserID}`);
         } else {
           // User doesn't exist, insert new user
@@ -80,9 +82,12 @@ function LinkedInRedirectHandler() {
             }
           );
 
-          localStorage.setItem("loggedInUserID", uid);
           // Post user data to adduser endpoint
           console.log("User added to the database:", addUserResponse.data);
+          // Store uid in localStorage
+          localStorage.setItem("loggedInUserID", uid);
+          // Refresh the page
+          window.location.reload();
           // Navigate to the edit profile page using the uid from the response
           navigate(`/editprofile/${loggedInUserID}`);
         }
