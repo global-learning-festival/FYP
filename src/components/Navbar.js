@@ -64,17 +64,17 @@ const Navbar = () => {
           {user?.displayName}
         </h3>
         {user ? (
-        <button
-        className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-8 py-3 mx-auto my-5 hover:bg-[#3A426C] hover:drop-shadow-xl"
-        onClick={handleSignOut}
-      >
-        Logout
-      </button>
-    ) : (
-      <button
-        onClick={handleNav}
-        className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-8 py-3 mx-auto my-5 hover:bg-[#3A426C] hover:drop-shadow-xl"
-      >
+          <button
+            className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl"
+            onClick={handleSignOut}
+          >
+            Logout
+          </button>
+        ) : (
+          <button
+            onClick={handleNav}
+            className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl"
+          >
             <Link
               to="/signin"
               style={{ textDecoration: "none", color: "inherit" }}
@@ -132,13 +132,13 @@ const Navbar = () => {
         </h4>
         {user ? (
           <button
-            className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl"
+            className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 mx-14 hover:bg-[#3A426C] hover:drop-shadow-xl"
             onClick={handleSignOut}
           >
             Logout
           </button>
         ) : (
-          <button className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl">
+          <button className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-5 py-2.5 mx-14 hover:bg-[#3A426C] hover:drop-shadow-xl">
             <Link
               to="/signin"
               style={{ textDecoration: "none", color: "inherit" }}
