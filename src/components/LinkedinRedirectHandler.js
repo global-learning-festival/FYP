@@ -79,7 +79,7 @@ function LinkedInRedirectHandler() {
             last_name,
             linkedinurl,
             uid,
-            type: process.env.REACT_APP_TYPE
+            type: process.env.REACT_APP_TYPE,
           };
           // Post user data to adduser endpoint
           const addUserResponse = await axios.post(
