@@ -27,7 +27,7 @@ const Home = ({ eventid, title, description, image, formattedDate, location, sta
     const fetchBookmarkedEvents = async () => {
       try {
         if (loggedInUserID !== null) {
-          const response = await axios.get(`${localhostapi}/saveevents/${loggedInUserID}`);
+          const response = await axios.get(`${serverlessapi}/saveevents/${loggedInUserID}`);
           setBookmarkedEvents(response.data.rows);
 
           const isEventBookmarked = response.data.rows.some(savedEvent => savedEvent.eventid === eventid);
@@ -203,7 +203,7 @@ const EventsList = () => {
       try {
         setLoading(true);
 
-        const response = await axios.get(`${localhostapi}/events`);
+        const response = await axios.get(`${serverlessapi}/events`);
         setEvents(response.data);
 
         if (currentCategory === 'Ongoing') {
@@ -220,7 +220,7 @@ const EventsList = () => {
           const loggedInUserID = localStorage.getItem("loggedInUserID");
 
           if (loggedInUserID) {
-            const savedResponse = await axios.get(`${localhostapi}/saveevents/${loggedInUserID}`);
+            const savedResponse = await axios.get(`${serverlessapi}/saveevents/${loggedInUserID}`);
             setSavedEvents(savedResponse.data.rows);
 
             const savedEventIds = savedResponse.data.rows.map(savedEvent => savedEvent.eventid);

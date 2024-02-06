@@ -61,7 +61,7 @@ const AnnouncementList = () => {
   useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
-        const response = await axios.get(`${localhostapi}/announcements`);
+        const response = await axios.get(`${serverlessapi}/announcements`);
         console.log(response)
         setAnnouncements(response.data);
       } catch (error) {
