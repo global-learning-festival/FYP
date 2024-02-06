@@ -12,7 +12,7 @@ const Home = ({ eventid, title, description, image, formattedDate, location, sta
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [publicId, setPublicId] = useState("");
   const [cloudName] = useState("dxkozpx6g");
-  const [bookmarkedEvents, setBookmarkedEvents] = useState([])
+  const [bookmarkedEvents, setBookmarkedEvents] = useState([]);
   const localhostapi = "http://localhost:5000";
   const serverlessapi = "https://adminilftest.onrender.com";
   const loggedInUserID = localStorage.getItem("loggedInUserID");
@@ -27,7 +27,7 @@ const Home = ({ eventid, title, description, image, formattedDate, location, sta
     const fetchBookmarkedEvents = async () => {
       try {
         if (loggedInUserID !== null) {
-          const response = await axios.get(`${serverlessapi}/saveevents/${loggedInUserID}`);
+          const response = await axios.get(`${localhostapi}/saveevents/${loggedInUserID}`);
           setBookmarkedEvents(response.data.rows);
 
           const isEventBookmarked = response.data.rows.some(savedEvent => savedEvent.eventid === eventid);
@@ -83,7 +83,7 @@ const Home = ({ eventid, title, description, image, formattedDate, location, sta
 
   return (
     <>
-      <div className='m-2'>
+      <div className="m-2">
         <div
           className="relative h-full mx-auto max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105"
           onClick={onClick}
@@ -108,7 +108,7 @@ const Home = ({ eventid, title, description, image, formattedDate, location, sta
             </div>
             <p className="mb-3 font-normal text-gray-700 underline underline-offset-4">{limitedDescription}</p>
             <div className='flex justify-end'>
-            <div className='bg-[#9a4c68] text-white rounded-full mr-0.5 py-1 md:py-1.5 px-2.5 h-6 sm:h-10 lg:h-8'>
+              <div className='bg-[#9a4c68] text-white rounded-full mr-0.5 py-1 md:py-1.5 px-2.5 h-6 sm:h-10 lg:h-8'>
                 <p className='text-xs md:text-sm'>
                   At {location}
                 </p>
@@ -134,7 +134,7 @@ const Home = ({ eventid, title, description, image, formattedDate, location, sta
 
 const FilterBar = ({ currentCategory, setCurrentCategory }) => {
   return (
-    <div className="flex justify-center mt-4">
+    <div className="flex overflow-x-auto mt-4" style={{ scrollbarWidth: 'thin', scrollbarColor: 'transparent transparent'}}>
       <button
         className={`mx-2 px-4 py-2 ${
           currentCategory === 'All' ? 'text-violet-950 transition border-b-2 border-violet-900 shadow-none' : 'shadow-none'
@@ -159,6 +159,30 @@ const FilterBar = ({ currentCategory, setCurrentCategory }) => {
       >
         Saved
       </button>
+      <button
+        className={`mx-2 px-4 py-2 ${
+          currentCategory === '24 Sep' ? 'text-violet-950 transition border-b-2 border-violet-900 shadow-none' : 'shadow-none'
+        }`}
+        onClick={() => setCurrentCategory('24 Sep')}
+      >
+        24 Sep
+      </button>
+      <button
+        className={`mx-2 px-4 py-2 ${
+          currentCategory === '25 Sep' ? 'text-violet-950 transition border-b-2 border-violet-900 shadow-none' : 'shadow-none'
+        }`}
+        onClick={() => setCurrentCategory('25 Sep')}
+      >
+        25 Sep
+      </button>
+      <button
+        className={`mx-2 px-4 py-2 ${
+          currentCategory === '26 Sep' ? 'text-violet-950 transition border-b-2 border-violet-900 shadow-none' : 'shadow-none'
+        }`}
+        onClick={() => setCurrentCategory('26 Sep')}
+      >
+        26 Sep
+      </button>
     </div>
   );
 };
@@ -179,7 +203,7 @@ const EventsList = () => {
       try {
         setLoading(true);
 
-        const response = await axios.get(`${serverlessapi}/events`);
+        const response = await axios.get(`${localhostapi}/events`);
         setEvents(response.data);
 
         if (currentCategory === 'Ongoing') {
@@ -196,13 +220,24 @@ const EventsList = () => {
           const loggedInUserID = localStorage.getItem("loggedInUserID");
 
           if (loggedInUserID) {
-            const savedResponse = await axios.get(`${serverlessapi}/saveevents/${loggedInUserID}`);
+            const savedResponse = await axios.get(`${localhostapi}/saveevents/${loggedInUserID}`);
             setSavedEvents(savedResponse.data.rows);
 
             const savedEventIds = savedResponse.data.rows.map(savedEvent => savedEvent.eventid);
             const savedFiltered = response.data.filter(eventItem => savedEventIds.includes(eventItem.eventid));
             setFilteredEvents(savedFiltered);
           }
+        } else if (currentCategory === '24 Sep' || currentCategory === '25 Sep' || currentCategory === '26 Sep') {
+          // Filter events based on the selected date
+          const selectedDate = new Date(currentCategory + ' 2024'); // Adjust the year as needed
+
+          const filtered = response.data.filter(eventItem => {
+            const eventDate = new Date(eventItem.time_start);
+            return eventDate.toDateString() === selectedDate.toDateString();
+          });
+
+          setFilteredEvents(filtered);
+
         } else {
           setFilteredEvents(response.data);
         }
@@ -218,35 +253,37 @@ const EventsList = () => {
   }, [currentCategory]);
 
   const rows = [];
-  const cardsPerRow = 3;
+const cardsPerRow = 3;
 
-  for (let i = 0; i < filteredEvents.length; i += cardsPerRow) {
-    const row = filteredEvents.slice(i, i + cardsPerRow);
+for (let i = 0; i < filteredEvents.length; i += cardsPerRow) {
+  const row = filteredEvents.slice(i, i + cardsPerRow);
 
-    rows.push(
-      <div key={i / cardsPerRow} className='sm:flex justify-center'>
-        {row.map((eventItem, index) => {
-          const startDate = new Date(eventItem.time_start);
-          const formattedDate = startDate.toLocaleDateString('en-US', {
-            weekday: 'short',
-            month: 'short',
-            day: 'numeric',
-            timeZone: 'Asia/Singapore',
-          });
+  rows.push(
+    <div key={i / cardsPerRow} className='sm:flex justify-center'>
+      {row.map((eventItem, index) => {
+        const startDate = new Date(eventItem.time_start);
+        const formattedDate = startDate.toLocaleDateString('en-US', {
+          weekday: 'short',
+          month: 'short',
+          day: 'numeric',
+          timeZone: 'Asia/Singapore',
+        });
 
-          const startTime = startDate.toLocaleTimeString('en-US', {
-            hour: 'numeric',
-            minute: 'numeric',
-            timeZone: 'Asia/Singapore',
-          });
+        const startTime = startDate.toLocaleTimeString('en-US', {
+          hour: 'numeric',
+          minute: 'numeric',
+          timeZone: 'Asia/Singapore',
+        });
 
-          const endDate = new Date(eventItem.time_end);
-          const endTime = endDate.toLocaleTimeString('en-US', {
-            hour: 'numeric',
-            minute: 'numeric',
-            timeZone: 'Asia/Singapore',
-          });
+        const endDate = new Date(eventItem.time_end);
+        const endTime = endDate.toLocaleTimeString('en-US', {
+          hour: 'numeric',
+          minute: 'numeric',
+          timeZone: 'Asia/Singapore',
+        });
 
+        // Check if the event has not occurred yet
+        if (startDate > new Date()) {
           return (
             <Home
               key={index}
@@ -262,11 +299,13 @@ const EventsList = () => {
               onClick={() => handleViewEventClick(eventItem.eventid)}
             />
           );
-        })}
-      </div>
-    );
-  }
+        }
 
+        return null; // Event has already occurred, so don't include it in the row
+      })}
+    </div>
+  );
+}
   const handleViewEventClick = (eventid) => {
     navigate(`/viewevent/${eventid}`);
   };
