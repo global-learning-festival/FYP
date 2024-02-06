@@ -64,8 +64,6 @@ function LinkedInRedirectHandler() {
 
           // Store uid in localStorage
           localStorage.setItem("loggedInUserID", uid);
-          // Refresh the page
-          window.location.reload();
           // Navigate to the edit profile page using the uid from the response
           navigate(`/editprofile/${loggedInUserID}`);
         } else {
@@ -86,8 +84,6 @@ function LinkedInRedirectHandler() {
           console.log("User added to the database:", addUserResponse.data);
           // Store uid in localStorage
           localStorage.setItem("loggedInUserID", uid);
-          // Refresh the page
-          window.location.reload();
           // Navigate to the edit profile page using the uid from the response
           navigate(`/editprofile/${loggedInUserID}`);
         }
