@@ -148,6 +148,7 @@ const ViewEvent = () => {
                 plugins={[responsive(), placeholder()]}
               />
               <h1 className="text-2xl font-bold mb-4">{eventItem.title}</h1>
+              <div className="border-b-2 border-violet-900 mb-4"></div>
               <h4 className="text-md font-bold mb-2">Date</h4>
               <p className="mb-3 font-normal text-gray-700">
                 {formattedDate}, {startTime} - {endTime}
