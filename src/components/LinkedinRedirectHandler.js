@@ -8,7 +8,6 @@ function LinkedInRedirectHandler() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const loggedInUserID = localStorage.loggedInUserID;
 
   const urlParams = new URLSearchParams(window.location.search);
   const localhostapi = "http://localhost:5000";
@@ -65,36 +64,30 @@ function LinkedInRedirectHandler() {
         setUserData(data);
         setIsLoading(false);
 
-        if (data !== null) {
-          console.log("User exists. Logging data:", data);
+        console.log("User exists. Logging data:", data);
 
-          // Store uid in localStorage
-          localStorage.setItem("loggedInUserID", uid);
-          console.log("loggedInUserID inserted");
-          navigate(`/editprofile/${uid}`);
-        } else {
-          const userData = {
+        // Store uid in localStorage
+        localStorage.setItem("loggedInUserID", uid);
+        console.log("loggedInUserID inserted");
+
+        // Post user data to adduser endpoint
+        const addUserResponse = await axios.post(
+          `${serverlessapi}/addlinkedinuser`,
+          {
             first_name,
             company,
             last_name,
             linkedinurl,
             uid,
             type: process.env.REACT_APP_TYPE,
-          };
-          // Post user data to adduser endpoint
-          const addUserResponse = await axios.post(
-            `${serverlessapi}/addlinkedinuser`,
-            userData
-          );
-          console.log("User added to the database:", addUserResponse.data);
+          }
+        );
 
-          // Store uid in localStorage
-          localStorage.setItem("loggedInUserID", uid);
-          console.log("loggedinUserID");
+        // Post user data to adduser endpoint
+        console.log("User added to the database:", addUserResponse.data);
 
-          // Navigate to the edit profile page using the uid from the response
-          navigate(`/editprofile`);
-        }
+        // Navigate to the edit profile page using the uid from the response
+        navigate(`/editprofile`);
       } else {
         console.error("Missing expected properties in data:", data);
         setIsLoading(false);
