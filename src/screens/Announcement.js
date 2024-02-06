@@ -56,7 +56,7 @@ const AnnouncementList = () => {
   const [announcements, setAnnouncements] = useState([]);
   const navigate = useNavigate();
   const localhostapi= "http://localhost:5000"
-  const serverlessapi ="https://adminilftest.onrender.com" 
+  const serverlessapi ="https://adminilftest-4tmd.onrender.com" 
 
   useEffect(() => {
     const fetchAnnouncements = async () => {

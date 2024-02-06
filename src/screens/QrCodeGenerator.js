@@ -8,7 +8,7 @@ const QRCodeGenerator = () => {
   const [userData, setUserData] = useState(null);
   const loggedInUserID = localStorage.getItem("loggedInUserID");
   const localhostapi = "http://localhost:5000";
-  const serverlessapi = "https://adminilftest.onrender.com";
+  const serverlessapi = "https://adminilftest-4tmd.onrender.com";
 
   const BackButton = ({ loggedInUserID }) => {
     return (

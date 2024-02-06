@@ -14,7 +14,7 @@ const Home = ({ eventid, title, description, image, formattedDate, location, sta
   const [cloudName] = useState("dxkozpx6g");
   const [bookmarkedEvents, setBookmarkedEvents] = useState([])
   const localhostapi = "http://localhost:5000";
-  const serverlessapi = "https://adminilftest.onrender.com";
+  const serverlessapi = "https://adminilftest-4tmd.onrender.com";
   const loggedInUserID = localStorage.getItem("loggedInUserID");
 
   const cld = new Cloudinary({
@@ -172,7 +172,7 @@ const EventsList = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const localhostapi = "http://localhost:5000";
-  const serverlessapi = "https://adminilftest.onrender.com";
+  const serverlessapi = "https://adminilftest-4tmd.onrender.com";
 
   useEffect(() => {
     const fetchEvents = async () => {

@@ -12,7 +12,7 @@ function LinkedInRedirectHandler() {
 
   const urlParams = new URLSearchParams(window.location.search);
   const localhostapi = "http://localhost:5000";
-  const serverlessapi = "https://adminilftest.onrender.com";
+  const serverlessapi = "https://adminilftest-4tmd.onrender.com";
 
   const code = urlParams.get("code");
   console.log("code", code);

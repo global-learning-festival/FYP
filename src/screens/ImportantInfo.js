@@ -88,7 +88,7 @@ const ImportantInfoList = () => {
   const [importantInformation, setImportantInformation] = useState([]);
   const [selectedInfo, setSelectedInfo] = useState(null);
   const localhostapi = "http://localhost:5000";
-  const serverlessapi = "https://adminilftest.onrender.com";
+  const serverlessapi = "https://adminilftest-4tmd.onrender.com";
 
   useEffect(() => {
     const fetchImportantInformation = async () => {

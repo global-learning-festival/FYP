@@ -16,7 +16,7 @@ const AnnouncementScreen = () => {
 
   const navigate = useNavigate();
   const localhostapi = "http://localhost:5000";
-  const serverlessapi = "https://adminilftest.onrender.com";
+  const serverlessapi = "https://adminilftest-4tmd.onrender.com";
 
   const cld = new Cloudinary({
     cloud: {

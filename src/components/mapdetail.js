@@ -21,7 +21,7 @@ import recenterIcon from "../images/Maprecenter.png";
 
 const MapComponent = (props) => {
   const localhostapi = "http://localhost:5000";
-  const serverlessapi = "https://adminilftest.onrender.com";
+  const serverlessapi = "https://adminilftest-4tmd.onrender.com";
   const [userLocation, setUserLocation] = useState(null);
   const [hasLocationPermission, setHasLocationPermission] = useState(true);
   const [isRouting, setIsRouting] = useState(false);

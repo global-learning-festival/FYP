@@ -46,7 +46,7 @@ const AllUsersList = () => {
   const [userData, setUserData] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const localhostapi = "http://localhost:5000";
-  const serverlessapi = "https://adminilftest.onrender.com";
+  const serverlessapi = "https://adminilftest-4tmd.onrender.com";
   const [cloudName] = useState("dxkozpx6g");
   const cld = new Cloudinary({
     cloud: {

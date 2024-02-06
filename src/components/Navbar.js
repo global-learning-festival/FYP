@@ -14,7 +14,7 @@ import axios from "axios";
 
 const Navbar = () => {
   const localhostapi = "http://localhost:5000";
-  const serverlessapi = "https://adminilftest.onrender.com";
+  const serverlessapi = "https://adminilftest-4tmd.onrender.com";
   const [nav, setNav] = useState(false);
   const [showImportantInfo, setShowImportantInfo] = useState(false);
   const loggedInUserID = localStorage.getItem("loggedInUserID");
