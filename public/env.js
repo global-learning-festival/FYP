@@ -64,7 +64,7 @@ window.env = {
   "PROMPT": "$P$G",
   "PSModulePath": "C:\\Users\\User\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules",
   "PUBLIC": "C:\\Users\\Public",
-  "REDIRECT_URI": "http://localhost:3000/linkedin/redirect",
+  "REDIRECT_URI": "http://ilffront.netlify.app/linkedin/redirect",
   "SCOPE": "openid profile email",
   "SESSIONNAME": "Console",
   "SystemDrive": "C:",
