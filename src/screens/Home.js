@@ -8,6 +8,7 @@ import "../styles/App.css";
 import GoogleButton from "react-google-button";
 import { UserAuth } from "../context/AuthContext";
 
+
 const Home = ({
   eventid,
   title,
@@ -18,6 +19,7 @@ const Home = ({
   startTime,
   endTime,
   onClick,
+  isEventPassed
 }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [publicId, setPublicId] = useState("");
@@ -26,6 +28,7 @@ const Home = ({
   const localhostapi = "http://localhost:5000";
   const serverlessapi = "https://adminilftest-4tmd.onrender.com";
   const loggedInUserID = localStorage.getItem("loggedInUserID");
+  const navigate = useNavigate();
 
   const cld = new Cloudinary({
     cloud: {
@@ -99,79 +102,83 @@ const Home = ({
   };
 
   const limitedDescription = limitWords(description, 5);
+   // Convert the formattedDate string to a Date object
+   const eventDate = new Date(formattedDate);
 
-  return (
-    <>
-      <div className="m-2">
+   // Get the current date
+   const currentDate = new Date();
+   currentDate.setHours(0, 0, 0, 0); // Reset time to midnight for comparison
+ 
+  
+ 
+   return (
+     <>
+       <div className="m-2">
         <div
-          className="relative h-full mx-auto max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105"
+          className={`relative h-full mx-auto max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out ${
+            isEventPassed ? "filter grayscale opacity-50" : "hover:scale-105"
+          }`}
           onClick={onClick}
         >
-          <AdvancedImage
-            className="rounded-t-md object-contain w-96 h-36"
-            cldImg={cld.image(publicId || image)}
-            plugins={[responsive(), placeholder()]}
-          />
-          <div className="p-3">
-            <div className="flex justify-between items-center">
-              <h5 className="mb-2 text-2xl md:text-xl font-bold tracking-tight text-gray-900">
-                {title}
-              </h5>
-              {loggedInUserID !== null && (
-                <div className="flex flex-col items-end">
-                  {isBookmarked ? (
-                    <IoBookmark
-                      onClick={(e) => deletesave(eventid, e)}
-                      size={24}
-                      color="#293262"
-                      className="ml-2"
-                    />
-                  ) : (
-                    <IoBookmarkOutline
-                      onClick={saveevent}
-                      size={24}
-                      color="#293262"
-                      className="ml-2"
-                    />
-                  )}
-                </div>
-              )}
-            </div>
-            <p className="mb-3 font-normal text-gray-700 underline underline-offset-4">
-              {limitedDescription}
-            </p>
-            <div className="flex justify-end">
-              <div className="bg-[#9a4c68] text-white rounded-full mr-0.5 py-1 md:py-1.5 px-2.5 h-6 sm:h-10 lg:h-8">
-                <p className="text-xs md:text-sm">At {location}</p>
-              </div>
-              <div className="bg-[#293262] text-white rounded-full mr-0.5 py-1 md:py-1.5 px-2.5 h-6 sm:h-10 lg:h-8">
-                <p className="text-xs md:text-sm">{formattedDate}</p>
-              </div>
-              <div className="bg-[#487572] text-white rounded-full py-1 md:py-1.5 px-2.5 h-6 sm:h-10 lg:h-8">
-                <p className="text-xs md:text-sm">
-                  {startTime} - {endTime}
-                </p>
-              </div>
-            </div>
-            <a href={"viewevent?eventid=" + eventid} />
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
+           <AdvancedImage
+             className="rounded-t-md object-contain w-96 h-36"
+             cldImg={cld.image(publicId || image)}
+             plugins={[responsive(), placeholder()]}
+           />
+           <div className="p-3">
+             <div className="flex justify-between items-center">
+               <h5 className="mb-2 text-2xl md:text-xl font-bold tracking-tight text-gray-900">
+                 {title}
+               </h5>
+               {loggedInUserID !== null && (
+                 <div className="flex flex-col items-end">
+                   {isBookmarked ? (
+                     <IoBookmark
+                       onClick={(e) => deletesave(eventid, e)}
+                       size={24}
+                       color="#293262"
+                       className="ml-2"
+                     />
+                   ) : (
+                     <IoBookmarkOutline
+                       onClick={saveevent}
+                       size={24}
+                       color="#293262"
+                       className="ml-2"
+                     />
+                   )}
+                 </div>
+               )}
+             </div>
+             <p className="mb-3 font-normal text-gray-700 underline underline-offset-4">
+               {limitedDescription}
+             </p>
+             <div className="flex justify-end">
+               <div className="bg-[#9a4c68] text-white rounded-full mr-0.5 py-1 md:py-1.5 px-2.5 h-6 sm:h-10 lg:h-8">
+                 <p className="text-xs md:text-sm">At {location}</p>
+               </div>
+               <div className="bg-[#293262] text-white rounded-full mr-0.5 py-1 md:py-1.5 px-2.5 h-6 sm:h-10 lg:h-8">
+                 <p className="text-xs md:text-sm">{formattedDate}</p>
+               </div>
+               <div className="bg-[#487572] text-white rounded-full py-1 md:py-1.5 px-2.5 h-6 sm:h-10 lg:h-8">
+                 <p className="text-xs md:text-sm">
+                   {startTime} - {endTime}
+                 </p>
+               </div>
+             </div>
+             <a href={"viewevent?eventid=" + eventid} />
+           </div>
+         </div>
+       </div>
+     </>
+   );
+ };
 
-const FilterBar = ({ currentCategory, setCurrentCategory }) => {
+ const FilterBar = ({ currentCategory, setCurrentCategory }) => {
   return (
-    <div
-      className="flex justify-center overflow-x-auto mt-4"
-      style={{
-        scrollbarWidth: "thin",
-        scrollbarColor: "transparent transparent",
-      }}
-    >
+    <div className="flex justify-center overflow-x-auto mt-4">
       <button
-        className={`mx-2 px-4 py-2 hover:underline ${
+        className={`mx-2 px-4 py-2  ${
           currentCategory === "All"
             ? "text-violet-950 transition border-b-2 border-violet-900 shadow-none"
             : "shadow-none"
@@ -180,8 +187,9 @@ const FilterBar = ({ currentCategory, setCurrentCategory }) => {
       >
         All
       </button>
+      <div className="border-l border-gray-300 h-auto"></div>
       <button
-        className={`mx-2 px-4 py-2 hover:underline ${
+        className={`mx-2 px-4 py-2  ${
           currentCategory === "Ongoing"
             ? "text-violet-950 transition border-b-2 border-violet-900 shadow-none"
             : "shadow-none"
@@ -190,8 +198,9 @@ const FilterBar = ({ currentCategory, setCurrentCategory }) => {
       >
         Ongoing
       </button>
+      <div className="border-l border-gray-300 h-auto"></div>
       <button
-        className={`mx-2 px-4 py-2 hover:underline ${
+        className={`mx-2 px-4 py-2  ${
           currentCategory === "Saved"
             ? "text-violet-950 transition border-b-2 border-violet-900 shadow-none"
             : "shadow-none"
@@ -200,6 +209,7 @@ const FilterBar = ({ currentCategory, setCurrentCategory }) => {
       >
         Saved
       </button>
+      <div className="border-l border-gray-300 h-auto"></div>
       <button
         className={`mx-2 px-4 py-2 ${
           currentCategory === "24 Sep"
@@ -210,6 +220,7 @@ const FilterBar = ({ currentCategory, setCurrentCategory }) => {
       >
         24 Sep
       </button>
+      <div className="border-l border-gray-300 h-auto"></div>
       <button
         className={`mx-2 px-4 py-2 ${
           currentCategory === "25 Sep"
@@ -220,6 +231,7 @@ const FilterBar = ({ currentCategory, setCurrentCategory }) => {
       >
         25 Sep
       </button>
+      <div className="border-l border-gray-300 h-auto"></div>
       <button
         className={`mx-2 px-4 py-2 ${
           currentCategory === "26 Sep"
@@ -233,6 +245,7 @@ const FilterBar = ({ currentCategory, setCurrentCategory }) => {
     </div>
   );
 };
+
 
 const EventsList = () => {
   const [events, setEvents] = useState([]);
@@ -253,32 +266,30 @@ const EventsList = () => {
         const response = await axios.get(`${serverlessapi}/events`);
         setEvents(response.data);
 
+        // Filter events based on the current category
+        let filtered = [];
         if (currentCategory === "Ongoing") {
+          // Filter ongoing events
           const currentDate = new Date().toISOString();
-          const filtered = response.data.filter((eventItem) => {
+          filtered = response.data.filter((eventItem) => {
             const startTime = new Date(eventItem.time_start);
             const endTime = new Date(eventItem.time_end);
             const currentTime = new Date(currentDate);
-
             return startTime <= currentTime && currentTime <= endTime;
           });
-          setFilteredEvents(filtered);
         } else if (currentCategory === "Saved") {
+          // Filter saved events
           const loggedInUserID = localStorage.getItem("loggedInUserID");
-
           if (loggedInUserID) {
             const savedResponse = await axios.get(
               `${serverlessapi}/saveevents/${loggedInUserID}`
             );
-            setSavedEvents(savedResponse.data.rows);
-
             const savedEventIds = savedResponse.data.rows.map(
               (savedEvent) => savedEvent.eventid
             );
-            const savedFiltered = response.data.filter((eventItem) =>
+            filtered = response.data.filter((eventItem) =>
               savedEventIds.includes(eventItem.eventid)
             );
-            setFilteredEvents(savedFiltered);
           }
         } else if (
           currentCategory === "24 Sep" ||
@@ -287,17 +298,29 @@ const EventsList = () => {
         ) {
           // Filter events based on the selected date
           const selectedDate = new Date(currentCategory + " 2024"); // Adjust the year as needed
-
-          const filtered = response.data.filter((eventItem) => {
+          filtered = response.data.filter((eventItem) => {
             const eventDate = new Date(eventItem.time_start);
             return eventDate.toDateString() === selectedDate.toDateString();
           });
-
-          setFilteredEvents(filtered);
         } else {
-          setFilteredEvents(response.data);
+          // All events
+          filtered = response.data;
         }
 
+        // Sort events - greyed out cards for events that have passed are displayed at the bottom
+        filtered.sort((a, b) => {
+          const startDateA = new Date(a.time_start);
+          const startDateB = new Date(b.time_start);
+          const currentDate = new Date();
+          currentDate.setHours(0, 0, 0, 0); // Reset time to midnight for comparison
+          const isEventPassedA = startDateA < currentDate;
+          const isEventPassedB = startDateB < currentDate;
+          if (isEventPassedA && !isEventPassedB) return 1;
+          if (!isEventPassedA && isEventPassedB) return -1;
+          return 0;
+        });
+
+        setFilteredEvents(filtered);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching events:", error);
@@ -338,26 +361,28 @@ const EventsList = () => {
             timeZone: "Asia/Singapore",
           });
 
-          // Check if the event has not occurred yet
-          if (startDate > new Date()) {
-            return (
-              <Home
-                key={index}
-                title={eventItem.title}
-                description={eventItem.description}
-                image={eventItem.image_banner}
-                event_start={eventItem.time_start}
-                event_end={eventItem.time_end}
-                formattedDate={formattedDate}
-                startTime={startTime}
-                endTime={endTime}
-                {...eventItem}
-                onClick={() => handleViewEventClick(eventItem.eventid)}
-              />
-            );
-          }
+          // Check if the event date has passed the current date
+          const eventDate = new Date(eventItem.time_start);
+          const currentDate = new Date();
+          currentDate.setHours(0, 0, 0, 0); // Reset time to midnight for comparison
+          const isEventPassed = eventDate < currentDate;
 
-          return null; // Event has already occurred, so don't include it in the row
+          return (
+            <Home
+              key={index}
+              title={eventItem.title}
+              description={eventItem.description}
+              image={eventItem.image_banner}
+              event_start={eventItem.time_start}
+              event_end={eventItem.time_end}
+              formattedDate={formattedDate}
+              startTime={startTime}
+              endTime={endTime}
+              {...eventItem}
+              isEventPassed={isEventPassed}
+              onClick={() => handleViewEventClick(eventItem.eventid)}
+            />
+          );
         })}
       </div>
     );
@@ -381,7 +406,7 @@ const EventsList = () => {
         <>
           {loggedInUserID === null && currentCategory === "Saved" ? (
             <div className="flex items-center justify-center mt-5">
-              <div className="flex flex-col items-center w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 dark:bg-gray-800 dark:border-gray-700">
+              <div className="flex flex-col items-center w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 ">
                 <h5 className="mb-3 text-xl font-semibold text-gray-900 md:text-xl">
                   Save Your Favourite Event!
                 </h5>
