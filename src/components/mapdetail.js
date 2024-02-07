@@ -165,7 +165,7 @@ const MapComponent = (props) => {
 
   const handleRecenterClick = () => {
     if (mapRef.current ) {
-      mapRef.current.setView(position, 16.5);
+      mapRef.current.setView(userLocation, 16.5);
     }
   };
 
