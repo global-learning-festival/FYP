@@ -96,24 +96,26 @@ MapContainer {
   /* Add this CSS to hide direction steps on smaller screens */
 
 
-  button.active.water {
-    background-color: #3788E2; /* Blue for Water */
-    color: #ffffff;
+  .filter-button.active.water {
+    background-color: #1d589c; /* Blue for Water */
+    border: 2px solid #000000; /* Black border */
   }
   
-  button.active.register {
-    background-color: #B76711;
-    color: #ffffff; /* Brown for Register */
+  .filter-button.active.register {
+    background-color: #8d5820;
+    border: 2px solid #000000; /* Black border */
   }
   
-  button.active.conference {
-    background-color: #39B54A;
-    color: #ffffff; /* Green for Conference Room */
+  .filter-button.active.conference {
+    background-color: #1d6e28;
+    border: 2px solid #000000; /* Black border */
+    
   }
   
-  button.active.toilet {
-    background-color: #ED1E79; 
-    color: #ffffff;/* Red for Toilet */
+  .filter-button.active.toilet {
+    background-color: #9e2559; 
+    border: 2px solid #000000; /* Black border */
+ 
   }
 
   @font-face {
