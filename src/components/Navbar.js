@@ -18,7 +18,7 @@ const Navbar = () => {
   const [nav, setNav] = useState(false);
   const [showImportantInfo, setShowImportantInfo] = useState(false);
   const [userData, setUserData] = useState(null);
-  const [user2, setUser2] = useState({});
+  const [user2, setUser2] = useState(null);
   const loggedInUserID = localStorage.getItem("loggedInUserID");
 
   const { user, logout } = UserAuth();
