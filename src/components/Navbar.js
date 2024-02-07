@@ -4,7 +4,7 @@ import {
   AiOutlineMenu,
   AiOutlineInfoCircle,
 } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 import "../styles/navbar.css";
 import isate2024Logo from "../images/isate2024-logo.png";
@@ -20,7 +20,7 @@ const Navbar = () => {
   const [userData, setUserData] = useState(null);
   const [user2, setUser2] = useState();
   const loggedInUserID = localStorage.getItem("loggedInUserID");
-
+  const navigate = useNavigate();
   const { user, logout } = UserAuth();
 
   const handleNav = () => {
@@ -60,13 +60,15 @@ const Navbar = () => {
 
     fetchData();
   }, []);
-
+  const handleLogoClick = () => {
+    navigate("/");
+  };
   return (
     <div className="bg-[#FFF] flex justify-between items-center h-20 mt-auto px-4 text-black z-100">
       <div onClick={handleNav} className="block md:hidden">
         {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
       </div>
-      <img src={isate2024Logo} alt="Logo" className="w-1/2 md:hidden" />
+      <img src={isate2024Logo} alt="Logo" className="w-1/2 md:hidden"onClick={handleLogoClick}/>
       <div className="md:hidden pt-2">
         <Link to="/importantinfo">
           <AiOutlineInfoCircle
