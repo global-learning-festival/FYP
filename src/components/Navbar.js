@@ -88,14 +88,15 @@ const Navbar = () => {
               ? `${user2.first_name} ${user2.last_name}`
               : null)}
         </h3>
-        {(user || user2) && (
-          <button
-            className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-12 py-2.5 mx-14 hover:bg-[#3A426C] hover:drop-shadow-xl"
-            onClick={handleSignOut}
-          >
-            Logout
-          </button>
-        )}
+        {user ||
+          (user2 && (
+            <button
+              className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-12 py-2.5 mx-14 hover:bg-[#3A426C] hover:drop-shadow-xl"
+              onClick={handleSignOut}
+            >
+              Logout
+            </button>
+          ))}
         {!user && !user2 && (
           <button
             onClick={handleNav}
