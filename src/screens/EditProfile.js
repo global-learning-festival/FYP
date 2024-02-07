@@ -41,15 +41,6 @@ const EditProfileForm = () => {
       return;
     }
     const fetchData = async () => {
-      let isRefreshed = false;
-
-      if (!isRefreshed && loggedInUserID !== uid) {
-        // Refresh the page once
-        window.location.reload();
-        isRefreshed = true;
-        return;
-      }
-
       try {
         // Refresh the page before making the GET request
         window.location.reload();
@@ -57,6 +48,9 @@ const EditProfileForm = () => {
         setUser(response.data);
         setPublicId(response.data.profile_pic || "");
         console.log(response.data);
+
+        // Refresh the page after successful data fetching
+        window.location.reload();
       } catch (error) {
         console.error("Error fetching user information:", error);
       }
