@@ -66,7 +66,9 @@ const Navbar = () => {
       <div onClick={handleNav} className="block md:hidden">
         {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
       </div>
-      <img src={isate2024Logo} alt="Logo" className="w-1/2 md:hidden" />
+      <Link to="/" className="navbar-logo flex justify-center items-center">
+        <img src={isate2024Logo} alt="Logo" className="w-4/6 md:hidden" />
+      </Link>
       <div className="md:hidden pt-2">
         <Link to="/importantinfo">
           <AiOutlineInfoCircle
