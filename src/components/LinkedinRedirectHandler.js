@@ -65,8 +65,9 @@ function LinkedInRedirectHandler() {
           // Store uid in localStorage
           localStorage.setItem("loggedInUserID", uid);
           // Navigate to the edit profile page using the uid from the response
-          window.location.reload()
+          
           navigate(`/editprofile/${uid}`);
+          window.location.reload()
           
         } else {
           // User doesn't exist, insert new user
@@ -87,8 +88,9 @@ function LinkedInRedirectHandler() {
           // Store uid in localStorage
           localStorage.setItem("loggedInUserID", uid);
           // Navigate to the edit profile page using the uid from the response
-          window.location.reload()
           navigate(`/editprofile/${uid}`);
+          window.location.reload()
+          
           
         }
       } else {
