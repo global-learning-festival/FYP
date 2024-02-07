@@ -67,12 +67,18 @@ const Connect = () => {
             <div className="flex flex-col items-center mb-4">
               <h2 className="text-2xl font-bold mb-4">Connect with Others</h2>
               <div className="flex justify-center">
-                <Link to={`/qrcode/${userid}`}>
+              <div className="mt-4 bg-white text-black shadow-md px-4 py-2 rounded-md hover:drop-shadow-xl flex items-center mr-2">
+                <p className="mr-2">Your QR</p>
+                <Link to={`/qrcode/${userid}`} className="flex items-center">
                   <MyQR />
                 </Link>
-                <Link to="/scan">
-                  <QRScanner />
-                </Link>
+              </div>
+              <div className="mt-4 bg-white text-black shadow-md px-4 py-2 rounded-md hover:drop-shadow-xl flex items-center">
+                <p className="mr-2">Scan QR</p>
+                  <Link to="/scan">
+                    <QRScanner />
+                  </Link>
+                </div>
               </div>
             </div>
             <div>
@@ -98,7 +104,7 @@ const Connect = () => {
                 <h5 className="mb-3 text-xl font-semibold text-gray-900 md:text-xl">
                   Connect With Others
                 </h5>
-                <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500 dark:text-gray-400">
+                <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500">
                   Network with guest speakers and other attendees of the
                   International Learning Festival!
                 </p>

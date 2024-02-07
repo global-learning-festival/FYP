@@ -5,6 +5,10 @@ import blankprofilepicture from "../images/blank-profile-picture.png";
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
 
+const limitCharacters = (str, limit) => {
+  return str.length > limit ? str.substring(0, limit) + "..." : str;
+};
+
 const QRCodePopupCard = ({ title, qrCodeValue, profilePic, onClose }) => {
   const [cloudName] = useState("dxkozpx6g");
   const cld = new Cloudinary({
@@ -15,7 +19,7 @@ const QRCodePopupCard = ({ title, qrCodeValue, profilePic, onClose }) => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 border border-gray-200 rounded-md shadow">
+      <div className="bg-white p-6 border border-gray-200 rounded-md shadow m-4">
         <h5 className="mb-2 text-2xl font-normal tracking-tight text-black text-center">
           {title}
         </h5>
@@ -116,9 +120,9 @@ const AllUsersList = () => {
                   {/* <p className="text-center mb-1">{`${
                   user.jobtitle || "N/A"
                 }`}</p> */}
-                  <p className="text-center mb-1">{`From ${
-                    user.company || "N/A"
-                  }`}</p>
+                  <p className="text-center mb-1">{`${
+                  limitCharacters(user.company || "N/A", 16)
+                }`}</p>
                   {user.linkedinurl ? (
                     <div className="flex justify-center">
                       <button

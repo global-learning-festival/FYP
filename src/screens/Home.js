@@ -424,7 +424,7 @@ const EventsList = () => {
                 <h5 className="mb-3 text-xl font-semibold text-gray-900 md:text-xl">
                   Save Your Favourite Event!
                 </h5>
-                <p className="flex flex-col items-center text-center text-md font-normal text-gray-500 dark:text-gray-400">
+                <p className="flex flex-col items-center text-center text-md font-normal text-gray-500">
                   Log in to effortlessly save and track the events that you are
                   interested in.
                 </p>
