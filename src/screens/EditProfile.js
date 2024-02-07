@@ -41,6 +41,15 @@ const EditProfileForm = () => {
       return;
     }
     const fetchData = async () => {
+      let isRefreshed = false;
+
+      if (!isRefreshed && loggedInUserID !== uid) {
+        // Refresh the page once
+        window.location.reload();
+        isRefreshed = true;
+        return;
+      }
+
       try {
         // Refresh the page before making the GET request
         window.location.reload();
@@ -54,7 +63,7 @@ const EditProfileForm = () => {
     };
 
     fetchData();
-  }, [uid]);
+  }, [uid, loggedInUserID]);
 
   const handleChange = (e) => {
     setUser({
