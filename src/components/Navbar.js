@@ -43,7 +43,6 @@ const Navbar = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const loggedInUserID = localStorage.getItem("loggedInUserID");
         if (loggedInUserID) {
           console.log("UID:", loggedInUserID); // Log the uid to check if it's correct
           const response = await axios.get(
