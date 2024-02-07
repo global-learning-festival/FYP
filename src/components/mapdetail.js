@@ -298,30 +298,30 @@ const MapComponent = (props) => {
 </div>
 
       <div id="buttons-container" className="flex flex-wrap justify-center items-center fixed bottom-4 sm:bottom-10 left-1/2 transform -translate-x-1/2 z-20">
-        <button
-          className={`filter-button ${selectedCategory === 'water' ? 'water' : ''} px-3 py-2 mx-1 my-1 bg-blue-500 hover:bg-blue-600 text-white rounded-md text-xs w-[5.5rem] h-12 md:text-sm  md:w-40`}
-          onClick={() => handleFilterClick('water')}
-        >
-          Water Refill
-        </button>
-        <button
-          className={`filter-button ${selectedCategory === 'register' ? 'register' : ''} px-3 py-2 mx-1 my-1 bg-[#B76711] hover:bg-[#9E5A10] text-white rounded-md text-xs w-[5.5rem] h-12 md:text-sm  md:w-40`}
-          onClick={() => handleFilterClick('register')}
-        >
-          Registration Desks
-        </button>
-        <button
-          className={`filter-button ${selectedCategory === 'conference' ? 'conference' : ''} px-3 py-2 mx-1 my-1 bg-[#39B54A] hover:bg-[#1B6B26] text-white rounded-md text-xs w-[5.5rem] h-12 md:text-sm  md:w-40`}
-          onClick={() => handleFilterClick('conference')}
-        >
-          Convention Centre
-        </button>
-        <button
-          className={`filter-button ${selectedCategory === 'toilet' ? 'toilet' : ''} px-3 py-2 mx-1 my-1 bg-red-500 hover:bg-red-600 text-white rounded-md text-xs  w-[5.5rem] h-12 md:text-sm  md:w-40`}
-          onClick={() => handleFilterClick('toilet')}
-        >
-          Restrooms
-        </button>
+      <button
+  className={`filter-button ${selectedCategory === 'water' ? 'active water' : ''} px-3 py-2 mx-1 my-1 bg-blue-500 hover:bg-blue-600 text-white rounded-md text-xs w-[5.5rem] h-12 md:text-sm md:w-40`}
+  onClick={() => handleFilterClick('water')}
+>
+  Water Refill
+</button>
+<button
+  className={`filter-button ${selectedCategory === 'register' ? 'active register' : ''} px-3 py-2 mx-1 my-1 bg-[#B76711] hover:bg-[#9E5A10] text-white rounded-md text-xs w-[5.5rem] h-12 md:text-sm md:w-40`}
+  onClick={() => handleFilterClick('register')}
+>
+  Registration Desks
+</button>
+<button
+  className={`filter-button ${selectedCategory === 'conference' ? 'active conference' : ''} px-3 py-2 mx-1 my-1 bg-[#39B54A] hover:bg-[#1B6B26] text-white rounded-md text-xs w-[5.5rem] h-12 md:text-sm md:w-40`}
+  onClick={() => handleFilterClick('conference')}
+>
+  Convention Centre
+</button>
+<button
+  className={`filter-button ${selectedCategory === 'toilet' ? 'active toilet' : ''} px-3 py-2 mx-1 my-1 bg-red-500 hover:bg-red-600 text-white rounded-md text-xs w-[5.5rem] h-12 md:text-sm md:w-40`}
+  onClick={() => handleFilterClick('toilet')}
+>
+  Restrooms
+</button>
       </div>
     </div>
   );
