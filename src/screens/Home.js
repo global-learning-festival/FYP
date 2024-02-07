@@ -176,75 +176,88 @@ const Home = ({
 
  const FilterBar = ({ currentCategory, setCurrentCategory }) => {
   return (
-    <div className="flex justify-center overflow-x-auto mt-4">
-      <button
-        className={`mx-2 px-4 py-2  ${
-          currentCategory === "All"
-            ? "text-violet-950 transition border-b-2 border-violet-900 shadow-none"
-            : "shadow-none"
-        }`}
-        onClick={() => setCurrentCategory("All")}
-      >
-        All
-      </button>
+    <div className="flex justify-center overflow-x-auto mt-4 md:overflow-visible md:flex-wrap">
+      <div className="flex-shrink-0 flex-grow-0 flex-no-shrink max-w-xs">
+        <button
+          className={`mx-1 px-2 py-1 text-sm ${
+            currentCategory === "All"
+              ? "text-violet-950 transition border-b-2 border-violet-900 shadow-none"
+              : "shadow-none"
+          }`}
+          onClick={() => setCurrentCategory("All")}
+        >
+          All
+        </button>
+      </div>
       <div className="border-l border-gray-300 h-auto"></div>
-      <button
-        className={`mx-2 px-4 py-2  ${
-          currentCategory === "Ongoing"
-            ? "text-violet-950 transition border-b-2 border-violet-900 shadow-none"
-            : "shadow-none"
-        }`}
-        onClick={() => setCurrentCategory("Ongoing")}
-      >
-        Ongoing
-      </button>
+      <div className="flex-shrink-0 flex-grow-0 flex-no-shrink max-w-xs">
+        <button
+          className={`mx-1 px-2 py-1 text-sm ${
+            currentCategory === "Ongoing"
+              ? "text-violet-950 transition border-b-2 border-violet-900 shadow-none"
+              : "shadow-none"
+          }`}
+          onClick={() => setCurrentCategory("Ongoing")}
+        >
+          Ongoing
+        </button>
+      </div>
       <div className="border-l border-gray-300 h-auto"></div>
-      <button
-        className={`mx-2 px-4 py-2  ${
-          currentCategory === "Saved"
-            ? "text-violet-950 transition border-b-2 border-violet-900 shadow-none"
-            : "shadow-none"
-        }`}
-        onClick={() => setCurrentCategory("Saved")}
-      >
-        Saved
-      </button>
+      <div className="flex-shrink-0 flex-grow-0 flex-no-shrink max-w-xs">
+        <button
+          className={`mx-1 px-2 py-1 text-sm ${
+            currentCategory === "Saved"
+              ? "text-violet-950 transition border-b-2 border-violet-900 shadow-none"
+              : "shadow-none"
+          }`}
+          onClick={() => setCurrentCategory("Saved")}
+        >
+          <span className="text-sm">Saved</span>
+        </button>
+      </div>
       <div className="border-l border-gray-300 h-auto"></div>
-      <button
-        className={`mx-2 px-4 py-2 ${
-          currentCategory === "24 Sep"
-            ? "text-violet-950 transition border-b-2 border-violet-900 shadow-none"
-            : "shadow-none"
-        }`}
-        onClick={() => setCurrentCategory("24 Sep")}
-      >
-        24 Sep
-      </button>
+      <div className="flex-shrink-0 flex-grow-0 flex-no-shrink max-w-xs">
+        <button
+          className={`mx-1 px-2 py-1 text-sm ${
+            currentCategory === "24 Sep"
+              ? "text-violet-950 transition border-b-2 border-violet-900 shadow-none"
+              : "shadow-none"
+          }`}
+          onClick={() => setCurrentCategory("24 Sep")}
+        >
+          <span className="text-sm">24 Sep</span>
+        </button>
+      </div>
       <div className="border-l border-gray-300 h-auto"></div>
-      <button
-        className={`mx-2 px-4 py-2 ${
-          currentCategory === "25 Sep"
-            ? "text-violet-950 transition border-b-2 border-violet-900 shadow-none"
-            : "shadow-none"
-        }`}
-        onClick={() => setCurrentCategory("25 Sep")}
-      >
-        25 Sep
-      </button>
+      <div className="flex-shrink-0 flex-grow-0 flex-no-shrink max-w-xs">
+        <button
+          className={`mx-1 px-2 py-1 text-sm ${
+            currentCategory === "25 Sep"
+              ? "text-violet-950 transition border-b-2 border-violet-900 shadow-none"
+              : "shadow-none"
+          }`}
+          onClick={() => setCurrentCategory("25 Sep")}
+        >
+          <span className="text-sm">25 Sep</span>
+        </button>
+      </div>
       <div className="border-l border-gray-300 h-auto"></div>
-      <button
-        className={`mx-2 px-4 py-2 ${
-          currentCategory === "26 Sep"
-            ? "text-violet-950 transition border-b-2 border-violet-900 shadow-none"
-            : "shadow-none"
-        }`}
-        onClick={() => setCurrentCategory("26 Sep")}
-      >
-        26 Sep
-      </button>
+      <div className="flex-shrink-0 flex-grow-0 flex-no-shrink max-w-xs">
+        <button
+          className={`mx-1 px-2 py-1 text-sm ${
+            currentCategory === "26 Sep"
+              ? "text-violet-950 transition border-b-2 border-violet-900 shadow-none"
+              : "shadow-none"
+          }`}
+          onClick={() => setCurrentCategory("26 Sep")}
+        >
+          <span className="text-sm">26 Sep</span>
+        </button>
+      </div>
     </div>
   );
 };
+
 
 
 const EventsList = () => {
@@ -398,6 +411,7 @@ const EventsList = () => {
         currentCategory={currentCategory}
         setCurrentCategory={setCurrentCategory}
       />
+       <div className="mt-4">
       {loading ? (
         <div className="loader-container">
           <div className="spinner"></div>
@@ -424,6 +438,7 @@ const EventsList = () => {
           )}
         </>
       )}
+      </div>
     </>
   );
 };
