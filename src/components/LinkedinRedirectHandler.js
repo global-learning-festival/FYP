@@ -66,6 +66,7 @@ function LinkedInRedirectHandler() {
           localStorage.setItem("loggedInUserID", uid);
           // Navigate to the edit profile page using the uid from the response
           navigate(`/editprofile/${uid}`);
+          window.location.reload()
         } else {
           // User doesn't exist, insert new user
           const addUserResponse = await axios.post(
@@ -86,6 +87,7 @@ function LinkedInRedirectHandler() {
           localStorage.setItem("loggedInUserID", uid);
           // Navigate to the edit profile page using the uid from the response
           navigate(`/editprofile/${uid}`);
+          window.location.reload()
         }
       } else {
         console.error("Missing expected properties in data:", data);
