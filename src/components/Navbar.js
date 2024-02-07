@@ -19,6 +19,7 @@ const Navbar = () => {
   const [showImportantInfo, setShowImportantInfo] = useState(false);
   const [userData, setUserData] = useState(null);
   const [user2, setUser2] = useState({});
+  const loggedInUserID = localStorage.getItem("loggedInUserID");
 
   const { user, logout } = UserAuth();
 
@@ -58,7 +59,7 @@ const Navbar = () => {
     };
 
     fetchData();
-  }, [loggedInUserID]);
+  }, []);
 
   return (
     <div className="bg-[#FFF] flex justify-between items-center h-20 mt-auto px-4 text-black z-100">
