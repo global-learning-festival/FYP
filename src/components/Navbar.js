@@ -59,7 +59,7 @@ const Navbar = () => {
     };
 
     fetchData();
-  }, [loggedInUserID]);
+  }, []);
 
   return (
     <div className="bg-[#FFF] flex justify-between items-center h-20 mt-auto px-4 text-black z-100">
