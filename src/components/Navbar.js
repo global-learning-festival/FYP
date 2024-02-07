@@ -35,7 +35,6 @@ const Navbar = () => {
 
   const handleSignOut = async () => {
     try {
-      localStorage.removeItem("loggedInUserID");
       await logout();
     } catch (error) {
       console.log(error);
