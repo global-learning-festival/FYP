@@ -175,7 +175,7 @@ const EditProfileForm = () => {
             htmlFor="cloudinary"
             className="block text-sm font-medium text-gray-600"
           >
-            Cloudinary Upload
+            Upload Profile picture
           </label>
           {/* Pass publicId and setPublicId to CloudinaryUploadWidget */}
           <CloudinaryUploadWidget
