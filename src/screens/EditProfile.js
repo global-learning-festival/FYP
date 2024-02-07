@@ -51,8 +51,6 @@ const EditProfileForm = () => {
       }
 
       try {
-        // Refresh the page before making the GET request
-        window.location.reload();
         const response = await axios.get(`${serverlessapi}/useruid/${uid}`);
         setUser(response.data);
         setPublicId(response.data.profile_pic || "");
