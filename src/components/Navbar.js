@@ -17,7 +17,6 @@ const Navbar = () => {
   const serverlessapi = "https://adminilftest-4tmd.onrender.com";
   const [nav, setNav] = useState(false);
   const [showImportantInfo, setShowImportantInfo] = useState(false);
-  const loggedInUserID = localStorage.getItem("loggedInUserID");
   const [userData, setUserData] = useState(null);
   const [user2, setUser2] = useState({});
 
@@ -44,12 +43,15 @@ const Navbar = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("UID:", loggedInUserID); // Log the uid to check if it's correct
-        const response = await axios.get(
-          `${serverlessapi}/useruid/${loggedInUserID}`
-        );
-        console.log("API Response:", response.data);
-        setUser2(response.data);
+        const loggedInUserID = localStorage.getItem("loggedInUserID");
+        if (loggedInUserID) {
+          console.log("UID:", loggedInUserID); // Log the uid to check if it's correct
+          const response = await axios.get(
+            `${serverlessapi}/useruid/${loggedInUserID}`
+          );
+          console.log("API Response:", response.data);
+          setUser2(response.data);
+        }
       } catch (error) {
         console.error("Error fetching user information:", error);
       }
@@ -189,12 +191,18 @@ const Navbar = () => {
           </Link>
         </li>
         <li className="p-4">
-          <Link to="/announcement" className="no-underline text-black hover:underline">
+          <Link
+            to="/announcement"
+            className="no-underline text-black hover:underline"
+          >
             Announcement
           </Link>
         </li>
         <li className="p-4">
-          <Link to="/connect" className="no-underline text-black hover:underline">
+          <Link
+            to="/connect"
+            className="no-underline text-black hover:underline"
+          >
             Connect
           </Link>
         </li>

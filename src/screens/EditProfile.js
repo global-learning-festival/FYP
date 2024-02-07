@@ -46,9 +46,6 @@ const EditProfileForm = () => {
         setUser(response.data);
         setPublicId(response.data.profile_pic || "");
         console.log(response.data);
-
-        // Refresh the page after successful data fetching
-        window.location.reload();
       } catch (error) {
         console.error("Error fetching user information:", error);
       }
