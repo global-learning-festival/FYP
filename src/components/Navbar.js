@@ -60,9 +60,19 @@ const Navbar = () => {
 
     fetchData();
   }, []);
+
   const handleLogoClick = () => {
     navigate("/");
   };
+
+  const handleEditProfileClick = () => {
+    const userId = user?.uid || user2?.uid;
+    if (userId) {
+      navigate(`/editprofile/${userId}`);
+      setNav(false); // Close the navbar
+    }
+  };
+
   return (
     <div className="bg-[#FFF] flex justify-between items-center h-20 mt-auto px-4 text-black z-100">
       <div onClick={handleNav} className="block md:hidden">
@@ -85,12 +95,22 @@ const Navbar = () => {
             : "ease-in-out fixed left-[-100%] z-20"
         }
       >
-        <h3 className="w-full font-bold text-[#000] mt-10 ml-12 mb-2.5">
+        <div>
+        <h3 className="w-full font-bold text-[#000] mt-10 ml-14 mb-3">
           {(user?.displayName && user?.displayName) ||
             (user2?.first_name && user2?.last_name
               ? `${user2.first_name} ${user2.last_name}`
               : null)}
         </h3>
+        {(user || user2) && (
+          <button
+            className="text-white bg-[#487572] font-medium rounded-md text-sm px-9 py-2.5 mx-14 mb-2 hover:bg-[#487575] hover:drop-shadow-xl"
+            onClick={handleEditProfileClick}
+          >
+            Edit Profile
+          </button>
+        )}
+        </div>
         {(user || user2) && (
           <button
             className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-12 py-2.5 mx-14 hover:bg-[#3A426C] hover:drop-shadow-xl"

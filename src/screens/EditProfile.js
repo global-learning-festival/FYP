@@ -103,7 +103,7 @@ const EditProfileForm = () => {
   const myImage = cld.image(publicId);
   return (
     <div className="container mx-auto p-4 max-w-xl">
-      <h1 className="text-2xl font-bold mb-4">Complete Your Profile</h1>
+      <h1 className="text-xl font-bold mb-4">Complete Your Profile</h1>
       <div id="form" onSubmit={handleSubmit} className="max-w-md">
         <div className="mb-4">
           <label
