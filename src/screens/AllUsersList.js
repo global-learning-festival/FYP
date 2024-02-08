@@ -155,8 +155,8 @@ const AllUsersList = () => {
       {selectedUser && (
         <QRCodePopupCard
           title={`Scan this QR Code to connect with ${
-            selectedUser.username || selectedUser.first_name || "N/A"
-          } ${selectedUser.last_name || "N/A"}`}
+            selectedUser.username || selectedUser.first_name || ""
+          } ${selectedUser.last_name || ""}`}
           qrCodeValue={selectedUser.linkedinurl}
           linkedinUrl={selectedUser.linkedinurl}
           onClose={handlePopupClose}
