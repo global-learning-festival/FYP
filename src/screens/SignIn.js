@@ -87,22 +87,70 @@ const SignIn = ({ code }) => {
 
   return (
     <>
-      <div className="flex items-center justify-center mt-20">
-        <div className="flex flex-col items-center w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6">
-          <h5 className="mb-3 text-base font-semibold text-gray-900 md:text-xl">
-            Sign In With Google
-          </h5>
-          <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500">
-            Have access to personalised features by signing in with Google!
+      <div className="flex flex-col items-center justify-center mx-4">
+        <h1 className="text-center mb-3 text-xl font-bold text-gray-900 md:text-xl mt-4">
+          Sign in for a Seamless Experience!
+        </h1>
+        <div className="flex flex-col items-center w-full max-w-sm bg-white border border-gray-200 rounded-lg m-3 shadow outline-dashed outline-2 outline-offset-2 outline-blue-700">
+          <h2 className="rounded-tl-lg rounded-tr-lg bg-[#4B558A] w-full text-white p-2 text-center text-xl font-semibold mb-2">
+            Recommended!
+          </h2>
+          <img src={LinkedInLogo} alt="LinkedIn Logo" className="w-1/2 my-2" />
+          <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500 my-2">
+            Have access to personalized features by signing in with LinkedIn!
           </p>
-          <div className="flex items-center justify-center mt-3">
-            <GoogleButton onClick={googleSignIn} />
+          <div className="items-start p-4">
+            <div className="flex mt-2">
+              <span className="text-green-500">
+                <FontAwesomeIcon icon={faCheck} className="mr-2" size="xl" />
+              </span>
+              <p className="flex flex-col text-sm font-normal text-gray-500">
+                Automatically connect your LinkedIn profile to Connect with Others.
+              </p>
+            </div>
+            <div className="flex">
+              <span className="text-green-500">
+                <FontAwesomeIcon icon={faCheck} className="mr-2" size="xl" />
+              </span>
+              <p className="flex flex-col text-sm font-normal text-gray-500">
+                Experience exclusive features such as event saving.
+              </p>
+            </div>
           </div>
-          <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500 mt-3">
-            or
-          </p>
-          <div className="flex items-center justify-center mt-3">
+          <div className="flex items-center justify-center mt-3 pb-4">
             <LinkedIn />
+          </div>
+        </div>
+
+        <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500 m-3">
+          or
+        </p>
+
+        <div className="flex flex-col items-center w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow sm:p-6 mt-4">
+          <img src={GoogleLogo} alt="Google Logo" className="w-1/2 mb-2 mt-4" />
+          <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500 my-2">
+            Have access to personalized features by signing in with Google!
+          </p>
+          <div className="items-start p-4">
+            <div className="flex mt-2">
+              <span className="text-green-500">
+                <FontAwesomeIcon icon={faCheck} className="mr-2" size="xl" />
+              </span>
+              <p className="flex flex-col text-sm font-normal text-gray-500">
+                Manually connect your LinkedIn profile to Connect with Others.
+              </p>
+            </div>
+            <div className="flex">
+              <span className="text-green-500">
+                <FontAwesomeIcon icon={faCheck} className="mr-2" size="xl" />
+              </span>
+              <p className="flex flex-col text-sm font-normal text-gray-500">
+                Experience exclusive features such as event saving.
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center justify-center mt-3 pb-4">
+            <GoogleButton onClick={googleSignIn} />
           </div>
         </div>
       </div>
