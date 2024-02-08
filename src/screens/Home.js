@@ -7,6 +7,9 @@ import { AdvancedImage, responsive, placeholder } from "@cloudinary/react";
 import "../styles/App.css";
 import GoogleButton from "react-google-button";
 import { UserAuth } from "../context/AuthContext";
+import LinkedIn from "../components/Linkedin";
+import LinkedInLogo from "../images/linkedin.png";
+import GoogleLogo from "../images/google.png";
 
 
 const Home = ({
@@ -377,7 +380,7 @@ const EventsList = () => {
           // Check if the event date has passed the current date
           const eventDate = new Date(eventItem.time_start);
           const currentDate = new Date();
-          currentDate.setHours(0, 0, 0, 0); // Reset time to midnight for comparison
+          currentDate.setHours(0, 0, 0, 0);
           const isEventPassed = eventDate < currentDate;
 
           return (

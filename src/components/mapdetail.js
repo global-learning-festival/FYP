@@ -259,27 +259,28 @@ const MapComponent = (props) => {
 
           return (
             <Marker key={markerlocation.mapid} position={coordinates} icon={customIcon}>
-              <Popup>
-                <div id={`divRefill${markerlocation.mapid}`}>
-                  <h3 id={`Refill${markerlocation.mapid}`}>{markerlocation.location_name}</h3>
-                  <AdvancedImage
-                        style={{ maxWidth: "100%" }}
-                        cldImg={cld.image(publicId || markerlocation.image)}
-                        plugins={[responsive(), placeholder()]}
-                      />
-                  <p>{markerlocation.description}</p>
-                  {hasLocationPermission && (
-                    <button
-                      id="RefillButton"
-                      onClick={() => (isRouting ? handleStopRouting() : handleRouteButtonClick(coordinates))}
-                    >
-                      {isRouting ? 'Stop Routing' : `Route to ${markerlocation.location_name}`}
-                    </button>
-                  )}
-                  {!hasLocationPermission && <p>Please enable location services to show route</p>}
-                </div>
-              </Popup>
-            </Marker>
+            <Popup>
+              <div id={`divRefill${markerlocation.mapid}`} style={{ maxWidth: '300px', wordWrap: 'break-word' }}>
+                <h3 id={`Refill${markerlocation.mapid}`}>{markerlocation.location_name}</h3>
+                <AdvancedImage
+                  style={{ maxWidth: "100%" }}
+                  cldImg={cld.image(publicId || markerlocation.image)}
+                  plugins={[responsive(), placeholder()]}
+                />
+                <p>{markerlocation.description}</p>
+                {hasLocationPermission && (
+                  <button
+                    id="RefillButton"
+                    style={{ maxWidth: '100%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                    onClick={() => (isRouting ? handleStopRouting() : handleRouteButtonClick(coordinates))}
+                  >
+                    {isRouting ? 'Stop Routing' : `Route to ${markerlocation.location_name}`}
+                  </button>
+                )}
+                {!hasLocationPermission && <p>Please enable location services to show the route</p>}
+              </div>
+            </Popup>
+          </Marker>
           );
         })}
       </MapContainer>

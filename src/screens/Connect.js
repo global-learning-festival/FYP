@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 import "../styles/App.css";
 import qrcodeimg from "../assets/qr-code.png";
 import scanimg from "../assets/scan.png";
-import LinkedIn from "../components/Linkedin"; // Import LinkedIn component directly
+import LinkedIn from "../components/Linkedin";
+import LinkedInLogo from "../images/linkedin.png";
 
 const Connect = () => {
   const [userData, setUserData] = useState(null);

@@ -78,7 +78,7 @@ const Navbar = () => {
       <div onClick={handleNav} className="block md:hidden">
         {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
       </div>
-      <img src={isate2024Logo} alt="Logo" className="w-1/2 md:hidden"onClick={handleLogoClick}/>
+      <img src={isate2024Logo} alt="Logo" className="w-1/2 md:hidden" onClick={handleLogoClick}/>
       <div className="md:hidden pt-2">
         <Link to="/importantinfo">
           <AiOutlineInfoCircle
@@ -134,7 +134,7 @@ const Navbar = () => {
         )}
         <li className="m-14">
           <Link to="/" className="no-underline text-black" onClick={handleNav}>
-            Home
+            Event Programme
           </Link>
         </li>
         <li className="m-14">
@@ -143,7 +143,7 @@ const Navbar = () => {
             className="no-underline text-black"
             onClick={handleNav}
           >
-            Map
+            Getting Around
           </Link>
         </li>
         <li className="m-14">
@@ -152,7 +152,7 @@ const Navbar = () => {
             className="no-underline text-black"
             onClick={handleNav}
           >
-            Announcement
+            Announcements
           </Link>
         </li>
         <li className="m-14">
@@ -161,7 +161,7 @@ const Navbar = () => {
             className="no-underline text-black"
             onClick={handleNav}
           >
-            Connect
+            Connect with Others
           </Link>
         </li>
         <li className="m-14">
@@ -170,7 +170,7 @@ const Navbar = () => {
             className="no-underline text-black"
             onClick={handleNav}
           >
-            Help
+            Contact Us
           </Link>
         </li>
       </ul>
@@ -205,12 +205,12 @@ const Navbar = () => {
       <ul className="hidden md:flex mr-20 pt-3">
         <li className="p-4" href="/">
           <Link to="/" className="no-underline text-black hover:underline">
-            Home
+            Event Programme
           </Link>
         </li>
         <li className="p-4">
           <Link to="/map" className="no-underline text-black hover:underline">
-            Map
+            Getting Around
           </Link>
         </li>
         <li className="p-4">
@@ -218,7 +218,7 @@ const Navbar = () => {
             to="/announcement"
             className="no-underline text-black hover:underline"
           >
-            Announcement
+            Announcements
           </Link>
         </li>
         <li className="p-4">
@@ -226,12 +226,12 @@ const Navbar = () => {
             to="/connect"
             className="no-underline text-black hover:underline"
           >
-            Connect
+            Connect with Others
           </Link>
         </li>
         <li className="p-4">
           <Link to="/help" className="no-underline text-black hover:underline">
-            Help
+            Contact Us
           </Link>
         </li>
         <li className="p-4">
