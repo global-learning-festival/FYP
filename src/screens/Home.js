@@ -422,7 +422,50 @@ filtered.sort((a, b) => {
       ) : (
         <>
           {loggedInUserID === null && currentCategory === "Saved" ? (
-            <div className="flex items-center justify-center mt-5">
+            <div className="flex flex-col items-center justify-center mx-4">
+            <h1 className="text-center mb-3 text-xl font-bold text-gray-900 md:text-xl mt-4">
+              Save Your Favourite Event!
+            </h1>
+            <div className="flex flex-col items-center w-full max-w-sm bg-white border border-gray-200 rounded-lg m-3 shadow outline-dashed outline-2 outline-offset-2 outline-blue-700">
+              <h2 className="rounded-tl-lg rounded-tr-lg bg-[#4B558A] w-full text-white p-2 text-center text-xl font-semibold mb-2">
+                Recommended!
+              </h2>
+              <img src={LinkedInLogo} alt="LinkedIn Logo" className="w-1/2 mb-2 mt-4" />
+              <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500 my-2 p-4">
+                  Sign in to effortlessly save and track the events that you are interested in with LinkedIn!
+              </p>
+              <div className="flex items-center justify-center mt-3 pb-4">
+                <LinkedIn />
+              </div>
+            </div>
+    
+            <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500 m-3">
+              or
+            </p>
+    
+            <div className="flex flex-col items-center w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 mt-4">
+              <img src={GoogleLogo} alt="Google Logo" className="w-1/2 mb-2 mt-4" />
+              <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500 my-2">
+                Sign in to effortlessly save and track the events that you are interested in with Google!
+              </p>
+              <div className="flex items-center justify-center mt-3">
+                <GoogleButton onClick={googleSignIn} />
+              </div>
+            </div>
+          </div>
+          ) : (
+            rows
+          )}
+        </>
+      )}
+      </div>
+    </>
+  );
+};
+
+export default EventsList;
+
+{/* <div className="flex items-center justify-center mt-5">
               <div className="flex flex-col items-center w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 ">
                 <h5 className="mb-3 text-xl font-semibold text-gray-900 md:text-xl">
                   Save Your Favourite Event!
@@ -435,15 +478,4 @@ filtered.sort((a, b) => {
                   <GoogleButton onClick={googleSignIn} />
                 </div>
               </div>
-            </div>
-          ) : (
-            rows
-          )}
-        </>
-      )}
-      </div>
-    </>
-  );
-};
-
-export default EventsList;
+            </div> */}

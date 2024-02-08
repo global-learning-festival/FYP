@@ -100,20 +100,20 @@ const Connect = () => {
       ) : (
         <>
           {loggedInUserID === null ? (
-            <div className="flex items-center justify-center mt-5">
-              <div className="flex flex-col items-center w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6">
-                <h5 className="mb-3 text-xl font-semibold text-gray-900 md:text-xl">
-                  Connect With Others
-                </h5>
-                <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500">
-                  Network with guest speakers and other attendees of the
-                  International Learning Festival!
-                </p>
-                <div className="flex items-center justify-center mt-3">
-                  <LinkedIn></LinkedIn>
-                </div>
+            <div className="flex flex-col items-center justify-center mx-4">
+            <h1 className="text-center mb-3 text-xl font-bold text-gray-900 md:text-xl mt-4">
+            Connect With Others!
+            </h1>
+            <div className="flex flex-col items-center w-full max-w-sm bg-white border border-gray-200 rounded-lg m-3 shadow">
+              <img src={LinkedInLogo} alt="LinkedIn Logo" className="w-1/2 my-2 mt-4" />
+              <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500 my-2">
+                Network with guest speakers and other attendees of the International Learning Festival!
+              </p>
+              <div className="flex items-center justify-center mt-3 pb-4">
+                <LinkedIn />
               </div>
             </div>
+          </div>
           ) : (
             <UserList loggedInUserID={loggedInUserID} />
           )}
@@ -124,3 +124,18 @@ const Connect = () => {
 };
 
 export default Connect;
+
+// div className="flex items-center justify-center mt-5">
+//               <div className="flex flex-col items-center w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6">
+//                 <h5 className="mb-3 text-xl font-semibold text-gray-900 md:text-xl">
+//                   Connect With Others
+//                 </h5>
+//                 <p className="flex flex-col items-center text-center text-sm font-normal text-gray-500">
+//                   Network with guest speakers and other attendees of the
+//                   International Learning Festival!
+//                 </p>
+//                 <div className="flex items-center justify-center mt-3">
+//                   <LinkedIn></LinkedIn>
+//                 </div>
+//               </div>
+//             </div>
