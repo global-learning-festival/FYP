@@ -108,10 +108,6 @@ const Home = ({
    // Convert the formattedDate string to a Date object
    const eventDate = new Date(formattedDate);
 
-   // Get the current date
-   const currentDate = new Date();
-   currentDate.setHours(0, 0, 0, 0); // Reset time to midnight for comparison
- 
   
  
    return (
@@ -324,17 +320,23 @@ const EventsList = () => {
         }
 
         // Sort events - greyed out cards for events that have passed are displayed at the bottom
-        filtered.sort((a, b) => {
-          const startDateA = new Date(a.time_start);
-          const startDateB = new Date(b.time_start);
-          const currentDate = new Date();
-          currentDate.setHours(0, 0, 0, 0); // Reset time to midnight for comparison
-          const isEventPassedA = startDateA < currentDate;
-          const isEventPassedB = startDateB < currentDate;
-          if (isEventPassedA && !isEventPassedB) return 1;
-          if (!isEventPassedA && isEventPassedB) return -1;
-          return 0;
-        });
+filtered.sort((a, b) => {
+  const startDateA = new Date(a.time_start);
+  const endDateA = new Date(a.time_end);
+  const startDateB = new Date(b.time_start);
+  const endDateB = new Date(b.time_end);
+  const currentDate = new Date();
+
+  // Check if both start and end times of the events are before the current time
+  const isEventPassedA = endDateA < currentDate;
+  const isEventPassedB = endDateB < currentDate;
+
+  // Sort events based on whether both events have passed or not
+  if (isEventPassedA && !isEventPassedB) return 1; // Event A has passed, so it should come after Event B
+  if (!isEventPassedA && isEventPassedB) return -1; // Event B has passed, so it should come after Event A
+  return 0; // Otherwise, maintain the original order
+});
+
 
         setFilteredEvents(filtered);
         setLoading(false);
@@ -378,10 +380,8 @@ const EventsList = () => {
           });
 
           // Check if the event date has passed the current date
-          const eventDate = new Date(eventItem.time_start);
-          const currentDate = new Date();
-          currentDate.setHours(0, 0, 0, 0);
-          const isEventPassed = eventDate < currentDate;
+          const eventEndDate = new Date(eventItem.time_end);
+          const isEventPassed = eventEndDate < new Date();
 
           return (
             <Home
