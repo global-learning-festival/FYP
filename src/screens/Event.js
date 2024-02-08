@@ -100,7 +100,14 @@ const ViewEvent = () => {
   const endDate = new Date(eventdata[0].time_end);
   // const announcementTime = new Date(announcementsData[0].time_start);
 
-  const formattedDate = startDate.toLocaleDateString('en-US', {
+  const formattedStartDate = startDate.toLocaleDateString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'Asia/Singapore',
+  });
+
+  const formattedEndDate = endDate.toLocaleDateString('en-US', {
     weekday: 'short',
     month: 'short',
     day: 'numeric',
@@ -151,7 +158,7 @@ const ViewEvent = () => {
               <div className="border-b-2 border-violet-900 mb-4"></div>
               <h4 className="text-md font-bold mb-2">Date</h4>
               <p className="mb-3 font-normal text-gray-700">
-                {formattedDate}, {startTime} - {endTime}
+                {formattedStartDate} at {startTime} - {formattedEndDate} at {endTime}
               </p>
               <h4 className="text-md font-bold mb-2">Location</h4>
               <p className="mb-3 font-normal text-gray-700">{eventItem.location}</p>

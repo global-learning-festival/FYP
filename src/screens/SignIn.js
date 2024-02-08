@@ -4,6 +4,10 @@ import LinkedIn from "../components/Linkedin";
 import { UserAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import LinkedInLogo from "../images/linkedin.png";
+import GoogleLogo from "../images/google.png";
 
 const SignIn = ({ code }) => {
   const { googleSignIn, user } = UserAuth();
