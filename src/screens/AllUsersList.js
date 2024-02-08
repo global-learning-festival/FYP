@@ -9,7 +9,7 @@ const limitCharacters = (str, limit) => {
   return str.length > limit ? str.substring(0, limit) + "..." : str;
 };
 
-const QRCodePopupCard = ({ title, qrCodeValue, profilePic, linkedinUrl, onClose }) => {
+const QRCodePopupCard = ({ title, qrCodeValue, profilePic, linkedinUrl,jobtitle, company, onClose }) => {
   const [cloudName] = useState("dxkozpx6g");
   const cld = new Cloudinary({
     cloud: {
@@ -39,8 +39,10 @@ const QRCodePopupCard = ({ title, qrCodeValue, profilePic, linkedinUrl, onClose 
         <div className="mt-6 flex justify-center items-center">
           <QRCode value={qrCodeValue} />
         </div>
-        <div className="mt-4 flex justify-center">
-          <button
+        <div className="mt-4 text-center">
+    <p className="mb-2">Company: {company}</p> {/* Display the user's company */}
+    <p className="mb-4">Job Title: {jobtitle}</p> {/* Display the user's job title */}
+    <button
             onClick={handleLinkedInClick}
             className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
           >
@@ -107,7 +109,7 @@ const AllUsersList = () => {
           {userData.map((user, index) => (
             <div
               key={user.id || index}
-              className="w-1/2 lg:w-1/2 xl:w-1/3 px-2 mb-4"
+              className="w-1/2 lg:w-1/2 xl:w-1/3 px-2 mb-4 h-64"
             >
               <div className="bg-white p-4 rounded-lg shadow">
                 {user.profile_pic ? (
@@ -153,15 +155,18 @@ const AllUsersList = () => {
         </div>
       )}
       {selectedUser && (
-        <QRCodePopupCard
-          title={`Scan this QR Code to connect with ${
-            selectedUser.username || selectedUser.first_name || ""
-          } ${selectedUser.last_name || ""}`}
-          qrCodeValue={selectedUser.linkedinurl}
-          linkedinUrl={selectedUser.linkedinurl}
-          onClose={handlePopupClose}
-        />
-      )}
+  <QRCodePopupCard
+    title={`Scan this QR Code to connect with ${
+      selectedUser.username || selectedUser.first_name || ""
+    } ${selectedUser.last_name || ""}`}
+    qrCodeValue={selectedUser.linkedinurl}
+    company={selectedUser.company} // Pass the user's company
+    jobtitle={selectedUser.jobtitle} // Pass the user's job title
+    linkedinUrl={selectedUser.linkedinurl}
+    onClose={handlePopupClose}
+  />
+)}
+
     </div>
   );
 };
