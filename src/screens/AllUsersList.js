@@ -120,16 +120,16 @@ const AllUsersList = () => {
                   <img
                     className="object-contain w-24 h-24 rounded-full mx-auto mb-2"
                     src={blankprofilepicture}
-                    alt={`${user.username || user.first_name || "N/A"} ${
-                      user.last_name || "N/A"
+                    alt={`${user.username || user.first_name || ""} ${
+                      user.last_name || ""
                     }`}
                   />
                 )}
                 <p className="text-center mb-1">{`${
-                  user.username || user.first_name || "N/A"
-                } ${user.last_name || "N/A"}`}</p>
+                  user.username || user.first_name || ""
+                } ${user.last_name || ""}`}</p>
                 <p className="text-center mb-1">{`${
-                  limitCharacters(user.company || "N/A", 16)
+                  limitCharacters(user.company || "", 16)
                 }`}</p>
                 {user.linkedinurl ? (
                   <div className="flex justify-center">
