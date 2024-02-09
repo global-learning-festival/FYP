@@ -53,13 +53,13 @@ const QRCodeGenerator = () => {
       {userData && (
         <div className="">
           <p className="mb-2 mx-auto text-center ">{`Username: ${
-            userData.username || userData.first_name || "N/A"
-          } ${userData.last_name || "N/A"}`}</p>
+            userData.username || userData.first_name || ""
+          } ${userData.last_name || ""}`}</p>
           <p className="mb-2 mx-auto text-center ">{`Job Title: ${
-            userData.jobtitle || "N/A"
+            userData.jobtitle || ""
           } `}</p>
           <p className="mb-2 mx-auto text-center ">{`Company: ${
-            userData.company || "N/A"
+            userData.company || ""
           }`}</p>
           <div className="mx-auto flex justify-center">
             <QRCode value={userData.linkedinurl} />
