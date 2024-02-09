@@ -43,9 +43,9 @@ const EditProfileForm = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${serverlessapi}/useruid/${uid}`);
-        setUser(response.data.rows[0]);
+        setUser(response.data);
         setPublicId(response.data.profile_pic || "");
-        console.log("profile info", response.data.rows[0]);
+        console.log("profile info", response.data);
       } catch (error) {
         console.error("Error fetching user information:", error);
       }
