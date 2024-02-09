@@ -139,7 +139,7 @@ const MapComponent = (props) => {
 
         const newRoutingControl = L.Routing.control({
           waypoints: [L.latLng(userLocation[0], userLocation[1]), L.latLng(coordinates[0], coordinates[1])],
-          router: L.Routing.mapbox('pk.eyJ1IjoibGVubmFydGNodWEiLCJhIjoiY2xyZWttdml4MWQ5ejJzczBtNjR5azltZyJ9.KJhShC3s4FPngqpFgVMwTQ'),
+          router: L.Routing.mapbox('pk.eyJ1Ijoic3BraW1ob2UiLCJhIjoiY2xzZWh6Z3E0MG1kYTJsbzYydTQycWo3cSJ9.05oZ9EL4TMQ5JYdhDwYqUw'),
           createMarker: function () {},
           routeLine: (route) => routePolyline,
         
