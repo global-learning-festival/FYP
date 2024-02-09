@@ -136,15 +136,20 @@ const MapComponent = (props) => {
         const routeLatLngs = decodedCoordinates.map(([lat, lng]) => L.latLng(lat, lng));
 
         const routePolyline = L.polyline(routeLatLngs, { color: 'blue' });
+        const mapboxapi1 = process.env.REACT_APP_MAPBOXAPI1
+        const mapboxapi2 = process.env.REACT_APP_MAPBOXAPI2
+        const mapboxapi3 = process.env.REACT_APP_MAPBOXAPI3
+        const mapboxapi = `${mapboxapi1}.${mapboxapi2}.${mapboxapi3}`
 
         const newRoutingControl = L.Routing.control({
+          
           waypoints: [L.latLng(userLocation[0], userLocation[1]), L.latLng(coordinates[0], coordinates[1])],
-          router: L.Routing.mapbox('pk.eyJ1Ijoic3BraW1ob2UiLCJhIjoiY2xzZWh6Z3E0MG1kYTJsbzYydTQycWo3cSJ9.05oZ9EL4TMQ5JYdhDwYqUw'),
+          router: L.Routing.mapbox(mapboxapi),
           createMarker: function () {},
           routeLine: (route) => routePolyline,
         
         });
-
+     
         newRoutingControl.addTo(mapRef.current);
         setRoutingControl(newRoutingControl);
         setIsRouting(true);
