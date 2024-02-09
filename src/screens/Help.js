@@ -43,7 +43,7 @@ import Accordion from 'react-bootstrap/Accordion';
           </div>
         </div>
 
-      <Accordion defaultActiveKey="0">
+      {/* <Accordion defaultActiveKey="0">
         <Accordion.Item eventKey="0">
           <Accordion.Header>How many people will be participating?</Accordion.Header>
           <Accordion.Body>
@@ -62,7 +62,7 @@ import Accordion from 'react-bootstrap/Accordion';
           Do follow the steps above.
           </Accordion.Body>
         </Accordion.Item>
-      </Accordion>
+      </Accordion> */}
       
         <div className="bg-gray-100 rounded-xl p-4 mb-4 mt-4">
           <h5 className='mb-3 font-bold text-center'>Medical Information</h5>

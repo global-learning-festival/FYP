@@ -126,7 +126,7 @@ const Home = ({
            />
            <div className="p-3">
              <div className="flex justify-between items-center">
-               <h5 className="mb-2 text-2xl md:text-xl font-bold tracking-tight text-gray-900">
+               <h5 className="mb-2 text-2xl font-bold text-gray-900">
                  {title}
                </h5>
                {loggedInUserID !== null && (

@@ -177,7 +177,7 @@ const ViewEvent = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className='text-white bg-[#0077B5] font-medium rounded-md text-sm px-5 py-2.5 hover:bg-[#3A426C] hover:drop-shadow-xl'
-                  style={{ textDecoration: 'none', color: 'inherit' }}
+                  style={{ textDecoration: 'none', color: 'white' }}
                 >
                   Survey
                 </a>

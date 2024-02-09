@@ -104,7 +104,7 @@ const Navbar = () => {
         </h3>
         {(user || user2) && (
           <button
-            className="text-white bg-[#487572] font-medium rounded-md text-sm px-9 py-2.5 mx-14 mb-2 hover:bg-[#487575] hover:drop-shadow-xl"
+            className="text-white bg-[#487572] font-medium rounded-md text-sm px-9 py-2.5 mx-14 mb-2 hover:bg-[#487585] hover:drop-shadow-xl"
             onClick={handleEditProfileClick}
           >
             Edit Profile
@@ -184,7 +184,15 @@ const Navbar = () => {
         </h4>
         {(user || user2) && (
           <button
-            className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-12 py-2.5 mx-5 hover:bg-[#3A426C] hover:drop-shadow-xl"
+            className="text-white bg-[#487572] font-medium rounded-md text-sm px-8 py-2.5 mx-5 hover:bg-[#487585] hover:drop-shadow-xl whitespace-nowrap"
+            onClick={handleEditProfileClick}
+          >
+            Edit Profile
+          </button>
+        )}
+        {(user || user2) && (
+          <button
+            className="text-white bg-[#4B558A] font-medium rounded-md text-sm px-12 py-2.5 mx-1 hover:bg-[#3A426C] hover:drop-shadow-xl"
             onClick={handleSignOut}
           >
             Logout
