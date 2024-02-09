@@ -105,8 +105,7 @@ const MapComponent = (props) => {
         const startCoordinates = `${userLocation[0].toFixed(6)},${userLocation[1].toFixed(6)}`;
         const endCoordinates = `${coordinates[0].toFixed(6)},${coordinates[1].toFixed(6)}`;
 
-        console.log("start coordinates", startCoordinates)
-        console.log("end coordinates", endCoordinates)
+
 
         const apiUrl = `https://www.onemap.gov.sg/api/private/routingsvc/route?start=${startCoordinates}&end=${endCoordinates}&routeType=walk`;
     
