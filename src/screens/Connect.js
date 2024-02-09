@@ -68,18 +68,18 @@ const Connect = () => {
             <div className="flex flex-col items-center mb-4">
               <h2 className="text-2xl font-bold mb-4">Connect with Others</h2>
               <div className="flex justify-center">
-              <div className="mt-4 bg-white text-black shadow-md px-4 py-2 rounded-md hover:drop-shadow-xl flex items-center mr-2">
+              <button className="mt-4 bg-white text-black shadow-md px-4 py-2 rounded-md hover:drop-shadow-xl flex items-center mr-2">
                 <p className="mr-2">Your QR</p>
                 <Link to={`/qrcode/${userid}`} className="flex items-center">
                   <MyQR />
                 </Link>
-              </div>
-              <div className="mt-4 bg-white text-black shadow-md px-4 py-2 rounded-md hover:drop-shadow-xl flex items-center">
+              </button>
+              <button className="mt-4 bg-white text-black shadow-md px-4 py-2 rounded-md hover:drop-shadow-xl flex items-center">
                 <p className="mr-2">Scan QR</p>
                   <Link to="/scan">
                     <QRScanner />
                   </Link>
-                </div>
+                </button>
               </div>
             </div>
             <div>
