@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, CircleMarker, Popup, Marker } from 'react-leaf
 import L from 'leaflet';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import 'leaflet-routing-machine';
-import Image from '../assets/school.jpeg';
 import waterMarker from '../assets/marker/water.png';
 import registerMarker from '../assets/marker/register.png';
 import conferenceMarker from '../assets/marker/conference.png';
@@ -102,16 +101,22 @@ const MapComponent = (props) => {
         console.log("token response", userresponseData.access_token);
 
         const authToken = userresponseData.access_token;
-        const startCoordinates = `${userLocation[0]},${userLocation[1]}`;
-        const endCoordinates = `${coordinates[0]},${coordinates[1]}`;
+        const authToken2 = 'bcf8fdd7-03ba-49bd-a9dd-61befcc9763c'
+        const startCoordinates = `${userLocation[0].toFixed(6)},${userLocation[1].toFixed(6)}`;
+        const endCoordinates = `${coordinates[0].toFixed(6)},${coordinates[1].toFixed(6)}`;
+
+        console.log("start coordinates", startCoordinates)
+        console.log("end coordinates", endCoordinates)
 
         const apiUrl = `https://www.onemap.gov.sg/api/private/routingsvc/route?start=${startCoordinates}&end=${endCoordinates}&routeType=walk`;
+    
 
+        console.log ("one map api", apiUrl)
         const response = await fetch(apiUrl, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authToken}`,
+             'Authorization': `Bearer ${authToken}`,
           },
         });
 
@@ -134,8 +139,10 @@ const MapComponent = (props) => {
 
         const newRoutingControl = L.Routing.control({
           waypoints: [L.latLng(userLocation[0], userLocation[1]), L.latLng(coordinates[0], coordinates[1])],
+          router: L.Routing.mapbox('pk.eyJ1IjoibGVubmFydGNodWEiLCJhIjoiY2xyZWttdml4MWQ5ejJzczBtNjR5azltZyJ9.KJhShC3s4FPngqpFgVMwTQ'),
           createMarker: function () {},
           routeLine: (route) => routePolyline,
+        
         });
 
         newRoutingControl.addTo(mapRef.current);
