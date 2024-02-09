@@ -111,7 +111,7 @@ const AllUsersList = () => {
               key={user.id || index}
               className="w-1/2 lg:w-1/2 xl:w-1/3 px-2 mb-4 h-64"
             >
-              <div className="bg-white p-4 rounded-lg shadow">
+              <div className="bg-white p-4 rounded-lg shadow h-[260px] overflow-hidden">
                 {user.profile_pic ? (
                   <AdvancedImage
                     className="object-contain w-24 h-24 rounded-full mx-auto mb-2"
@@ -122,16 +122,16 @@ const AllUsersList = () => {
                   <img
                     className="object-contain w-24 h-24 rounded-full mx-auto mb-2"
                     src={blankprofilepicture}
-                    alt={`${user.username || user.first_name || ""} ${
-                      user.last_name || ""
+                    alt={`${user.username || user.first_name || "N/A"} ${
+                      user.last_name || "N/A"
                     }`}
                   />
                 )}
-                <p className="text-center mb-1">{`${
-                  user.username || user.first_name || ""
-                } ${user.last_name || ""}`}</p>
-                <p className="text-center mb-1">{`${
-                  limitCharacters(user.company || "", 16)
+                <p className="text-center mb-1 font-bold overflow-ellipsis whitespace-nowrap">{`${
+                  user.username || user.first_name || "N/A"
+                } ${user.last_name || "N/A"}`}</p>
+                <p className="text-center mb-1 overflow-ellipsis whitespace-nowrap">{`${
+                  limitCharacters(user.company || "N/A", 16)
                 }`}</p>
                 {user.linkedinurl ? (
                   <div className="flex justify-center">
@@ -155,18 +155,17 @@ const AllUsersList = () => {
         </div>
       )}
       {selectedUser && (
-  <QRCodePopupCard
-    title={`Scan this QR Code to connect with ${
-      selectedUser.username || selectedUser.first_name || ""
-    } ${selectedUser.last_name || ""}`}
-    qrCodeValue={selectedUser.linkedinurl}
-    company={selectedUser.company} // Pass the user's company
-    jobtitle={selectedUser.jobtitle} // Pass the user's job title
-    linkedinUrl={selectedUser.linkedinurl}
-    onClose={handlePopupClose}
-  />
-)}
-
+          <QRCodePopupCard
+          title={`Scan this QR Code to connect with ${
+            selectedUser.username || selectedUser.first_name || ""
+          } ${selectedUser.last_name || ""}`}
+          qrCodeValue={selectedUser.linkedinurl}
+          company={selectedUser.company} // Pass the user's company
+          jobtitle={selectedUser.jobtitle} // Pass the user's job title
+          linkedinUrl={selectedUser.linkedinurl}
+          onClose={handlePopupClose}
+        />
+      )}
     </div>
   );
 };
