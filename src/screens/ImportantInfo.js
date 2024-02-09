@@ -2,15 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage, responsive, placeholder } from "@cloudinary/react"; 
-import { IoCopyOutline } from 'react-icons/io5';
 import "../styles/App.css";
 
 const ImportantInfoCard = ({ infoid, title, subtitle, description, onClick }) => {
   return (
-    <div className='m-2 mx-auto'>
+    <div className='m-1 mx-auto'>
     <div
       key={infoid}
-      className='flex-1 p-4 h-48 w-96 max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
+      className='flex-1 p-4 h-40 w-[21.5rem] max-w-sm bg-white border border-gray-200 rounded-md shadow cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'
       onClick={onClick}
     >
       <h5 className='mb-2 text-2xl font-bold tracking-tight text-black'>{title}</h5>
@@ -26,29 +25,6 @@ const PopupCard = ({ title, description, image, onClose }) => {
 
   console.log("publicId:", publicId);
   console.log("image:", image);
-
-  // const handleCopyToClipboard = () => {
-  //   const textToCopy = description || "";
-  //   // Create a textarea element to hold the text
-  //   const textArea = document.createElement('textarea');
-  //   textArea.value = textToCopy;
-
-  //   // Append the textarea to the document
-  //   document.body.appendChild(textArea);
-
-  //   // Select the text in the textarea
-  //   textArea.select();
-  //   textArea.setSelectionRange(0, 99999); // For mobile devices
-
-  //   // Copy the text to the clipboard
-  //   document.execCommand('copy');
-
-  //   // Remove the textarea from the document
-  //   document.body.removeChild(textArea);
-
-  //   // Optionally, provide some user feedback
-  //   alert('Text copied to clipboard!');
-  // };
 
   const cld = new Cloudinary({
     cloud: {
