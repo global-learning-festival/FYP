@@ -268,7 +268,7 @@ const MapComponent = (props) => {
             <Marker key={markerlocation.mapid} position={coordinates} icon={customIcon}>
             <Popup>
               <div id={`divRefill${markerlocation.mapid}`} style={{ maxWidth: '300px', wordWrap: 'break-word' }}>
-                <h3 id={`Refill${markerlocation.mapid}`}>{markerlocation.location_name}</h3>
+                <h3 style={{ fontSize: "25px" }} id={`Refill${markerlocation.mapid}`}>{markerlocation.location_name}</h3>
                 <AdvancedImage
                   style={{ maxWidth: "100%" }}
                   cldImg={cld.image(publicId || markerlocation.image)}
