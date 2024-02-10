@@ -110,7 +110,7 @@ const MapComponent = (props) => {
         const apiUrl = `https://www.onemap.gov.sg/api/private/routingsvc/route?start=${startCoordinates}&end=${endCoordinates}&routeType=walk`;
     
 
-        console.log ("one map api", apiUrl)
+        
         const response = await fetch(apiUrl, {
           method: 'GET',
           headers: {
