@@ -98,7 +98,7 @@ const MapComponent = (props) => {
         });
 
         const userresponseData = await userresponse.json();
-        console.log("token response", userresponseData.access_token);
+        
 
         const authToken = userresponseData.access_token;
         const authToken2 = 'bcf8fdd7-03ba-49bd-a9dd-61befcc9763c'
