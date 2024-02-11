@@ -82,84 +82,68 @@ const MapComponent = (props) => {
           console.error('Map or user location not available.');
           return;
         }
-
-        const urluser = `https://www.onemap.gov.sg/api/auth/post/getToken`;
-
-        const requestBody = {
-          email: process.env.REACT_APP_EMAIL,
-          password: process.env.REACT_APP_PASSWORD,
-        };
-        const userresponse = await fetch(urluser, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(requestBody),
-        });
-
-        const userresponseData = await userresponse.json();
-        
-    
-        const authToken = userresponseData.access_token;
         const startCoordinates = `${userLocation[0].toFixed(6)},${userLocation[1].toFixed(6)}`;
         const endCoordinates = `${coordinates[0].toFixed(6)},${coordinates[1].toFixed(6)}`;
 
 
 
-        console.log("coords",startCoordinates, endCoordinates)
-
-        const apiUrl = `https://www.onemap.gov.sg/api/private/routingsvc/route?start=${startCoordinates}&end=${endCoordinates}&routeType=walk`;
-   
-    
-
-  console.log("token", authToken)        
-        const response = await fetch(apiUrl, {
+        const directionsApiUrl = `${serverlessapi}/api/getDirections?startCoordinates=${startCoordinates}&endCoordinates=${endCoordinates}`;
+        // Replace 'your_nodejs_port' with the actual port where your Node.js server is running
+  
+        const response = await fetch(directionsApiUrl, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-               'Authorization': `Bearer ${authToken}`,
           },
         });
-
+  
         if (!response.ok) {
-          console.error('Error fetching route data:', response.status, response.statusText);
+          console.error('Error fetching directions:', response.status, response.statusText);
           return;
         }
-
+  
         const routeData = await response.json();
-
-        if (!routeData.route_geometry) {
-          console.error('No route geometry found in the API response.');
+  
+        if (!routeData.routes || routeData.routes.length === 0) {
+          console.error('No route data found in the API response.');
           return;
         }
-
-        const decodedCoordinates = polyline.decode(routeData.route_geometry);
+  
+        // Extract the route geometry from routeData
+        const overviewPolyline = routeData.routes[0].overview_polyline.points;
+  
+        // Decode the polyline
+        const decodedCoordinates = polyline.decode(overviewPolyline);
+  
+        // Create an array of LatLng objects
         const routeLatLngs = decodedCoordinates.map(([lat, lng]) => L.latLng(lat, lng));
-
+  
+        // Create a polyline and add it to the map
         const routePolyline = L.polyline(routeLatLngs, { color: 'blue' });
+        routePolyline.addTo(mapRef.current);
+  
+        // Continue with the rest of your code for handling the route display
         const mapboxapi1 = process.env.REACT_APP_MAPBOXAPI1
         const mapboxapi2 = process.env.REACT_APP_MAPBOXAPI2
         const mapboxapi3 = process.env.REACT_APP_MAPBOXAPI3
         const mapboxapi = `${mapboxapi1}.${mapboxapi2}.${mapboxapi3}`
-
+        // Your existing code for setting up the Routing control
         const newRoutingControl = L.Routing.control({
-          
           waypoints: [L.latLng(userLocation[0], userLocation[1]), L.latLng(coordinates[0], coordinates[1])],
           router: L.Routing.mapbox(mapboxapi),
           createMarker: function () {},
           routeLine: (route) => routePolyline,
-        
         });
-     
+  
         newRoutingControl.addTo(mapRef.current);
         setRoutingControl(newRoutingControl);
         setIsRouting(true);
+  
       } catch (error) {
         console.error('Error:', error.message);
       }
     }
   };
-
   const handleStopRouting = () => {
     if (isRouting && routingControl) {
       mapRef.current.removeControl(routingControl);
