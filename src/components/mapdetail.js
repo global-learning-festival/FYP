@@ -99,23 +99,25 @@ const MapComponent = (props) => {
 
         const userresponseData = await userresponse.json();
         
-
+        const GapiKey = 'AIzaSyBRc644E3eLKJs6yiBn7t-goVGCzzxr6II';
         const authToken = userresponseData.access_token;
-        const authToken2 = 'bcf8fdd7-03ba-49bd-a9dd-61befcc9763c'
         const startCoordinates = `${userLocation[0].toFixed(6)},${userLocation[1].toFixed(6)}`;
         const endCoordinates = `${coordinates[0].toFixed(6)},${coordinates[1].toFixed(6)}`;
 
 
 
+        console.log("coords",startCoordinates, endCoordinates)
+
         const apiUrl = `https://www.onemap.gov.sg/api/private/routingsvc/route?start=${startCoordinates}&end=${endCoordinates}&routeType=walk`;
+        const apiurl1 =`https://maps.googleapis.com/maps/api/directions/json?origin=${startCoordinates}&destination=${endCoordinates}&key=${GapiKey}`
     
 
-        
-        const response = await fetch(apiUrl, {
+  console.log("token", authToken)        
+        const response = await fetch(apiurl1, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-             'Authorization': `Bearer ${authToken}`,
+              // 'Authorization': `Bearer ${authToken}`,
           },
         });
 
