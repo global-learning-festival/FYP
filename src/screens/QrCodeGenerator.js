@@ -10,6 +10,9 @@ const QRCodeGenerator = () => {
   const localhostapi = "http://localhost:5000";
   const serverlessapi = "https://adminilftest-4tmd.onrender.com";
   const navigate = useNavigate();
+  
+  
+ 
   const BackButton = ({ loggedInUserID }) => {
     return (
       <div>
@@ -33,6 +36,9 @@ const QRCodeGenerator = () => {
       return;
     }
 
+
+    
+
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
@@ -46,6 +52,7 @@ const QRCodeGenerator = () => {
 
     fetchUserData();
   }, [loggedInUserID ]);
+
 
   return (
     <div className="max-w-screen-md mx-auto p-6">
@@ -61,9 +68,15 @@ const QRCodeGenerator = () => {
           <p className="mb-2 mx-auto text-center ">{`Company: ${
             userData.company || ""
           }`}</p>
-          <div className="mx-auto flex justify-center">
-            <QRCode value={userData.linkedinurl} />
-          </div>
+            <div className="mx-auto flex justify-center">
+            {userData.linkedinurl ? (
+          <QRCode value={userData.linkedinurl} />
+        ) : (
+          <h3>
+          Add in Linkedin url to show QR code
+        </h3>
+        )}
+            </div>
         </div>
       )}
       <>

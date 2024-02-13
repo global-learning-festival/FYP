@@ -120,7 +120,7 @@ const EditProfileForm = () => {
             name="username"
             value={
               user.username ||
-              `${user.first_name || "N/A"} ${user.last_name || "N/A"}`
+              `${user.first_name || ""} ${user.last_name || ""}`
             }
             onChange={handleChange}
             readOnly // Make the username field non-editable
