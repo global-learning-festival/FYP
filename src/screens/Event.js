@@ -190,7 +190,7 @@ const ViewEvent = () => {
       )}
 
      {currentCategory === 'Announcements' && (
-      <div className="container p-2">
+      <div className="container p-2 mx-auto">
         {announcementsData.map((announcementItem, index) => (
           <div key={index}>
             <div
