@@ -183,13 +183,6 @@ const MapComponent = (props) => {
     );
   }, []);
 
-  useEffect(() => {
-    return () => {
-      if (routingControl) {
-        mapRef.current.removeControl(routingControl);
-      }
-    };
-  }, [routingControl]);
 
   return (
     <div id="map" className="relative">
