@@ -87,12 +87,15 @@ const EditProfileForm = () => {
         publicId,
       });
       // Show success notification
-      NotificationManager.success("Changes saved successfully");
+      NotificationManager.success("Changes saved successfully", "",1000);
+
+
+      
   
       // Redirect after a delay
       setTimeout(() => {
         navigate(`/`);
-      }, 600);
+      }, 2000);
     } catch (error) {
       console.error("Error updating user profile:", error.message);
       // Show error notification
