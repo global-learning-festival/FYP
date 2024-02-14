@@ -252,11 +252,13 @@ const MapComponent = (props) => {
             <Popup>
               <div id={`divRefill${markerlocation.mapid}`} style={{ maxWidth: '300px', wordWrap: 'break-word' }}>
                 <h3 style={{ fontSize: "25px" }} id={`Refill${markerlocation.mapid}`}>{markerlocation.location_name}</h3>
-                <AdvancedImage
-                  style={{ maxWidth: "100%" }}
-                  cldImg={cld.image(publicId || markerlocation.image)}
-                  plugins={[responsive(), placeholder()]}
-                />
+                <div style={{ width: "200px" }}>
+                      <AdvancedImage
+                        style={{ maxWidth: "100%" }}
+                        cldImg={cld.image(publicId || markerlocation.image)}
+                        plugins={[responsive(), placeholder()]}
+                      />
+                    </div>
                 <p>{markerlocation.description}</p>
                 {hasLocationPermission && (
                   <button
