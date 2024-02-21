@@ -1,6 +1,11 @@
 * {
     z-index: 0;
 }
+body {
+  overflow: hidden;
+  height: 100%;
+}
+
 
 .arrow-icon {
     display: block;
@@ -126,7 +131,7 @@ MapContainer {
   }
 
   @media (max-width: 768px) {
-    #map {
+    #map2 {
       height: 100vh; /* Adjust the height as needed */
     }
   
@@ -139,4 +144,8 @@ MapContainer {
   .leaflet-routing-container {
     display: none;
   }
+}
+
+.map-container {
+  height: 93vh; /* Set the height to 100% of the viewport height */
 }
