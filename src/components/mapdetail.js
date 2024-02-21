@@ -32,7 +32,7 @@ const MapComponent = (props) => {
   const [cloudName] = useState("dxkozpx6g");
   const [uploadPreset] = useState("jcck4okm");
   const [publicId, setPublicId] = useState("");
-
+  const isMobile = window.innerWidth <= 767;
   const [uwConfig] = useState({
     cloudName,
     uploadPreset,
@@ -185,8 +185,9 @@ const MapComponent = (props) => {
 
 
   return (
-    <div id="map" className="relative">
-      <MapContainer center={position} zoom={16.5} className="w-full h-screen" ref={mapRef}>
+    
+    <div id="map" className="relative ">
+      <MapContainer center={position} zoom={16.5} className="w-full h-screen" id="map2" ref={mapRef}  style={{ height: isMobile ? '91vh' : '924px' }}>
         <TileLayer
           url="https://www.onemap.gov.sg/maps/tiles/Default/{z}/{x}/{y}.png"
           attribution='Map data © <a href="https://www.onemap.sg/" target="_blank">OneMap</a'
