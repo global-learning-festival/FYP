@@ -89,7 +89,7 @@ const SignIn = ({ code }) => {
     <>
       <div className="flex flex-col items-center justify-center mx-4">
         <h1 className="text-center mb-3 text-xl font-bold text-gray-900 md:text-xl mt-4">
-          Sign in for a personalised Experience!<br/>Log in to save your events for easy access!
+          Sign in for a personalised experience!<br/>Log in to save your events for easy access!
         </h1>
         <div className="flex flex-col items-center w-full max-w-sm bg-white border border-gray-200 rounded-lg m-3 shadow outline-dashed outline-2 outline-offset-2 outline-blue-700">
           <h2 className="rounded-tl-lg rounded-tr-lg bg-[#4B558A] w-full text-white p-2 text-center text-xl font-semibold mb-2">
