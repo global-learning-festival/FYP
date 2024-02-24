@@ -89,7 +89,7 @@ const SignIn = ({ code }) => {
     <>
       <div className="flex flex-col items-center justify-center mx-4">
         <h1 className="text-center mb-3 text-xl font-bold text-gray-900 md:text-xl mt-4">
-          Sign in for a Seamless Experience!
+          Sign in for a personalised Experience!<br/>Log in to save your events for easy access!
         </h1>
         <div className="flex flex-col items-center w-full max-w-sm bg-white border border-gray-200 rounded-lg m-3 shadow outline-dashed outline-2 outline-offset-2 outline-blue-700">
           <h2 className="rounded-tl-lg rounded-tr-lg bg-[#4B558A] w-full text-white p-2 text-center text-xl font-semibold mb-2">
@@ -153,6 +153,10 @@ const SignIn = ({ code }) => {
             <GoogleButton onClick={googleSignIn} />
           </div>
         </div>
+        <div id="disclaimer" className="text-xs text-gray-500 mt-4 p-3 ">
+        <p className="font-semibold mb-1">Disclaimer:</p>
+        <p>{`Thank you for using the ILF Application. We prioritize your privacy and do not collect personal information from our visitors.`}</p>
+      </div>
       </div>
     </>
   );
