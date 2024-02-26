@@ -175,7 +175,8 @@ const Home = ({
 
  const FilterBar = ({ currentCategory, setCurrentCategory }) => {
   return (
-    <div className="flex justify-center overflow-x-auto mt-4 md:overflow-visible md:flex-wrap">
+    <div className="overflow-x-auto">
+    <div className="flex justify-start md:justify-center space-x-2 mt-4 ml-4">
       <div className="flex-shrink-0 flex-grow-0 flex-no-shrink max-w-xs">
         <button
           className={`mx-1 px-2 py-1 text-sm ${
@@ -253,6 +254,20 @@ const Home = ({
           <span className="text-sm">26 Sep</span>
         </button>
       </div>
+      <div className="border-l border-gray-300 h-auto"></div>
+      <div className="flex-shrink-0 flex-grow-0 flex-no-shrink max-w-xs">
+        <button
+          className={`mx-1 px-2 py-1 text-sm ${
+            currentCategory === "27 Sep"
+              ? "text-violet-950 transition border-b-2 border-violet-900 shadow-none"
+              : "shadow-none"
+          }`}
+          onClick={() => setCurrentCategory("27 Sep")}
+        >
+          <span className="text-sm">27 Sep</span>
+        </button>
+      </div>
+    </div>
     </div>
   );
 };
@@ -306,7 +321,8 @@ const EventsList = () => {
         } else if (
           currentCategory === "24 Sep" ||
           currentCategory === "25 Sep" ||
-          currentCategory === "26 Sep"
+          currentCategory === "26 Sep" ||
+          currentCategory === "27 Sep"
         ) {
           // Filter events based on the selected date
           const selectedDate = new Date(currentCategory + " 2024"); // Adjust the year as needed
