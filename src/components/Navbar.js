@@ -78,8 +78,8 @@ const Navbar = () => {
       <div onClick={handleNav} className="block md:hidden">
         {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
       </div>
-      <img src={isate2024Logo} alt="Logo" className="w-1/2 md:hidden" onClick={handleLogoClick}/>
-      <div className="md:hidden pt-2">
+      <img src={isate2024Logo} alt="Logo" className="w-1/2 md:hidden pt-2 mx-auto" onClick={handleLogoClick}/>
+      {/* <div className="md:hidden pt-2">
         <Link to="/importantinfo">
           <AiOutlineInfoCircle
             className="text-black"
@@ -87,7 +87,7 @@ const Navbar = () => {
             onClick={handleImportantInfoClick}
           />
         </Link>
-      </div>
+      </div> */}
       <ul
         className={
           nav
@@ -134,16 +134,7 @@ const Navbar = () => {
         )}
         <li className="m-14">
           <Link to="/" className="no-underline text-black" onClick={handleNav}>
-            Event Programme
-          </Link>
-        </li>
-        <li className="m-14">
-          <Link
-            to="/map"
-            className="no-underline text-black"
-            onClick={handleNav}
-          >
-            Getting Around
+            Home
           </Link>
         </li>
         <li className="m-14">
@@ -157,11 +148,29 @@ const Navbar = () => {
         </li>
         <li className="m-14">
           <Link
+            to="/map"
+            className="no-underline text-black"
+            onClick={handleNav}
+          >
+            Getting Around
+          </Link>
+        </li>
+        <li className="m-14">
+          <Link
             to="/connect"
             className="no-underline text-black"
             onClick={handleNav}
           >
             Connect with Others
+          </Link>
+        </li>
+        <li className="m-14">
+          <Link 
+            to="/importantinfo" 
+            className="no-underline text-black"
+            onClick={handleNav}
+            >
+            Useful Information
           </Link>
         </li>
         <li className="m-14">
@@ -213,12 +222,7 @@ const Navbar = () => {
       <ul className="hidden md:flex mr-20 pt-3">
         <li className="p-4" href="/">
           <Link to="/" className="no-underline text-black hover:underline">
-            Event Programme
-          </Link>
-        </li>
-        <li className="p-4">
-          <Link to="/map" className="no-underline text-black hover:underline">
-            Getting Around
+            Home
           </Link>
         </li>
         <li className="p-4">
@@ -230,6 +234,11 @@ const Navbar = () => {
           </Link>
         </li>
         <li className="p-4">
+          <Link to="/map" className="no-underline text-black hover:underline">
+            Getting Around
+          </Link>
+        </li>
+        <li className="p-4">
           <Link
             to="/connect"
             className="no-underline text-black hover:underline"
@@ -238,15 +247,20 @@ const Navbar = () => {
           </Link>
         </li>
         <li className="p-4">
+          <Link to="/importantinfo" className="no-underline text-black hover:underline">
+            Useful Information
+          </Link>
+        </li>
+        <li className="p-4">
           <Link to="/help" className="no-underline text-black hover:underline">
             Contact Us
           </Link>
         </li>
-        <li className="p-4">
+        {/* <li className="p-4">
           <Link to="/importantinfo" className="no-underline text-black">
             <AiOutlineInfoCircle size={25} />
           </Link>
-        </li>
+        </li> */}
       </ul>
     </div>
   );
